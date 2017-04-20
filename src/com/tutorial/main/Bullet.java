@@ -16,12 +16,15 @@ public class Bullet {
 	
 	private Color color1;
 	
+	private int type;
+	
 	
 	//CONSTRUCTOR
-	public Bullet(double angle, int x, int y){
+	public Bullet(double angle, int x, int y, int type){
 		
 		this.x = x;
 		this.y = y;
+		this.type = type;
 		r = 3;
 		
 		rad = Math.toRadians(angle);
@@ -39,7 +42,14 @@ public class Bullet {
 	public double gety(){ return y; }
 	public double getr(){ return r; }
 	
+	public double getType(){ return type; }
+	public void setType(int i){this.type = i;}
+	
 	public boolean update(){
+		
+		if(type == 2){
+			color1=Color.RED;
+		}
 		
 		x += dx;
 		y += dy;

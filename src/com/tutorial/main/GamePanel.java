@@ -89,7 +89,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
 	}
-
+	public static int getPlayerX(){
+		return player.getx();
+	}
+	public static int getPlayerY(){
+		return player.gety();
+	}
 	public void run(){
 		
 		running = true;
@@ -210,6 +215,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			//ENEMY
 			for(int i = 0; i < enemies.size(); i++){
 				enemies.get(i).update();
+				if(enemies.get(i).getTimer() == -1){
+					enemies.get(i).setTimer(50);
+				}
 			}
 			
 			for(int i = 0; i < bombs.size(); i++){
@@ -268,13 +276,46 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					double dist = Math.sqrt(dx * dx + dy*  dy);
 					
 					if(dist < br + er){
-						e.hit();
-						bullets.remove(i);
-						i--;
+						if(b.getType()==1){
+							e.hit();
+							bullets.remove(i);
+							i--;
+						}else{
+							
+						}	
 						break;
 					}
 					
 				}
+				
+			}
+			//BULLET PLAYER COLLISION
+			for(int i = 0; i < bullets.size(); i++){
+				
+				Bullet b = bullets.get(i);
+				double bx = b.getx();
+				double by = b.gety();
+				double br = b.getr();		
+					double px = player.getx();
+					double py = player.gety();
+					double pr = player.getr();
+					
+					double dx = bx - px;
+					double dy = by - py;
+					double dist = Math.sqrt(dx * dx + dy*  dy);
+					
+					if(dist < br + pr){
+						if(b.getType()==2){
+							if(!player.isrecovering()){
+								player.loseLife();
+								bullets.remove(i);
+								i--;
+							}	
+						}else{
+							
+						}	
+						break;
+					}
 				
 			}
 			//BOMB ENEMY COLLISION
@@ -573,9 +614,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			for(int i = 0; i < player.getLives(); i++){
 				g.setColor(Color.WHITE);
 				g.setStroke(new BasicStroke(3));
-				g.fillOval((int) 20 + (20 * i), 20, 12, 12);
+				g.fillOval((int) 25 + (25 * i), 20, 18, 18);
 				g.setColor(Color.WHITE.darker());
-				g.drawOval((int) 20 + (20 * i), 20, 12, 12);
+				g.drawOval((int) 25 + (25 * i), 20, 18, 18);
 				g.setStroke(new BasicStroke(1));
 			}
 			g.setFont(new Font("Century Ghotic", Font.PLAIN, 18));
@@ -584,11 +625,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			
 			//DrawPlayer Power
 			g.setColor(Color.YELLOW);
-			g.fillRect(20, 40, player.getPower() * 12, 12);
+			g.fillRect(25, 50, player.getPower() * 20, 20);
 			g.setColor(Color.YELLOW.darker());
 			g.setStroke(new BasicStroke(2));
 			for(int i = 0; i < player.getRequiredPower(); i++){
-				g.drawRect(20 + 12*i, 40, 12, 12);
+				g.drawRect(25 + 20*i, 50, 20, 20);
 			}
 			g.setStroke(new BasicStroke(2));
 			//Draw Player Score

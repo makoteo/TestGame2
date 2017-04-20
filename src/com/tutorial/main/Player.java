@@ -30,9 +30,6 @@ public class Player {
 	private Color color1;
 	private Color color2;
 	
-	private int bombAlpha = 0;
-	private boolean bombShoot = false;
-	
 	public static GamePanel gamepanel;
 	
 	public static int powerLevelChecker = 0;
@@ -187,7 +184,7 @@ public class Player {
 				}
 				if(currentWeapon == 1){
 					if(shooterType == SHOOTERTYPE.oneGun){
-						GamePanel.bullets.add(new Bullet(angle/*90 = down || 0 = right || 180 = left*/, x, y));
+						GamePanel.bullets.add(new Bullet(angle, x, y, 1));
 					}
 					else if(shooterType == SHOOTERTYPE.twoGun){
 						int bulletGap = 100;
@@ -196,8 +193,8 @@ public class Player {
 						int nx2 = (int)(x + ((double)Math.cos(Math.toRadians(angle - bulletGap)) * 5));
 						int ny2 = (int)(y + ((double)Math.sin(Math.toRadians(angle - bulletGap)) * 5));	
 						
-						GamePanel.bullets.add(new Bullet(angle/*90 = down || 0 = right || 180 = left*/, nx1, ny1));
-						GamePanel.bullets.add(new Bullet(angle/*90 = down || 0 = right || 180 = left*/, nx2, ny2));
+						GamePanel.bullets.add(new Bullet(angle/*90 = down || 0 = right || 180 = left*/, nx1, ny1, 1));
+						GamePanel.bullets.add(new Bullet(angle/*90 = down || 0 = right || 180 = left*/, nx2, ny2, 1));
 					}
 					else if(shooterType == SHOOTERTYPE.threeGun){   
 						int bulletGap = 100;
@@ -205,9 +202,9 @@ public class Player {
 						int ny1 = (int)(y + ((double)Math.sin(Math.toRadians(angle + bulletGap)) * 5));	
 						int nx2 = (int)(x + ((double)Math.cos(Math.toRadians(angle - bulletGap)) * 5));
 						int ny2 = (int)(y + ((double)Math.sin(Math.toRadians(angle - bulletGap)) * 5));	
-						GamePanel.bullets.add(new Bullet(angle+5/*90 = down || 0 = right || 180 = left*/, nx1, ny1));
-						GamePanel.bullets.add(new Bullet(angle-5/*90 = down || 0 = right || 180 = left*/, nx2, ny2));
-						GamePanel.bullets.add(new Bullet(angle/*90 = down || 0 = right || 180 = left*/, x, y));
+						GamePanel.bullets.add(new Bullet(angle+5/*90 = down || 0 = right || 180 = left*/, nx1, ny1, 1));
+						GamePanel.bullets.add(new Bullet(angle-5/*90 = down || 0 = right || 180 = left*/, nx2, ny2, 1));
+						GamePanel.bullets.add(new Bullet(angle/*90 = down || 0 = right || 180 = left*/, x, y, 1));
 					}
 				}
 			}
