@@ -40,7 +40,7 @@ public class Player {
 		threeGun
 	};
 	
-	public SHOOTERTYPE shooterType = SHOOTERTYPE.threeGun;
+	public SHOOTERTYPE shooterType = SHOOTERTYPE.oneGun;
 	
 	private int score = 0;
 	
@@ -134,6 +134,9 @@ public class Player {
 	public void setFiring(boolean b){
 		firing = b;
 	}
+	public boolean getFiring(){
+		return firing;
+	}
 	public void update(){
 		if(left){
 			dx = -speed;
@@ -206,7 +209,12 @@ public class Player {
 						GamePanel.bullets.add(new Bullet(angle-5/*90 = down || 0 = right || 180 = left*/, nx2, ny2, 1));
 						GamePanel.bullets.add(new Bullet(angle/*90 = down || 0 = right || 180 = left*/, x, y, 1));
 					}
+				}else if(currentWeapon == 3){
+					if(shooterType == SHOOTERTYPE.oneGun){
+						GamePanel.bullets.add(new Bullet(angle, x, y, 3));
+					}
 				}
+					
 			}
 		}
 		if(recovering){

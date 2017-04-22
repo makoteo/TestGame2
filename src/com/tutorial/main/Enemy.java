@@ -26,8 +26,6 @@ public class Enemy {
 	
 	private Color color1;
 	
-	private GamePanel gamepanel;
-	
 	private boolean ready;
 	private boolean dead;
 	
@@ -36,6 +34,12 @@ public class Enemy {
 	
 	private boolean slow;
 	private int Timer = -1;
+	
+	private boolean selected = false;
+	
+	private int id = 0;
+	
+	
 	//CONSTRUCTOR
 	
 	public Enemy(int type, int rank){
@@ -138,11 +142,20 @@ public class Enemy {
 		
 		firing = false;
 		firingTimer = System.nanoTime();
-		firingDelay = 1500;
+		firingDelay = 2500;
+		
+		GamePanel.EnemyId += 1;
+		this.id = GamePanel.EnemyId;
 	}
 	
 	//FUNCTIONS
 	
+	public void setSelected(boolean b){
+		selected = b;
+	}
+	public boolean getSelected(){
+		return selected;
+	}
 	public double getx(){ return x; }
 	public double gety(){ return y; }
 	public void setx(int x){ this.x = x; }
@@ -153,6 +166,9 @@ public class Enemy {
 	public void setDead() { dead = true; }
 	
 	public void setSlow(boolean b){slow = b;}
+	
+	public int getid(){ return id; }
+	public void setid(int i){ this.id = i; }
 	
 	public int getRank(){return rank;}
 	public int getType(){return type;}
@@ -187,13 +203,15 @@ public class Enemy {
 				amount = 3;
 			}
 			if(type == 3){
-				amount = 4;
+				amount = 2;
 			}
 			for(int i = 0; i < amount; i++){
 				
 				Enemy e = new Enemy(getType(), getRank() - 1);
 				e.x = this.x;
 				e.y = this.y;
+				GamePanel.EnemyId += 1;
+				this.id = GamePanel.EnemyId;
 				double angle = 0;
 				if(!ready){
 					angle = Math.random() * 140 + 20;
@@ -245,8 +263,8 @@ public class Enemy {
 					angle = Math.random() * 360;
 					this.rad = Math.toRadians(angle);
 				}
-				dx = Math.cos(rad) * speed;
-				dy = Math.sin(rad) * speed;
+				dx = Math.cos(rad) * 2;
+				dy = Math.sin(rad) * 2;
 				if(x < r && dx < 0){dx = -dx;}
 				if(y < r && dy < 0){dy = -dy;}
 				if(x > GamePanel.WIDTH -r && dx > 0){ dx = -dx;}
@@ -316,7 +334,12 @@ public class Enemy {
 			g.drawOval((int)(x-r), (int)(y-r), 2*r, 2*r);
 			g.setStroke(new BasicStroke(1));
 		}
-		
+		if((selected) && (Player.currentWeapon == 3)){
+			g.setColor(Color.WHITE);
+			g.setStroke(new BasicStroke(5));
+			g.drawRect((int)(x-r), (int)(y-r), 2*r, 2*r);
+			g.setStroke(new BasicStroke(1));
+		}
 
 	}
 

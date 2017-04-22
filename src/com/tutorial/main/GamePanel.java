@@ -41,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private boolean waveStart;
 	private int waveDelay = 2000;
 	
-	private int bombAmount = 10;
+	private int bombAmount = 3;
 	
 	private long slowDownTimer;
 	private long slowDownTimerDiff;
@@ -70,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	public STATE gameState = STATE.Menu; 
 	
+	public static int EnemyId = 0;
 	//CONSTRUCTOR
 	public GamePanel(){
 		super();
@@ -198,6 +199,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			}
 			//Create enemies
 			if(waveStart && enemies.size() == 0){
+				EnemyId=0;
 				createNewEnemies();
 			}
 			
@@ -231,7 +233,30 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					}
 				}
 			}
+			//SET SELECTED
+			for(int i = 0; i < enemies.size(); i++){
+				Enemy e = enemies.get(i);
+				double ex = e.getx();
+				double ey = e.gety();
+				double er = e.getr();
+				
+				double mx = Menu.mxg - ex;
+				double my = Menu.myg - ey;
+				double dist = Math.sqrt(mx * mx + my*  my);
+				
+				if(dist < 5 + er){
+					enemies.get(i).setSelected(true);
+					int HashCode = System.identityHashCode(i);
+					System.out.println(HashCode);
+					break;//Stops loop and continues to next statement(stops if from being called because of update)
+				}else{
+					enemies.get(i).setSelected(false);
+				}
+			}
 			
+			for(int i = 0; i < enemies.size(); i++){
+				
+			}
 			//Powerup
 			for(int i = 0; i < powerups.size(); i++){
 				powerups.get(i).update();
@@ -276,7 +301,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					double dist = Math.sqrt(dx * dx + dy*  dy);
 					
 					if(dist < br + er){
-						if(b.getType()==1){
+						if(b.getType()==1 || b.getType()==3){
 							e.hit();
 							bullets.remove(i);
 							i--;
@@ -359,11 +384,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 							}
 							if(bombAlpha > timePick){//200 is really cool but 0 would be crazy!
 								if(bombType < 3){
-									enemies.get(j).healthChange("-", 3);//5 is deadly
+									enemies.get(j).healthChange("-", 1);//5 is deadly
 								}else if(bombType == 3){
-									enemies.get(j).healthChange("-", 5);//5 is deadly
+									enemies.get(j).healthChange("-", 3);//5 is deadly
 								}else if(bombType == 4){
-									enemies.get(j).healthChange("-", 10);//5 is deadly
+									enemies.get(j).healthChange("-", 5);//5 is deadly
 								}
 								j--;
 								break; //Stops for loop
@@ -641,7 +666,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			
 			if(slowDownTimer != 0){
 				g.setColor(Color.WHITE);
-				g.drawRect(20, 60, 100, 8);
+				g.drawRect(20, 80, 100, 8);
 				g.fillRect(20, 60, (int)(100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);
 			}
 			
@@ -841,6 +866,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		if(keyCode == KeyEvent.VK_2){
 			player.setCurrentWeapon(2);
 			bombExplode = false;
+		}
+		if(keyCode == KeyEvent.VK_3){
+			player.setCurrentWeapon(3);
 		}
 	}
 	public void keyReleased(KeyEvent key){

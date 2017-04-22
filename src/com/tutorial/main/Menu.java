@@ -24,11 +24,11 @@ public class Menu extends MouseAdapter{
 		int mx = e.getX();
 		int my = e.getY();
 		if(gamepanel.gameState == STATE.Menu){
-			if(mouseOver(mx, my, -20, 100, 200, 50)){
+			if(mouseOver(mx, my, -20, 120, 400, 100)){
 				gamepanel.gameState = STATE.Game;
 			}
 			
-			if(mouseOver(mx, my, -5, 160, 200, 50)){
+			if(mouseOver(mx, my, -20, 240, 400, 100)){
 				gamepanel.gameState = STATE.CharSelect;
 			}
 		}if(gamepanel.gameState == STATE.Game){
@@ -95,13 +95,13 @@ public class Menu extends MouseAdapter{
 		mxg = mx;
 		myg = my;
 		
-		if(mouseOver(mx, my, -20, 100, 200, 50)){
+		if(mouseOver(mx, my, -20, 120, 400, 100)){
 			color1 = Color.GREEN;
 		}else{
 			color1 = Color.WHITE;
 		}
 		
-		if(mouseOver(mx, my, -5, 160, 200, 50)){
+		if(mouseOver(mx, my, -20, 240, 400, 100)){
 			color2 = Color.GREEN;
 		}else{
 			color2 = Color.WHITE;
@@ -130,17 +130,17 @@ public class Menu extends MouseAdapter{
 			g.drawString("M E N U", 24, 104);
 			g.setColor(Color.WHITE);
 			g.drawString("M E N U", 20, 100);
-			g.setStroke(new BasicStroke(3));
-			g.setFont(new Font("Century Ghotic", Font.PLAIN, 35));
+			g.setStroke(new BasicStroke(5));
+			g.setFont(new Font("Century Ghotic", Font.PLAIN, 60));
 			g.setColor(color1);
-			g.drawRoundRect(-20, 100, 200, 50, 30, 30);
-			g.drawString("Play", 40, 140);
+			g.drawRoundRect(-20, 120, 400, 100, 30, 30);
+			g.drawString("Play", 100, 190);
 			g.setColor(color2);
-			g.drawRoundRect(-20, 160, 200, 50, 30, 30);
-			g.drawString("Characters", 0, 200);
+			g.drawRoundRect(-20, 240, 400, 100, 30, 30);
+			g.drawString("Characters", 30, 310);
 			g.setColor(Color.WHITE);
-			g.drawRoundRect(-20, 220, 200, 50, 30, 30);
-			g.drawString("Options", 10, 260);
+			g.drawRoundRect(-20, 360, 400, 100, 30, 30);
+			g.drawString("Options", 60, 430);
 			g.setStroke(new BasicStroke(1));
 		}else if(gamepanel.gameState == STATE.CharSelect){
 			g.setColor(new Color(0,100,255));
