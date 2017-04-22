@@ -1,4 +1,2 @@
 # Ignore bin and *.class
 bin/
-*.class
-
