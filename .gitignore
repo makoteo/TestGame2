@@ -1,2 +1,3 @@
-# For some reason .gitignore doesnt work under Windows
-# I used .git/info/exclude instead
+# Ignore bin
+bin
+
