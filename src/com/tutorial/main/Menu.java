@@ -67,8 +67,11 @@ public class Menu extends MouseAdapter{
 				}
 				else if(mouseOver(mx, my, 800, 180, 500, 500)){
 					if(gamepanel.powerLevelUpgrade2 == 1){
-						//Bomb
-						gamepanel.setBombAmount(gamepanel.getBombAmount() + 3);
+						//Refill Bullets
+						gamepanel.setBombAmount(gamepanel.getBombAmount() + 10);
+						gamepanel.setRocketAmount(gamepanel.getRocketAmount() + 20);
+						gamepanel.setBouncerAmount(gamepanel.getBouncerAmount() + 50);	
+						gamepanel.setCanonAmount(gamepanel.getCanonAmount() + 10);	
 					}else if(gamepanel.powerLevelUpgrade2 == 2){
 						//Life
 						gamepanel.addLife();
