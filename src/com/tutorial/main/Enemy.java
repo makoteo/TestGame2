@@ -166,6 +166,7 @@ public class Enemy {
 	public void setDead() { dead = true; }
 	
 	public void setSlow(boolean b){slow = b;}
+	public boolean getSlow(){return slow;}
 	
 	public int getid(){ return id; }
 	public void setid(int i){ this.id = i; }

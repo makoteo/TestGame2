@@ -1,6 +1,9 @@
 package com.tutorial.main;
 
 import java.awt.*;
+import java.util.Collections;
+
+import com.tutorial.main.GamePanel.Point;
 
 public class Bullet {
 	
@@ -23,7 +26,7 @@ public class Bullet {
 	1. Basic -- done
 	2. Enemy Bullets -- done
 	3. Follower -- done
-	4. Laser
+	4. Laser -- WIP	
 	5. Canon -- done
 	6. Bouncer -- done
 	Bomb is a separate thing
@@ -40,7 +43,12 @@ public class Bullet {
 		if(this.type == 5){
 			this.speed=3;
 		}
-		
+		if(this.type == 3){
+			this.speed=10;
+		}
+		if(this.type == 6){
+			this.speed=20;
+		}
 		rad = Math.toRadians(angle);
 		dx = Math.cos(rad) * speed;
 		dy = Math.sin(rad) * speed;
@@ -79,13 +87,21 @@ public class Bullet {
 		if(type == 2){
 			color1=Color.RED;
 			r=5;
+			if(GamePanel.getSlowDown() == false){
+				this.speed=12;
+			}else{
+				this.speed=4;
+			}
 		}
 		if(type == 3){
 			color1=Color.GREEN;
 			r=5;
 			GamePanel.setFiringDelay(1500);
 		}
-		
+		if(type == 4){
+			color1=Color.WHITE;
+			GamePanel.setFiringDelay(1000);
+		}
 		if(type == 5){
 			color1=Color.BLACK;
 			r=7;
@@ -153,9 +169,24 @@ public class Bullet {
 		return false;
 	}
 	public void draw(Graphics2D g){
-		
-		g.setColor(color1);
-		g.fillOval((int)(x-r), (int) (y-r), 2*r, 2*r);
+		if(this.type!=4){
+			g.setColor(color1);
+			g.fillOval((int)(x-r), (int) (y-r), 2*r, 2*r);
+		}else{
+			float opposite = Menu.myg - GamePanel.getPlayerY();
+			float adjacent = Menu.mxg - GamePanel.getPlayerX();
+			float hypotenuse = (float) Math.sqrt(opposite*opposite + adjacent*adjacent);
+
+			float cosine = adjacent/hypotenuse;
+			float sine = opposite/hypotenuse;
+
+			float endX = GamePanel.getPlayerX() + 1800 * cosine;
+			float endY = GamePanel.getPlayerY() + 1800 * sine;
+			g.setColor(color1);
+
+			g.drawLine(GamePanel.getPlayerX(), GamePanel.getPlayerY(), (int)endX, (int)endY);
+
+		}
 		
 	}
 	

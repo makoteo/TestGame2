@@ -52,7 +52,11 @@ public class PowerUp {
 	public double getr(){ return r;}
 	
 	public void update(){
-		FadeTimer-=2;
+		if(GamePanel.getSlowDown() == false){
+			FadeTimer-=2;
+		}else{
+			FadeTimer-=0.7;
+		}
 		if(FadeTimer <= 255){
 			alpha = FadeTimer;
 		}

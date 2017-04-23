@@ -49,6 +49,7 @@ public class Menu extends MouseAdapter{
 						gamepanel.setRocketAmount(gamepanel.getRocketAmount() + 20);
 						gamepanel.setBouncerAmount(gamepanel.getBouncerAmount() + 50);	
 						gamepanel.setCanonAmount(gamepanel.getCanonAmount() + 10);	
+						gamepanel.setLaserAmount(gamepanel.getLaserAmount() + 10);	
 						
 					}else if(gamepanel.powerLevelUpgrade1 == 2){
 						//Life
@@ -72,6 +73,8 @@ public class Menu extends MouseAdapter{
 						gamepanel.setRocketAmount(gamepanel.getRocketAmount() + 20);
 						gamepanel.setBouncerAmount(gamepanel.getBouncerAmount() + 50);	
 						gamepanel.setCanonAmount(gamepanel.getCanonAmount() + 10);	
+						gamepanel.setLaserAmount(gamepanel.getLaserAmount() + 10);	
+						
 					}else if(gamepanel.powerLevelUpgrade2 == 2){
 						//Life
 						gamepanel.addLife();

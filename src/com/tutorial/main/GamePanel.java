@@ -9,6 +9,9 @@ import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.*;
 import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
@@ -45,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private int rocketAmount = 20;
 	private int bouncerAmount = 50;
 	private int canonAmount = 10;
+	private int laserAmount = 10;
 	
 	private long slowDownTimer;
 	private long slowDownTimerDiff;
@@ -196,7 +200,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				enemies.get(j).setSlow(true);
 			}
 		}
-		System.out.println(GamePanel.bullets.size());
+		//System.out.println(GamePanel.bullets.size());
 		if(bombs.size() > 0){
 			detonateButton = true;
 		}else{
@@ -271,7 +275,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				if(dist < 5 + er){
 					enemies.get(i).setSelected(true);
 					int id = enemies.get(i).getid();
-					System.out.println(id);
+					//System.out.println(id);
 					break;//Stops loop and continues to next statement(stops if from being called because of update)
 				}else{
 					enemies.get(i).setSelected(false);
@@ -323,34 +327,47 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					double dx = bx - ex;
 					double dy = by - ey;
 					double dist = Math.sqrt(dx * dx + dy*  dy);
-					
-					if(dist < br + er){
-						if(b.getType()==1 || b.getType()==3 || b.getType()==5 || b.getType()==6){
-							if(bullets.get(i).getType()==5){
-								bx=bullets.get(i).getx();
-								by=bullets.get(i).gety();
-								GamePanel.bullets.add(new Bullet(0/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by, 1));
-								GamePanel.bullets.add(new Bullet(45/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by + 5, 1));
-								GamePanel.bullets.add(new Bullet(90/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by + 5, 1));
-								GamePanel.bullets.add(new Bullet(135/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by + 5, 1));
-								GamePanel.bullets.add(new Bullet(180/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by, 1));
-								GamePanel.bullets.add(new Bullet(225/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by - 5, 1));
-								GamePanel.bullets.add(new Bullet(270/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by - 5, 1));
-								GamePanel.bullets.add(new Bullet(315/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by + 5, 1));
-								//e.hit();
-								bullets.remove(i);
-								i--;
+					if(b.getType()==4){
+						if(!getCircleLineIntersectionPoint(new Point(player.getx(), player.gety()),
+						new Point(Menu.mxg, Menu.myg), new Point(e.getx(), e.gety()), e.getr()).isEmpty()){
+							e.hit();
+						}
+					}else{
+						if(dist < br + er){
+							if(b.getType()==1 || b.getType()==3 || b.getType()==5 || b.getType()==6){
+								if(bullets.get(i).getType()==5){
+									bx=bullets.get(i).getx();
+									by=bullets.get(i).gety();
+									GamePanel.bullets.add(new Bullet(0/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by, 1));
+									GamePanel.bullets.add(new Bullet(45/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by + 5, 1));
+									GamePanel.bullets.add(new Bullet(90/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by + 5, 1));
+									GamePanel.bullets.add(new Bullet(135/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by + 5, 1));
+									GamePanel.bullets.add(new Bullet(180/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by, 1));
+									GamePanel.bullets.add(new Bullet(225/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by - 5, 1));
+									GamePanel.bullets.add(new Bullet(270/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by - 5, 1));
+									GamePanel.bullets.add(new Bullet(315/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by + 5, 1));
+									enemies.get(j).healthChange("-", 5);//5 is deadly
+									bullets.remove(i);
+									i--;
+								}else if(bullets.get(i).getType()==3){
+									enemies.get(j).healthChange("-", 3);//5 is deadly
+									bullets.remove(i);
+									i--;
+								}else if(bullets.get(i).getType()==6){
+									enemies.get(j).healthChange("-", 5);//5 is deadly
+									bullets.remove(i);
+									i--;
+								}else{
+									e.hit();
+									bullets.remove(i);
+									i--;
+								}
 							}else{
-								e.hit();
-								bullets.remove(i);
-								i--;
-							}
-						}else{
-							
-						}	
-						break;
+								
+							}	
+							break;
+						}
 					}
-					
 				}
 				
 			}
@@ -570,12 +587,66 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		}
 		
 	}
-	
+	public static List<Point> getCircleLineIntersectionPoint(Point pointA,
+            Point pointB, Point center, double radius) {
+        double baX = pointB.x - pointA.x;
+        double baY = pointB.y - pointA.y;
+        double caX = center.x - pointA.x;
+        double caY = center.y - pointA.y;
+
+        double a = baX * baX + baY * baY;
+        double bBy2 = baX * caX + baY * caY;
+        double c = caX * caX + caY * caY - radius * radius;
+
+        double pBy2 = bBy2 / a;
+        double q = c / a;
+
+        double disc = pBy2 * pBy2 - q;
+        if (disc < 0) {
+            return Collections.emptyList();
+        }
+        // if disc == 0 ... dealt with later
+        double tmpSqrt = Math.sqrt(disc);
+        double abScalingFactor1 = -pBy2 + tmpSqrt;
+        double abScalingFactor2 = -pBy2 - tmpSqrt;
+
+        Point p1 = new Point(pointA.x - baX * abScalingFactor1, pointA.y
+                - baY * abScalingFactor1);
+        if (disc == 0) { // abScalingFactor1 == abScalingFactor2
+            return Collections.singletonList(p1);
+        }
+        Point p2 = new Point(pointA.x - baX * abScalingFactor2, pointA.y
+                - baY * abScalingFactor2);
+        return Arrays.asList(p1, p2);
+    }
+
+    static class Point {
+        double x, y;
+
+        public Point(double x, double y) { this.x = x; this.y = y; }
+
+        @Override
+        public String toString() {
+            return "Point [x=" + x + ", y=" + y + "]";
+        }
+    }
+
 	public void setslowDownTimer(long l){
 		slowDownTimer = l;
 	}
 	public void setslowDownLength(int l){
 		slowDownLength = l;
+	}
+	public static boolean getSlowDown(){
+		boolean slow = false;
+		for(int j = 0; j < enemies.size(); j++){
+			if(enemies.get(j).getSlow()==true){
+				slow=true;
+			}else{
+				slow=false;
+			}
+		}
+		return slow;
 	}
 	public int getBombAmount(){
 		return bombAmount;
@@ -600,6 +671,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	}
 	public void setCanonAmount(int i){
 		canonAmount = i;
+	}
+	public int getLaserAmount(){
+		return laserAmount;
+	}
+	public void setLaserAmount(int i){
+		laserAmount = i;
 	}
 	private void gameRender(){
 		if(gameState == STATE.Game){
@@ -702,6 +779,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
 				g.drawString("Fire Rocket", 715, 850);
 				g.drawString("Rockets Left: " + rocketAmount, 1200, 40);
+			}else if(player.getCurrentWeapon() == 4){
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
+				g.drawString("Fire Laser", 715, 850);
+				g.drawString("Lasers Left: " + laserAmount, 1200, 40);
 			}else if(player.getCurrentWeapon() == 5){
 				g.setColor(Color.WHITE);
 				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
@@ -955,6 +1037,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		}
 		if(keyCode == KeyEvent.VK_3){
 			player.setCurrentWeapon(3);
+		}
+		if(keyCode == KeyEvent.VK_4){
+			player.setCurrentWeapon(4);
 		}
 		if(keyCode == KeyEvent.VK_5){
 			player.setCurrentWeapon(5);

@@ -188,7 +188,7 @@ public class Player {
 				}
 				if(currentWeapon == 1){
 					if(shooterType == SHOOTERTYPE.oneGun){
-						GamePanel.bullets.add(new Bullet(angle, x, y, 1));
+						GamePanel.bullets.add(new Bullet(angle, x, y,  1));
 					}
 					else if(shooterType == SHOOTERTYPE.twoGun){
 						int bulletGap = 100;
@@ -214,6 +214,11 @@ public class Player {
 					if(gamepanel.getRocketAmount() > 0){
 						GamePanel.bullets.add(new Bullet(angle, x, y, 3));
 						gamepanel.setRocketAmount(gamepanel.getRocketAmount()-1);
+					}
+				}else if(currentWeapon == 4){
+					if(gamepanel.getLaserAmount() > 0){
+						GamePanel.bullets.add(new Bullet(angle, x, y, 4));
+						gamepanel.setLaserAmount(gamepanel.getLaserAmount()-1);
 					}
 				}else if(currentWeapon == 5){
 					if(gamepanel.getCanonAmount() > 0){
