@@ -329,9 +329,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 							if(bullets.get(i).getType()==5){
 								bx=bullets.get(i).getx();
 								by=bullets.get(i).gety();
-								e.hit();
-								bullets.remove(i);
-								i--;
 								GamePanel.bullets.add(new Bullet(0/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by, 1));
 								GamePanel.bullets.add(new Bullet(45/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by, 1));
 								GamePanel.bullets.add(new Bullet(90/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by, 1));
@@ -340,6 +337,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 								GamePanel.bullets.add(new Bullet(225/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by, 1));
 								GamePanel.bullets.add(new Bullet(270/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by, 1));
 								GamePanel.bullets.add(new Bullet(315/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by, 1));
+								//e.hit();
+								bullets.remove(i);
+								i--;
 							}else{
 								e.hit();
 								bullets.remove(i);

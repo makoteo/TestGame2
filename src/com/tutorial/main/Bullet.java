@@ -36,9 +36,12 @@ public class Bullet {
 		this.y = y;
 		this.type = type;
 		r = 3;
+		speed = 12;
+		if(this.type == 5){
+			this.speed=3;
+		}
 		
 		rad = Math.toRadians(angle);
-		speed = 12;
 		dx = Math.cos(rad) * speed;
 		dy = Math.sin(rad) * speed;
 		
@@ -86,7 +89,7 @@ public class Bullet {
 		if(type == 5){
 			color1=Color.BLACK;
 			r=7;
-			this.speed=3;
+			this.speed=1;
 			GamePanel.setFiringDelay(1500);
 		}
 		if(type == 6){
@@ -135,6 +138,7 @@ public class Bullet {
 			}
 		}
 		if(type == 5 || type == 6){
+			
 			if(x < r && dx < 0){dx = -dx;}
 			if(y < r && dy < 0){dy = -dy;}
 			if(x > GamePanel.WIDTH -r && dx > 0){ dx = -dx;}
