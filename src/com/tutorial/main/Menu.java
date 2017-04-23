@@ -31,7 +31,7 @@ public class Menu extends MouseAdapter{
 			if(mouseOver(mx, my, -20, 240, 400, 100)){
 				gamepanel.gameState = STATE.CharSelect;
 			}
-		}if(gamepanel.gameState == STATE.Game){
+		}else if(gamepanel.gameState == STATE.Game){
 			if(gamepanel.getDetonateButton()){
 				if(mouseOver(mx, my, 1470, 750, 100, 100)){
 					for(int i = 0; i < GamePanel.bombs.size(); i++){
@@ -44,8 +44,11 @@ public class Menu extends MouseAdapter{
 				if(mouseOver(mx, my, 272, 180, 500, 500)){
 					
 					if(gamepanel.powerLevelUpgrade1 == 1){
-						//Bomb
-						gamepanel.setBombAmount(gamepanel.getBombAmount() + 3);
+						//Refill Bullets
+						gamepanel.setBombAmount(gamepanel.getBombAmount() + 10);
+						gamepanel.setRocketAmount(gamepanel.getRocketAmount() + 20);
+						gamepanel.setRocketAmount(gamepanel.getBouncerAmount() + 50);	
+						
 					}else if(gamepanel.powerLevelUpgrade1 == 2){
 						//Life
 						gamepanel.addLife();

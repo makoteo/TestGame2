@@ -14,7 +14,7 @@ public class Bullet {
 	private double rad;
 	private double speed;
 	
-	private int following = 1;
+	private int following = 0;
 	
 	private Color color1;
 	
@@ -22,10 +22,10 @@ public class Bullet {
 	/*Types:
 	1. Basic -- done
 	2. Enemy Bullets -- done
-	3. Follower -- WIP
+	3. Follower -- done
 	4. Laser
 	5. Canon
-	6. Bouncer
+	6. Bouncer -- done
 	Bomb is a separate thing
 	*/
 	private float rotation = 0;
@@ -70,6 +70,7 @@ public class Bullet {
 		if(type == 1){
 			color1=Color.WHITE;
 			r=3;
+			GamePanel.setFiringDelay(200);
 		}
 		
 		if(type == 2){
@@ -79,6 +80,13 @@ public class Bullet {
 		if(type == 3){
 			color1=Color.GREEN;
 			r=5;
+			GamePanel.setFiringDelay(1500);
+		}
+		
+		if(type == 6){
+			color1=Color.YELLOW;
+			r=3;
+			GamePanel.setFiringDelay(200);
 		}
 		if(this.type == 3){
 			for(int i = 0; i < GamePanel.enemies.size(); i++){
@@ -95,7 +103,7 @@ public class Bullet {
 						double dy = by - py;
 						double dist = Math.sqrt(dx * dx + dy*  dy);
 							
-						if(dist < br + pr + 5){
+						if(dist < br + pr){
 							this.setFol(GamePanel.enemies.get(i).getid());
 						}
 						break;
@@ -120,11 +128,16 @@ public class Bullet {
 				}
 			}
 		}
-		
+		if(type == 6){
+			if(x < r && dx < 0){dx = -dx;}
+			if(y < r && dy < 0){dy = -dy;}
+			if(x > GamePanel.WIDTH -r && dx > 0){ dx = -dx;}
+			if(y > GamePanel.HEIGHT -r && dy > 0){ dy = -dy;}
+		}
 		x += dx;
 		y += dy;
 		
-		if(x < -r || x > GamePanel.WIDTH || y < -r || y > GamePanel.HEIGHT){
+		if(x < -r -20 || x > GamePanel.WIDTH -r +20 || y < -r -20 || y > GamePanel.HEIGHT -r +20){
 			return true;
 		}
 		return false;

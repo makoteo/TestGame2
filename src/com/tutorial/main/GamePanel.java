@@ -41,7 +41,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private boolean waveStart;
 	private int waveDelay = 2000;
 	
-	private int bombAmount = 3;
+	private int bombAmount = 10;
+	private int rocketAmount = 20;
+	private int bouncerAmount = 50;
 	
 	private long slowDownTimer;
 	private long slowDownTimerDiff;
@@ -70,7 +72,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	public STATE gameState = STATE.Menu; 
 	
-	public static int EnemyId = 0;
+	//IMAGES
+	public static BufferedImage sprite_sheet_main;
+	public static BufferedImage PowerUp1;
+	public static BufferedImage PowerUp2;
+	public static BufferedImage PowerUp3;
+	public static BufferedImage Hats_Wizard;
+	
+	
+	public static int EnemyId = 1;
 	//CONSTRUCTOR
 	public GamePanel(){
 		super();
@@ -78,7 +88,20 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		setFocusable(true);
 		requestFocus();
 		menu = new Menu(this);
+		//IMAGES
+		BufferedImageLoader loader = new BufferedImageLoader();
+		
+		sprite_sheet_main = loader.loadImage("/BlobsTextures.png");
+		
+		SpriteSheet ss = new SpriteSheet(GamePanel.sprite_sheet_main);
+		
+		PowerUp1 = ss.grabImage(0, 0, 500, 500);
+		PowerUp2 = ss.grabImage(500, 0, 500, 500);
+		PowerUp3 = ss.grabImage(1000, 0, 500, 500);
+		Hats_Wizard = ss.grabImage(1500, 0, 20, 20);
 	}
+	
+	
 	//FUNCTIONS
 	public void addNotify(){
 		super.addNotify();
@@ -105,7 +128,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
-		player = new Player();
+		player = new Player(this);
 		bullets = new ArrayList<Bullet>();
 		enemies = new ArrayList<Enemy>();
 		bombs = new ArrayList<Bomb>();
@@ -172,7 +195,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				enemies.get(j).setSlow(true);
 			}
 		}
-		
+		System.out.println(GamePanel.bullets.size());
 		if(bombs.size() > 0){
 			detonateButton = true;
 		}else{
@@ -199,7 +222,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			}
 			//Create enemies
 			if(waveStart && enemies.size() == 0){
-				EnemyId=0;
+				EnemyId=1;
 				createNewEnemies();
 			}
 			
@@ -246,8 +269,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				
 				if(dist < 5 + er){
 					enemies.get(i).setSelected(true);
-					int HashCode = System.identityHashCode(i);
-					System.out.println(HashCode);
+					int id = enemies.get(i).getid();
+					System.out.println(id);
 					break;//Stops loop and continues to next statement(stops if from being called because of update)
 				}else{
 					enemies.get(i).setSelected(false);
@@ -301,7 +324,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					double dist = Math.sqrt(dx * dx + dy*  dy);
 					
 					if(dist < br + er){
-						if(b.getType()==1 || b.getType()==3){
+						if(b.getType()==1 || b.getType()==3 || b.getType()==6){
 							e.hit();
 							bullets.remove(i);
 							i--;
@@ -543,6 +566,18 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public void setBombAmount(int i){
 		bombAmount = i;
 	}
+	public int getRocketAmount(){
+		return rocketAmount;
+	}
+	public void setRocketAmount(int i){
+		rocketAmount = i;
+	}
+	public int getBouncerAmount(){
+		return bouncerAmount;
+	}
+	public void setBouncerAmount(int i){
+		bouncerAmount = i;
+	}
 	private void gameRender(){
 		if(gameState == STATE.Game){
 			//Background
@@ -554,19 +589,19 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.fillRect(0, 0, WIDTH, HEIGHT);
 			}
 			
-			//Player
-			player.draw(g);
 			//Bullets
 			for(int i = 0; i < bullets.size(); i++){
 				bullets.get(i).draw(g);
 			}
-			//Enemies
-			for(int i = 0; i < enemies.size(); i++){
-				enemies.get(i).draw(g);
-			}
 			//PowerUps
 			for(int i = 0; i < powerups.size(); i++){
 				powerups.get(i).draw(g);
+			}
+			//Player
+			player.draw(g);
+			//Enemies
+			for(int i = 0; i < enemies.size(); i++){
+				enemies.get(i).draw(g);
 			}
 			
 			//Draw explosions
@@ -592,7 +627,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.setColor(new Color(255, 255, 255, alpha));
 				g.drawString(s, WIDTH / 2 - length / 2, HEIGHT / 2);
 			}
-			if(player.getCurrentWeapon() == 2){
+			if(player.getCurrentWeapon() == 1){
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
+				g.drawString("Fire Bullet", 715, 850);
+				g.setFont(new Font("Ariel", Font.PLAIN, 20));
+				g.drawString("Bullets Left: ", 1200, 40);
+				g.setFont(new Font("Ariel", Font.PLAIN, 30));
+				g.drawString(Character.toString('\u221e'), 1310, 42);
+			}else if(player.getCurrentWeapon() == 2){
 				g.setFont(new Font("Century Ghotic", Font.PLAIN, 30));
 				g.setColor(new Color(50, 50, 50, 200));
 				g.fillRect(0, 0, WIDTH, HEIGHT);
@@ -609,13 +652,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 						g.setColor(new Color(20, 20, 20, 230));
 					}
 				}else if(bombType == 3){
-					if(bombAmount > 4){
+					if(bombAmount > 1){
 						g.setColor(Color.WHITE);
 					}else{
 						g.setColor(new Color(20, 20, 20, 230));
 					}
 				}else if(bombType == 4){
-					if(bombAmount > 9){
+					if(bombAmount > 1){
 						g.setColor(Color.WHITE);
 					}else{
 						g.setColor(new Color(20, 20, 20, 230));
@@ -624,13 +667,23 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				
 				g.drawString("x", Menu.mxg-7, Menu.myg+7);
 				g.setColor(Color.WHITE);
-				g.drawString("Place Bomb", 715, 850);
 				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
-				g.drawString("Bomb Points Left: " + bombAmount, 1200, 40);
+				g.drawString("Place Bomb", 715, 850);
+				g.drawString("Bombs Left: " + bombAmount, 1200, 40);
 				if(detonateButton){
 					g.setColor(Color.YELLOW);
 					g.fillRect(1470, 750, 100, 100);
 				}
+			}else if(player.getCurrentWeapon() == 3){
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
+				g.drawString("Fire Rocket", 715, 850);
+				g.drawString("Rockets Left: " + rocketAmount, 1200, 40);
+			}else if(player.getCurrentWeapon() == 6){
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
+				g.drawString("Fire Bouncer", 715, 850);
+				g.drawString("Bouncers Left: " + bouncerAmount, 1200, 40);
 			}
 			for(int i = 0; i < bombs.size(); i++){
 				bombs.get(i).draw(g);
@@ -667,44 +720,45 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			if(slowDownTimer != 0){
 				g.setColor(Color.WHITE);
 				g.drawRect(20, 80, 100, 8);
-				g.fillRect(20, 60, (int)(100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);
+				g.fillRect(20, 80, (int)(100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);
 			}
 			
 			if(powerLevelUpgrade1 != 0){
 				g.setColor(new Color(50, 50, 50, 200));
 				g.fillRect(0, 0, WIDTH, HEIGHT);
 			}
+			BufferedImage image1 = null;
 			if(powerLevelUpgrade1 == 0){
 				//nothing
 			}else if(powerLevelUpgrade1 == 1){
 				//Bomb
-				g.setColor(Color.BLACK);
+				image1=PowerUp3;
 			}else if(powerLevelUpgrade1 == 2){
 				//Recharge life
-				g.setColor(Color.RED);
-				
+				image1=PowerUp1;
 			}else if(powerLevelUpgrade1 == 3){
 				//Slowdown
-				g.setColor(Color.BLUE);
+				image1=PowerUp2;
 			}
 			if(powerLevelUpgrade1 != 0){
-				g.fillRoundRect(272, 180, 500, 500, 50, 50);
+				g.drawImage(image1, 272, 180, null);
 			}
 			
+			BufferedImage image2 = null;
 			if(powerLevelUpgrade2 == 0){
 				//nothing
 			}else if(powerLevelUpgrade2 == 1){
 				//Bomb
-				g.setColor(Color.BLACK);
+				image2=PowerUp3;
 			}else if(powerLevelUpgrade2 == 2){
 				//Recharge life
-				g.setColor(Color.RED);
+				image2=PowerUp1;
 			}else if(powerLevelUpgrade2 == 3){
 				//Slowdown
-				g.setColor(Color.BLUE);
+				image2=PowerUp2;
 			}
 			if(powerLevelUpgrade2 != 0){
-				g.fillRoundRect(800, 180, 500, 500, 50, 50);
+				g.drawImage(image2, 800, 180, null);
 			}
 		}else if(gameState == STATE.Dead){
 				g.setColor(new Color(0,100,255));
@@ -735,6 +789,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public void addLife(){
 		player.gainlife();
 	}
+	
+	public static double getFiringDelay(){return player.getFiringDelay();}
+	public static void setFiringDelay(long l){player.setFiringDelay(l);}
+	
 	public boolean getDetonateButton(){
 		return detonateButton;
 	}
@@ -745,19 +803,19 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				bombAmount--;
 			}
 		}else if(bombType == 2){
-			if(bombAmount > 1){
+			if(bombAmount > 0){
 				GamePanel.bombs.add(new Bomb(Menu.mxg - 7, Menu.myg + 7, 2, 1));
-				bombAmount-=2;
+				bombAmount-=1;
 			}
 		}else if(bombType == 3){
-			if(bombAmount > 4){
+			if(bombAmount > 0){
 				GamePanel.bombs.add(new Bomb(Menu.mxg - 7, Menu.myg + 7, 3, 1));
-				bombAmount-=5;
+				bombAmount-=1;
 			}
 		}else if(bombType == 4){
-			if(bombAmount > 9){
+			if(bombAmount > 0){
 				GamePanel.bombs.add(new Bomb(Menu.mxg - 7, Menu.myg + 7, 4, 1));
-				bombAmount-=10;
+				bombAmount-=1;
 			}
 		}
 	}
@@ -869,6 +927,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		}
 		if(keyCode == KeyEvent.VK_3){
 			player.setCurrentWeapon(3);
+		}
+		if(keyCode == KeyEvent.VK_6){
+			player.setCurrentWeapon(6);
 		}
 	}
 	public void keyReleased(KeyEvent key){

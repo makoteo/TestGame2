@@ -30,7 +30,7 @@ public class Player {
 	private Color color1;
 	private Color color2;
 	
-	public static GamePanel gamepanel;
+	GamePanel gamepanel;
 	
 	public static int powerLevelChecker = 0;
 	
@@ -53,7 +53,8 @@ public class Player {
 	};
 	
 	//Constructor
-	public Player(){
+	public Player(GamePanel gamepanel){
+		this.gamepanel = gamepanel;
 		x = GamePanel.WIDTH / 2;
 		y = GamePanel.HEIGHT / 2;
 		r = 8;
@@ -68,7 +69,7 @@ public class Player {
 		
 		firing = false;
 		firingTimer = System.nanoTime();
-		firingDelay = 200;
+		setFiringDelay(200);
 		
 		recovering = false;
 		recoveryTimer = 0;
@@ -165,7 +166,7 @@ public class Player {
 		
 		if(firing){
 			long elapsed = (System.nanoTime() - firingTimer) / 1000000;
-			if(elapsed > firingDelay){
+			if(elapsed > getFiringDelay()){
 				firingTimer = System.nanoTime();
 				
 				//System.out.println(Menu.mxg);
@@ -210,8 +211,15 @@ public class Player {
 						GamePanel.bullets.add(new Bullet(angle/*90 = down || 0 = right || 180 = left*/, x, y, 1));
 					}
 				}else if(currentWeapon == 3){
-					if(shooterType == SHOOTERTYPE.oneGun){
+					if(gamepanel.getRocketAmount() > 0){
 						GamePanel.bullets.add(new Bullet(angle, x, y, 3));
+						gamepanel.setRocketAmount(gamepanel.getRocketAmount()-1);
+					}
+				}
+				else if(currentWeapon == 6){
+					if(gamepanel.getBouncerAmount() > 0){
+						GamePanel.bullets.add(new Bullet(angle, x, y, 6));
+						gamepanel.setBouncerAmount(gamepanel.getBouncerAmount()-1);
 					}
 				}
 					
@@ -245,7 +253,16 @@ public class Player {
 			g.setColor(color1.darker());
 			g.drawOval(x - r, y - r, 2*r, 2*r);
 			g.setStroke(new BasicStroke(1));
+			g.drawImage(GamePanel.Hats_Wizard, this.x-10, this.y-24, null);
 		}
 	
+	}
+
+	public long getFiringDelay() {
+		return firingDelay;
+	}
+
+	public void setFiringDelay(long firingDelay) {
+		this.firingDelay = firingDelay;
 	}
 }
