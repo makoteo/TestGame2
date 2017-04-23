@@ -57,6 +57,7 @@ public class Menu extends MouseAdapter{
 					}
 					else if(gamepanel.powerLevelUpgrade1 == 3){
 						//Slowdown
+						gamepanel.setslowDownLength(25000);
 						gamepanel.setslowDownTimer(System.nanoTime());
 						for(int j = 0; j < GamePanel.enemies.size(); j++){
 							GamePanel.enemies.get(j).setSlow(true);
@@ -81,6 +82,7 @@ public class Menu extends MouseAdapter{
 					}
 					else if(gamepanel.powerLevelUpgrade2 == 3){
 						//Slowdown
+						gamepanel.setslowDownLength(25000);
 						gamepanel.setslowDownTimer(System.nanoTime());
 						for(int j = 0; j < gamepanel.enemies.size(); j++){
 							gamepanel.enemies.get(j).setSlow(true);

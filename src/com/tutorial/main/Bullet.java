@@ -17,6 +17,8 @@ public class Bullet {
 	private double rad;
 	private double speed;
 	
+	private double LaserTimer = 2;
+	
 	private int following = 0;
 	
 	private Color color1;
@@ -26,9 +28,10 @@ public class Bullet {
 	1. Basic -- done
 	2. Enemy Bullets -- done
 	3. Follower -- done
-	4. Laser -- WIP	
+	4. Laser -- done
 	5. Canon -- done
 	6. Bouncer -- done
+	7. Canon Fragments -- done
 	Bomb is a separate thing
 	*/
 	private float rotation = 0;
@@ -78,6 +81,14 @@ public class Bullet {
 	public double getDy(){ return dy; }
 	
 	public boolean update(){
+		if(this.type == 4){
+			if(this.LaserTimer > 0){
+					LaserTimer--;
+				
+			}else{
+				GamePanel.setPlFiring(false);
+			}
+		}
 		if(type == 1){
 			color1=Color.WHITE;
 			r=3;
@@ -100,7 +111,7 @@ public class Bullet {
 		}
 		if(type == 4){
 			color1=Color.WHITE;
-			GamePanel.setFiringDelay(1000);
+			GamePanel.setFiringDelay(3000);
 		}
 		if(type == 5){
 			color1=Color.BLACK;
@@ -112,6 +123,10 @@ public class Bullet {
 			color1=Color.YELLOW;
 			r=3;
 			GamePanel.setFiringDelay(200);
+		}
+		if(type == 7){
+			color1=Color.red;
+			r=3;
 		}
 		if(this.type == 3){
 			for(int i = 0; i < GamePanel.enemies.size(); i++){
@@ -168,23 +183,30 @@ public class Bullet {
 		}
 		return false;
 	}
+	public void setLaserTimer(int i){
+		this.LaserTimer = i;
+	}
 	public void draw(Graphics2D g){
 		if(this.type!=4){
 			g.setColor(color1);
 			g.fillOval((int)(x-r), (int) (y-r), 2*r, 2*r);
 		}else{
-			float opposite = Menu.myg - GamePanel.getPlayerY();
-			float adjacent = Menu.mxg - GamePanel.getPlayerX();
-			float hypotenuse = (float) Math.sqrt(opposite*opposite + adjacent*adjacent);
-
-			float cosine = adjacent/hypotenuse;
-			float sine = opposite/hypotenuse;
-
-			float endX = GamePanel.getPlayerX() + 1800 * cosine;
-			float endY = GamePanel.getPlayerY() + 1800 * sine;
-			g.setColor(color1);
-
-			g.drawLine(GamePanel.getPlayerX(), GamePanel.getPlayerY(), (int)endX, (int)endY);
+			if(this.LaserTimer > 0){
+				float opposite = Menu.myg - GamePanel.getPlayerY();
+				float adjacent = Menu.mxg - GamePanel.getPlayerX();
+				float hypotenuse = (float) Math.sqrt(opposite*opposite + adjacent*adjacent);
+	
+				float cosine = adjacent/hypotenuse;
+				float sine = opposite/hypotenuse;
+	
+				float endX = GamePanel.getPlayerX() + 1800 * cosine;
+				float endY = GamePanel.getPlayerY() + 1800 * sine;
+				g.setColor(color1);
+				
+				g.setStroke(new BasicStroke(3));
+				g.drawLine(GamePanel.getPlayerX(), GamePanel.getPlayerY(), (int)endX, (int)endY);
+				g.setStroke(new BasicStroke(1));
+			}
 
 		}
 		

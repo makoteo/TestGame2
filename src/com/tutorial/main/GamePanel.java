@@ -52,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	private long slowDownTimer;
 	private long slowDownTimerDiff;
-	private int slowDownLength = 6000;
+	private int slowDownLength = 10000;
 	
 	private boolean dead;
 	
@@ -328,25 +328,27 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					double dy = by - ey;
 					double dist = Math.sqrt(dx * dx + dy*  dy);
 					if(b.getType()==4){
-						if(!getCircleLineIntersectionPoint(new Point(player.getx(), player.gety()),
-						new Point(Menu.mxg, Menu.myg), new Point(e.getx(), e.gety()), e.getr()).isEmpty()){
-							e.hit();
+						if(player.getFiring() == true){
+							if(!getCircleLineIntersectionPoint(new Point(player.getx(), player.gety()),
+							new Point(Menu.mxg, Menu.myg), new Point(e.getx(), e.gety()), e.getr()).isEmpty()){
+								enemies.get(j).healthChange("-", 5);//5 is deadly
+							}
 						}
 					}else{
 						if(dist < br + er){
-							if(b.getType()==1 || b.getType()==3 || b.getType()==5 || b.getType()==6){
+							if(b.getType()==1 || b.getType()==3 || b.getType()==5 || b.getType()==6 || b.getType()==7){
 								if(bullets.get(i).getType()==5){
 									bx=bullets.get(i).getx();
 									by=bullets.get(i).gety();
-									GamePanel.bullets.add(new Bullet(0/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by, 1));
-									GamePanel.bullets.add(new Bullet(45/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by + 5, 1));
-									GamePanel.bullets.add(new Bullet(90/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by + 5, 1));
-									GamePanel.bullets.add(new Bullet(135/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by + 5, 1));
-									GamePanel.bullets.add(new Bullet(180/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by, 1));
-									GamePanel.bullets.add(new Bullet(225/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by - 5, 1));
-									GamePanel.bullets.add(new Bullet(270/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by - 5, 1));
-									GamePanel.bullets.add(new Bullet(315/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by + 5, 1));
 									enemies.get(j).healthChange("-", 5);//5 is deadly
+									GamePanel.bullets.add(new Bullet(0/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by, 7));
+									GamePanel.bullets.add(new Bullet(45/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by + 5, 7));
+									GamePanel.bullets.add(new Bullet(90/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by + 5, 7));
+									GamePanel.bullets.add(new Bullet(135/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by + 5, 7));
+									GamePanel.bullets.add(new Bullet(180/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by, 7));
+									GamePanel.bullets.add(new Bullet(225/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by - 5, 7));
+									GamePanel.bullets.add(new Bullet(270/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by - 5, 7));
+									GamePanel.bullets.add(new Bullet(315/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by + 5, 7));
 									bullets.remove(i);
 									i--;
 								}else if(bullets.get(i).getType()==3){
@@ -354,7 +356,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 									bullets.remove(i);
 									i--;
 								}else if(bullets.get(i).getType()==6){
-									enemies.get(j).healthChange("-", 5);//5 is deadly
+									enemies.get(j).healthChange("-", 4);//5 is deadly
+									bullets.remove(i);
+									i--;
+								}else if(bullets.get(i).getType()==7){
+									enemies.get(j).healthChange("-", 4);//5 is deadly
 									bullets.remove(i);
 									i--;
 								}else{
@@ -678,6 +684,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public void setLaserAmount(int i){
 		laserAmount = i;
 	}
+	public static boolean getPlFiring(){
+		return player.getFiring();
+	}
+	public static void setPlFiring(boolean b){
+		player.setFiring(b);
+	}
 	private void gameRender(){
 		if(gameState == STATE.Game){
 			//Background
@@ -832,7 +844,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.drawRect(20, 80, 100, 8);
 				g.fillRect(20, 80, (int)(100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);
 			}
-			
 			if(powerLevelUpgrade1 != 0){
 				g.setColor(new Color(50, 50, 50, 200));
 				g.fillRect(0, 0, WIDTH, HEIGHT);
