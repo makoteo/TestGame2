@@ -47,7 +47,8 @@ public class Menu extends MouseAdapter{
 						//Refill Bullets
 						gamepanel.setBombAmount(gamepanel.getBombAmount() + 10);
 						gamepanel.setRocketAmount(gamepanel.getRocketAmount() + 20);
-						gamepanel.setRocketAmount(gamepanel.getBouncerAmount() + 50);	
+						gamepanel.setBouncerAmount(gamepanel.getBouncerAmount() + 50);	
+						gamepanel.setCanonAmount(gamepanel.getCanonAmount() + 10);	
 						
 					}else if(gamepanel.powerLevelUpgrade1 == 2){
 						//Life

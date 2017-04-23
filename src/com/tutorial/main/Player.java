@@ -215,6 +215,11 @@ public class Player {
 						GamePanel.bullets.add(new Bullet(angle, x, y, 3));
 						gamepanel.setRocketAmount(gamepanel.getRocketAmount()-1);
 					}
+				}else if(currentWeapon == 5){
+					if(gamepanel.getCanonAmount() > 0){
+						GamePanel.bullets.add(new Bullet(angle, x, y, 5));
+						gamepanel.setCanonAmount(gamepanel.getCanonAmount()-1);
+					}
 				}
 				else if(currentWeapon == 6){
 					if(gamepanel.getBouncerAmount() > 0){

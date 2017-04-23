@@ -24,7 +24,7 @@ public class Bullet {
 	2. Enemy Bullets -- done
 	3. Follower -- done
 	4. Laser
-	5. Canon
+	5. Canon -- WIP
 	6. Bouncer -- done
 	Bomb is a separate thing
 	*/
@@ -83,6 +83,12 @@ public class Bullet {
 			GamePanel.setFiringDelay(1500);
 		}
 		
+		if(type == 5){
+			color1=Color.BLACK;
+			r=7;
+			this.speed=3;
+			GamePanel.setFiringDelay(1500);
+		}
 		if(type == 6){
 			color1=Color.YELLOW;
 			r=3;
@@ -128,7 +134,7 @@ public class Bullet {
 				}
 			}
 		}
-		if(type == 6){
+		if(type == 5 || type == 6){
 			if(x < r && dx < 0){dx = -dx;}
 			if(y < r && dy < 0){dy = -dy;}
 			if(x > GamePanel.WIDTH -r && dx > 0){ dx = -dx;}

@@ -44,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private int bombAmount = 10;
 	private int rocketAmount = 20;
 	private int bouncerAmount = 50;
+	private int canonAmount = 10;
 	
 	private long slowDownTimer;
 	private long slowDownTimerDiff;
@@ -324,10 +325,25 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					double dist = Math.sqrt(dx * dx + dy*  dy);
 					
 					if(dist < br + er){
-						if(b.getType()==1 || b.getType()==3 || b.getType()==6){
+						if(b.getType()==1 || b.getType()==3 || b.getType()==5 || b.getType()==6){
 							e.hit();
-							bullets.remove(i);
-							i--;
+							if(bullets.get(i).getType()==5){
+								bx=bullets.get(i).getx();
+								by=bullets.get(i).gety();
+								bullets.remove(i);
+								i--;
+								GamePanel.bullets.add(new Bullet(0/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by, 1));
+								GamePanel.bullets.add(new Bullet(45/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by, 1));
+								GamePanel.bullets.add(new Bullet(90/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by, 1));
+								GamePanel.bullets.add(new Bullet(135/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by, 1));
+								GamePanel.bullets.add(new Bullet(180/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by, 1));
+								GamePanel.bullets.add(new Bullet(225/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by, 1));
+								GamePanel.bullets.add(new Bullet(270/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by, 1));
+								GamePanel.bullets.add(new Bullet(315/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by, 1));
+							}else{
+								bullets.remove(i);
+								i--;
+							}
 						}else{
 							
 						}	
@@ -578,6 +594,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public void setBouncerAmount(int i){
 		bouncerAmount = i;
 	}
+	public int getCanonAmount(){
+		return canonAmount;
+	}
+	public void setCanonAmount(int i){
+		canonAmount = i;
+	}
 	private void gameRender(){
 		if(gameState == STATE.Game){
 			//Background
@@ -679,6 +701,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
 				g.drawString("Fire Rocket", 715, 850);
 				g.drawString("Rockets Left: " + rocketAmount, 1200, 40);
+			}else if(player.getCurrentWeapon() == 5){
+				g.setColor(Color.WHITE);
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
+				g.drawString("Fire Canon", 715, 850);
+				g.drawString("Canons Left: " + canonAmount, 1200, 40);
 			}else if(player.getCurrentWeapon() == 6){
 				g.setColor(Color.WHITE);
 				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
@@ -927,6 +954,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		}
 		if(keyCode == KeyEvent.VK_3){
 			player.setCurrentWeapon(3);
+		}
+		if(keyCode == KeyEvent.VK_5){
+			player.setCurrentWeapon(5);
 		}
 		if(keyCode == KeyEvent.VK_6){
 			player.setCurrentWeapon(6);
