@@ -24,7 +24,7 @@ public class Bullet {
 	2. Enemy Bullets -- done
 	3. Follower -- done
 	4. Laser
-	5. Canon -- WIP
+	5. Canon -- done
 	6. Bouncer -- done
 	Bomb is a separate thing
 	*/
