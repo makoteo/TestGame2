@@ -64,6 +64,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public int powerLevelUpgrade2 = 0;
 	PowerUp powerup;
 	
+	private int changeDetonateCover = 0;
+	
 	public static boolean paused = false;
 	
 	public int bombType = 1;
@@ -83,7 +85,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static BufferedImage PowerUp2;
 	public static BufferedImage PowerUp3;
 	public static BufferedImage Hats_Wizard;
-	
+	public static BufferedImage DetonateButton_Unpressed;
+	public static BufferedImage DetonateButton_Pressed;
+	public static BufferedImage DetonateButton_Cover;
 	
 	public static int EnemyId = 1;
 	//CONSTRUCTOR
@@ -104,6 +108,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		PowerUp2 = ss.grabImage(500, 0, 500, 500);
 		PowerUp3 = ss.grabImage(1000, 0, 500, 500);
 		Hats_Wizard = ss.grabImage(1500, 0, 20, 20);
+		DetonateButton_Unpressed = ss.grabImage(1900, 0, 100, 100);
+		DetonateButton_Pressed = ss.grabImage(2000, 0, 100, 100);
+		DetonateButton_Cover = ss.grabImage(1900, 100, 100, 100);
 	}
 	
 	
@@ -200,6 +207,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				enemies.get(j).setSlow(true);
 			}
 		}
+		
 		//System.out.println(GamePanel.bullets.size());
 		if(bombs.size() > 0){
 			detonateButton = true;
@@ -586,6 +594,22 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			if(player.getLives() <= 0){
 				gameState = STATE.Dead;
 			}
+			//DetonateButtonHoverUpdate
+		}else if(player.getCurrentWeapon() == 2){
+			menu.update();
+			if(Menu.mxg > 1470 && Menu.mxg < 1470 + 100){
+				if(Menu.myg > 750 && Menu.myg < 750 + 100){
+					if(changeDetonateCover <= 80){
+						changeDetonateCover+=20;
+					}
+				}
+			}else{
+				if(!(Menu.myg > 750 && Menu.myg < 750 + 100)){
+					if(changeDetonateCover >= 20){
+						changeDetonateCover-=20;
+					}
+				}
+			}
 		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect){
 			menu.update();
 		}else if(gameState == STATE.Dead){
@@ -783,8 +807,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.drawString("Place Bomb", 715, 850);
 				g.drawString("Bombs Left: " + bombAmount, 1200, 40);
 				if(detonateButton){
-					g.setColor(Color.YELLOW);
-					g.fillRect(1470, 750, 100, 100);
+					if(Menu.pressingDetonate == false){
+						g.drawImage(DetonateButton_Unpressed, 1470, 750, null);
+					}else{
+						g.drawImage(DetonateButton_Pressed, 1470, 750, null);
+					}
+					g.drawImage(DetonateButton_Cover, 1470, 750 - changeDetonateCover, null);
 				}
 			}else if(player.getCurrentWeapon() == 3){
 				g.setColor(Color.WHITE);
@@ -862,7 +890,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				image1=PowerUp2;
 			}
 			if(powerLevelUpgrade1 != 0){
-				g.drawImage(image1, 272, 180, null);
+				g.drawImage(image1, 287, 180, null);
 			}
 			
 			BufferedImage image2 = null;
@@ -879,7 +907,18 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				image2=PowerUp2;
 			}
 			if(powerLevelUpgrade2 != 0){
-				g.drawImage(image2, 800, 180, null);
+				g.drawImage(image2, 815, 180, null);
+			}
+			if(Menu.firstwindowselected == true){
+				g.setColor(new Color(50, 50, 50, 200));
+				g.fillRoundRect(815, 180, 500, 500, 100, 100);
+			}else if(Menu.secondwindowselected == true){
+				g.setColor(new Color(50, 50, 50, 200));
+				g.fillRoundRect(287, 180, 500, 500, 100, 100);
+			}else if(Menu.secondwindowselected == false && Menu.firstwindowselected == false && powerLevelUpgrade1 != 0 && powerLevelUpgrade2 != 0){
+				g.setColor(new Color(50, 50, 50, 200));
+				g.fillRoundRect(815, 180, 500, 500, 100, 100);
+				g.fillRoundRect(287, 180, 500, 500, 100, 100);
 			}
 		}else if(gameState == STATE.Dead){
 				g.setColor(new Color(0,100,255));

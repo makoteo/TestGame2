@@ -17,6 +17,12 @@ public class Menu extends MouseAdapter{
 	public static int mxg;
 	public static int myg;
 	
+	public static boolean firstwindowselected = false;
+	public static boolean secondwindowselected = false;
+	
+	public static boolean pressingDetonate = false;
+	public static boolean hoveringDetonate = false;
+	
 	public Menu(GamePanel gamepanel){
 		this.gamepanel = gamepanel;
 	}
@@ -35,13 +41,16 @@ public class Menu extends MouseAdapter{
 			if(gamepanel.getDetonateButton()){
 				if(mouseOver(mx, my, 1470, 750, 100, 100)){
 					for(int i = 0; i < GamePanel.bombs.size(); i++){
+						pressingDetonate=true;
 						GamePanel.bombs.get(i).detonate();	
 					}
 					Player.currentWeapon = 1;
+				}else{
+					pressingDetonate=false;
 				}
 			}
 			if(gamepanel.powerLevelUpgrade1 != 0 && gamepanel.powerLevelUpgrade2 != 0){
-				if(mouseOver(mx, my, 272, 180, 500, 500)){
+				if(mouseOver(mx, my, 287, 180, 500, 500)){
 					
 					if(gamepanel.powerLevelUpgrade1 == 1){
 						//Refill Bullets
@@ -67,7 +76,7 @@ public class Menu extends MouseAdapter{
 					gamepanel.powerLevelUpgrade1 = 0;
 					gamepanel.powerLevelUpgrade2 = 0;
 				}
-				else if(mouseOver(mx, my, 800, 180, 500, 500)){
+				else if(mouseOver(mx, my, 815, 180, 500, 500)){
 					if(gamepanel.powerLevelUpgrade2 == 1){
 						//Refill Bullets
 						gamepanel.setBombAmount(gamepanel.getBombAmount() + 10);
@@ -119,6 +128,19 @@ public class Menu extends MouseAdapter{
 			color2 = Color.WHITE;
 		}
 		
+		/*if(gamepanel.powerLevelUpgrade1 != 0 && gamepanel.powerLevelUpgrade2 != 0){
+			if(mouseOver(mx, my, 287, 180, 500, 500)){
+				firstwindowselected=true;
+				secondwindowselected=false;
+			}else if(mouseOver(mx, my, 815, 180, 500, 500)){
+				secondwindowselected=true;
+				firstwindowselected=false;
+			}else{
+				firstwindowselected=false;
+				secondwindowselected=false;
+			}
+		}*/
+
 	}
 	
 	public void update(){
