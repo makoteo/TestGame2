@@ -60,8 +60,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	private boolean detonateButton = false;
 	
-	public int powerLevelUpgrade1 = 0;
-	public int powerLevelUpgrade2 = 0;
+	public int powerLevelUpgrade1 = 1;
+	public int powerLevelUpgrade2 = 2;
 	PowerUp powerup;
 	
 	private int changeDetonateCover = 0;
@@ -108,9 +108,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		PowerUp2 = ss.grabImage(500, 0, 500, 500);
 		PowerUp3 = ss.grabImage(1000, 0, 500, 500);
 		Hats_Wizard = ss.grabImage(1500, 0, 20, 20);
-		DetonateButton_Unpressed = ss.grabImage(1900, 0, 100, 100);
-		DetonateButton_Pressed = ss.grabImage(2000, 0, 100, 100);
-		DetonateButton_Cover = ss.grabImage(1900, 100, 100, 100);
+		DetonateButton_Unpressed = ss.grabImage(1900, 0, 120, 120);
+		DetonateButton_Pressed = ss.grabImage(2020, 0, 120, 120);
+		DetonateButton_Cover = ss.grabImage(1900, 120, 100, 100);
 	}
 	
 	
@@ -808,9 +808,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.drawString("Bombs Left: " + bombAmount, 1200, 40);
 				if(detonateButton){
 					if(Menu.pressingDetonate == false){
-						g.drawImage(DetonateButton_Unpressed, 1470, 750, null);
+						g.drawImage(DetonateButton_Unpressed, 1460, 740, null);
 					}else{
-						g.drawImage(DetonateButton_Pressed, 1470, 750, null);
+						g.drawImage(DetonateButton_Pressed, 1460, 740, null);
 					}
 					g.drawImage(DetonateButton_Cover, 1470, 750 - changeDetonateCover, null);
 				}
@@ -919,6 +919,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.setColor(new Color(50, 50, 50, 200));
 				g.fillRoundRect(815, 180, 500, 500, 100, 100);
 				g.fillRoundRect(287, 180, 500, 500, 100, 100);
+			}else{
+				//Menu.firstwindowselected=false;
+				//Menu.secondwindowselected=false;
 			}
 		}else if(gameState == STATE.Dead){
 				g.setColor(new Color(0,100,255));

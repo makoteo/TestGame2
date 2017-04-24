@@ -72,6 +72,8 @@ public class Menu extends MouseAdapter{
 							GamePanel.enemies.get(j).setSlow(true);
 						}
 					}
+					Menu.firstwindowselected=false;
+					Menu.secondwindowselected=false;
 					
 					gamepanel.powerLevelUpgrade1 = 0;
 					gamepanel.powerLevelUpgrade2 = 0;
@@ -97,6 +99,8 @@ public class Menu extends MouseAdapter{
 							gamepanel.enemies.get(j).setSlow(true);
 						}
 					}
+					Menu.firstwindowselected=false;
+					Menu.secondwindowselected=false;
 					
 					gamepanel.powerLevelUpgrade1 = 0;
 					gamepanel.powerLevelUpgrade2 = 0;
@@ -128,7 +132,7 @@ public class Menu extends MouseAdapter{
 			color2 = Color.WHITE;
 		}
 		
-		/*if(gamepanel.powerLevelUpgrade1 != 0 && gamepanel.powerLevelUpgrade2 != 0){
+		if(gamepanel.powerLevelUpgrade1 != 0){
 			if(mouseOver(mx, my, 287, 180, 500, 500)){
 				firstwindowselected=true;
 				secondwindowselected=false;
@@ -139,7 +143,7 @@ public class Menu extends MouseAdapter{
 				firstwindowselected=false;
 				secondwindowselected=false;
 			}
-		}*/
+		}
 
 	}
 	
