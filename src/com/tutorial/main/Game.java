@@ -1,11 +1,15 @@
 package com.tutorial.main;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-
 public class Game {
-
+	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public static double width = screenSize.getWidth();
+	public static double height = screenSize.getHeight();
+	//public static double width = 600;
+	//public static double height = 480;
 	public static void main(String [] args){
 		JFrame window = new JFrame("Blobs");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -15,9 +19,8 @@ public class Game {
 		window.pack();
 		window.setVisible(true);
 		window.setResizable(false);
-		window.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-		//window.setSize(new Dimension(606, 629));
-
+		window.setSize(new Dimension((int)width, (int)height));
+		//window.setSize(new Dimension(600, 480));
 		window.setLocationRelativeTo(null);
 	}
 	

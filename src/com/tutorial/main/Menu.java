@@ -47,6 +47,7 @@ public class Menu extends MouseAdapter{
 						GamePanel.bombs.get(i).detonate();	
 					}
 					Player.currentWeapon = 1;
+					pressingDetonate=false;
 				}else{
 					pressingDetonate=false;
 				}

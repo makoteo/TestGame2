@@ -16,8 +16,8 @@ import java.util.List;
 public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	//FEILDS
-	public static int WIDTH = 1598;
-	public static int HEIGHT = 876;
+	public static int WIDTH = (int)Game.width-5;
+	public static int HEIGHT = (int)Game.height-30;
 	
 	private Thread thread;
 	
@@ -597,16 +597,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			//DetonateButtonHoverUpdate
 		}else if(player.getCurrentWeapon() == 2){
 			menu.update();
-			if(Menu.mxg > 1470 && Menu.mxg < 1470 + 100){
-				if(Menu.myg > 750 && Menu.myg < 750 + 100){
-					if(changeDetonateCover <= 50){
-						changeDetonateCover+=50;
+			if(Menu.mxg > WIDTH-(WIDTH/13)-(WIDTH/13/6) && Menu.mxg < WIDTH-(WIDTH/13)-(WIDTH/13/6) + (WIDTH/13)){
+				if(Menu.myg > HEIGHT-(WIDTH/13)-(WIDTH/13/6) && Menu.myg < HEIGHT-(WIDTH/13)-(WIDTH/13/6) + (WIDTH/13)){
+					if(changeDetonateCover <= WIDTH/13/2){
+						changeDetonateCover+=WIDTH/13/2;
 					}
 				}
 			}else{
-				if(!(Menu.myg > 750 && Menu.myg < 750 + 100)){
-					if(changeDetonateCover >= 50){
-						changeDetonateCover-=50;
+				if(!(Menu.myg > HEIGHT-(WIDTH/13)-(WIDTH/13/6) && Menu.myg < HEIGHT-(WIDTH/13)-(WIDTH/13/6) + (WIDTH/13))){
+					if(changeDetonateCover >= WIDTH/13/2){
+						changeDetonateCover-=WIDTH/13/2;
 					}
 				}
 			}
@@ -717,7 +717,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private void gameRender(){
 		if(gameState == STATE.Game){
 			//Background
-			g.setColor(new Color(0,100,255));
+			g.setColor(new Color(0,100,50));//0, 100, 100 IS REALLY COOL(Game looks nightish)
 			g.fillRect(0, 0, WIDTH, HEIGHT);
 			//draw slow down screen
 			if(slowDownTimer != 0){
@@ -752,8 +752,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			
 			//Wave Number
 			if(waveStartTimer != 0){
-				
-				g.setFont(new Font("Century Ghotic", Font.PLAIN, 40));
+				int fontSize = HEIGHT/20;
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, fontSize/*40*/));
 				String s = "- W A V E  " + waveNumber + "  -";
 				int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
 				int alpha = (int)(255 * Math.sin(3.14 * WaveStartTimerDiff / waveDelay));
@@ -765,12 +765,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			}
 			if(player.getCurrentWeapon() == 1){
 				g.setColor(Color.WHITE);
-				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
-				g.drawString("Fire Bullet", 715, 850);
-				g.setFont(new Font("Ariel", Font.PLAIN, 20));
-				g.drawString("Bullets Left: ", 1200, 40);
-				g.setFont(new Font("Ariel", Font.PLAIN, 30));
-				g.drawString(Character.toString('\u221e'), 1310, 42);
+				int fontSize = HEIGHT/30;
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, fontSize/*40*/));
+				String s = "Fire Bullet";
+				int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				g.drawString(s, WIDTH/2 - length/2, HEIGHT - HEIGHT/25);
+				g.setFont(new Font("Ariel", Font.PLAIN, fontSize));
+				s = "Bullets Left:";
+				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				g.drawString("Bullets Left: ", WIDTH - (WIDTH/4) - length, HEIGHT/20);
+				g.setFont(new Font("Ariel", Font.PLAIN, (int) (fontSize * 1.5)));
+				g.drawString(Character.toString('\u221e'), WIDTH-(WIDTH/4), HEIGHT/18);
 			}else if(player.getCurrentWeapon() == 2){
 				g.setFont(new Font("Century Ghotic", Font.PLAIN, 30));
 				g.setColor(new Color(50, 50, 50, 200));
@@ -800,25 +805,35 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 						g.setColor(new Color(20, 20, 20, 230));
 					}
 				}
-				
-				g.drawString("x", Menu.mxg-7, Menu.myg+7);
+				int fontSize = HEIGHT/30;
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, fontSize/*40*/));
+				String s = "Place Bomb";
+				int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				g.drawString("x", Menu.mxg-(WIDTH/25/9), Menu.myg+(HEIGHT/25/16));
 				g.setColor(Color.WHITE);
-				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
-				g.drawString("Place Bomb", 715, 850);
-				g.drawString("Bombs Left: " + bombAmount, 1200, 40);
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, fontSize));
+				g.drawString(s, WIDTH/2 - length/2, HEIGHT - HEIGHT/25);
+				s = "Bombs Left: " + bombAmount;
+				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				g.drawString(s, WIDTH - (WIDTH/4) - length, HEIGHT/20);
 				if(detonateButton){
 					if(Menu.pressingDetonate == false){
-						g.drawImage(DetonateButton_Unpressed, 1460, 740, null);
+						g.drawImage(DetonateButton_Unpressed, WIDTH-(WIDTH/13)-(WIDTH/13/6), HEIGHT-(WIDTH/13)-(WIDTH/13/6), WIDTH/13, WIDTH/13, null);//SCALING BUTTON
 					}else{
-						g.drawImage(DetonateButton_Pressed, 1460, 740, null);
+						g.drawImage(DetonateButton_Pressed, WIDTH-(WIDTH/13)-(WIDTH/13/6), HEIGHT-(WIDTH/13)-(WIDTH/13/6), WIDTH/13, WIDTH/13, null);
 					}
-					g.drawImage(DetonateButton_Cover, 1470, 750 - changeDetonateCover, null);
+					g.drawImage(DetonateButton_Cover, WIDTH-(WIDTH/13)-(WIDTH/13/6), HEIGHT-(WIDTH/13)-(WIDTH/13/6) - changeDetonateCover, WIDTH/13, WIDTH/13, null);
 				}
 			}else if(player.getCurrentWeapon() == 3){
 				g.setColor(Color.WHITE);
-				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
-				g.drawString("Fire Rocket", 715, 850);
-				g.drawString("Rockets Left: " + rocketAmount, 1200, 40);
+				int fontSize = HEIGHT/30;
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, fontSize/*40*/));
+				String s = "Fire Rocket";
+				int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				g.drawString(s, WIDTH/2 - length/2, HEIGHT - HEIGHT/25);
+				s = "Rockets Left: " + rocketAmount;
+				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				g.drawString(s, WIDTH - (WIDTH/4) - length, HEIGHT/20);
 			}else if(player.getCurrentWeapon() == 4){
 				g.setColor(Color.WHITE);
 				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
