@@ -17,6 +17,8 @@ public class Menu extends MouseAdapter{
 	public static int mxg;
 	public static int myg;
 	
+	private int Timer = 2;
+	
 	public static boolean firstwindowselected = false;
 	public static boolean secondwindowselected = false;
 	

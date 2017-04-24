@@ -60,8 +60,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	private boolean detonateButton = false;
 	
-	public int powerLevelUpgrade1 = 1;
-	public int powerLevelUpgrade2 = 2;
+	public int powerLevelUpgrade1 = 0;
+	public int powerLevelUpgrade2 = 0;
 	PowerUp powerup;
 	
 	private int changeDetonateCover = 0;
@@ -599,14 +599,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			menu.update();
 			if(Menu.mxg > 1470 && Menu.mxg < 1470 + 100){
 				if(Menu.myg > 750 && Menu.myg < 750 + 100){
-					if(changeDetonateCover <= 80){
-						changeDetonateCover+=20;
+					if(changeDetonateCover <= 50){
+						changeDetonateCover+=50;
 					}
 				}
 			}else{
 				if(!(Menu.myg > 750 && Menu.myg < 750 + 100)){
-					if(changeDetonateCover >= 20){
-						changeDetonateCover-=20;
+					if(changeDetonateCover >= 50){
+						changeDetonateCover-=50;
 					}
 				}
 			}
@@ -919,9 +919,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.setColor(new Color(50, 50, 50, 200));
 				g.fillRoundRect(815, 180, 500, 500, 100, 100);
 				g.fillRoundRect(287, 180, 500, 500, 100, 100);
-			}else{
-				//Menu.firstwindowselected=false;
-				//Menu.secondwindowselected=false;
 			}
 		}else if(gameState == STATE.Dead){
 				g.setColor(new Color(0,100,255));
