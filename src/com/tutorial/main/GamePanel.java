@@ -836,19 +836,34 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.drawString(s, WIDTH - (WIDTH/4) - length, HEIGHT/20);
 			}else if(player.getCurrentWeapon() == 4){
 				g.setColor(Color.WHITE);
-				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
-				g.drawString("Fire Laser", 715, 850);
-				g.drawString("Lasers Left: " + laserAmount, 1200, 40);
+				int fontSize = HEIGHT/30;
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, fontSize/*40*/));
+				String s = "Fire Laser";
+				int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				g.drawString(s, WIDTH/2 - length/2, HEIGHT - HEIGHT/25);
+				s = "Lasers Left: " + laserAmount;
+				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				g.drawString(s, WIDTH - (WIDTH/4) - length, HEIGHT/20);
 			}else if(player.getCurrentWeapon() == 5){
 				g.setColor(Color.WHITE);
-				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
-				g.drawString("Fire Canon", 715, 850);
-				g.drawString("Canons Left: " + canonAmount, 1200, 40);
+				int fontSize = HEIGHT/30;
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, fontSize/*40*/));
+				String s = "Fire Canon";
+				int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				g.drawString(s, WIDTH/2 - length/2, HEIGHT - HEIGHT/25);
+				s = "Canons Left: " + canonAmount;
+				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				g.drawString(s, WIDTH - (WIDTH/4) - length, HEIGHT/20);
 			}else if(player.getCurrentWeapon() == 6){
 				g.setColor(Color.WHITE);
-				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
-				g.drawString("Fire Bouncer", 715, 850);
-				g.drawString("Bouncers Left: " + bouncerAmount, 1200, 40);
+				int fontSize = HEIGHT/30;
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, fontSize/*40*/));
+				String s = "Fire Bouncer";
+				int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				g.drawString(s, WIDTH/2 - length/2, HEIGHT - HEIGHT/25);
+				s = "Bouncers Left: " + bouncerAmount;
+				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				g.drawString(s, WIDTH - (WIDTH/4) - length, HEIGHT/20);
 			}
 			for(int i = 0; i < bombs.size(); i++){
 				bombs.get(i).draw(g);
@@ -857,35 +872,35 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			for(int i = 0; i < player.getLives(); i++){
 				g.setColor(Color.WHITE);
 				g.setStroke(new BasicStroke(3));
-				g.fillOval((int) 25 + (25 * i), 20, 18, 18);
+				g.fillOval((int) WIDTH/64 + (WIDTH/64 * i), 20, WIDTH/89, WIDTH/89);
 				g.setColor(Color.WHITE.darker());
-				g.drawOval((int) 25 + (25 * i), 20, 18, 18);
+				g.drawOval((int) WIDTH/64 + (WIDTH/64 * i), 20, WIDTH/89, WIDTH/89);
 				g.setStroke(new BasicStroke(1));
 			}
-			g.setFont(new Font("Century Ghotic", Font.PLAIN, 18));
-			//g.drawString(String.valueOf(powerLevelUpgrade1), 10, 100);
-			//g.drawString(String.valueOf(powerLevelUpgrade2), 10, 120);
 			
 			//DrawPlayer Power
 			g.setColor(Color.YELLOW);
-			g.fillRect(25, 50, player.getPower() * 20, 20);
+			g.fillRect(WIDTH/64, WIDTH/32, player.getPower() * (WIDTH/80), (WIDTH/80));
 			g.setColor(Color.YELLOW.darker());
 			g.setStroke(new BasicStroke(2));
 			for(int i = 0; i < player.getRequiredPower(); i++){
-				g.drawRect(25 + 20*i, 50, 20, 20);
+				g.drawRect(WIDTH/64 + (WIDTH/80)*i, WIDTH/32, WIDTH/80, WIDTH/80);
 			}
 			g.setStroke(new BasicStroke(2));
 			//Draw Player Score
+			int fontSize = HEIGHT/25;
 			g.setColor(Color.WHITE);
-			g.setFont(new Font("Century Ghotic", Font.PLAIN, 30));
-			g.drawString("Score: " + player.getscore(), WIDTH - 180, 40);
+			g.setFont(new Font("Century Ghotic", Font.PLAIN, fontSize/*40*/));
+			String s = "Score: " + player.getscore();
+			int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+			g.drawString(s, WIDTH - (WIDTH/40) - length, HEIGHT/18);
 			
 			//Draw Slowdown
 			
 			if(slowDownTimer != 0){
 				g.setColor(Color.WHITE);
-				g.drawRect(20, 80, 100, 8);
-				g.fillRect(20, 80, (int)(100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);
+				g.drawRect(WIDTH/80, WIDTH/20, WIDTH/16, WIDTH/200);
+				g.fillRect(WIDTH/80, WIDTH/20, (int)(WIDTH/16 - (WIDTH/16 * slowDownTimerDiff / slowDownLength)), WIDTH/200);
 			}
 			if(powerLevelUpgrade1 != 0){
 				g.setColor(new Color(50, 50, 50, 200));
@@ -905,7 +920,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				image1=PowerUp2;
 			}
 			if(powerLevelUpgrade1 != 0){
-				g.drawImage(image1, 287, 180, null);
+				double imageheightwidth = WIDTH/3.2;
+				double space = WIDTH/80;
+				int widthdiv3pt2 = (int) ((int)WIDTH/3.2);
+				g.drawImage(image1, (int) (WIDTH/2 - imageheightwidth - space) , (HEIGHT/2)-(widthdiv3pt2/2), widthdiv3pt2, widthdiv3pt2, null);
 			}
 			
 			BufferedImage image2 = null;
@@ -922,9 +940,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				image2=PowerUp2;
 			}
 			if(powerLevelUpgrade2 != 0){
-				g.drawImage(image2, 815, 180, null);
+				double imageheightwidth = WIDTH/3.2;
+				double space = WIDTH/80;
+				int widthdiv3pt2 = (int) ((int)WIDTH/3.2);
+				g.drawImage(image2, (int) (WIDTH/2 + space), (HEIGHT/2)-(widthdiv3pt2/2), widthdiv3pt2, widthdiv3pt2, null);
 			}
-			if(Menu.firstwindowselected == true){
+			/*
+			TEMPORARILY DISABLED
+ 			if(Menu.firstwindowselected == true){
 				g.setColor(new Color(50, 50, 50, 200));
 				g.fillRoundRect(815, 180, 500, 500, 100, 100);
 			}else if(Menu.secondwindowselected == true){
@@ -934,17 +957,19 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.setColor(new Color(50, 50, 50, 200));
 				g.fillRoundRect(815, 180, 500, 500, 100, 100);
 				g.fillRoundRect(287, 180, 500, 500, 100, 100);
-			}
+			}*/
 		}else if(gameState == STATE.Dead){
 				g.setColor(new Color(0,100,255));
 				g.fillRect(0, 0, WIDTH, HEIGHT);
 				g.setColor(Color.WHITE);
-				g.setFont(new Font("Century Ghotic", Font.PLAIN, 40));
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/40));
 				String s = "- G A M E  O V E R -";
 				int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
-				g.drawString(s, WIDTH / 2 - length / 2, HEIGHT / 2 - 20);
-				g.setFont(new Font("Century Ghotic", Font.PLAIN, 14));
-				g.drawString("F I N A L  S C O R E = " + player.getscore(), WIDTH / 2 - 80, HEIGHT / 2 + 20);
+				g.drawString(s, WIDTH / 2 - length / 2, HEIGHT / 2 - WIDTH/80);
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/90));
+				s = "F I N A L  S C O R E = " + player.getscore();
+				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				g.drawString(s, WIDTH / 2 - length/2, HEIGHT / 2 + WIDTH/80);
 				
 		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect){
 			menu.draw(g);	
@@ -953,7 +978,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		if(paused == true){
 			g.setColor(new Color(50, 50, 50, 200));
 			g.fillRect(0, 0, WIDTH, HEIGHT);
-			g.setFont(new Font("Century Ghotic", Font.PLAIN, 40));
+			g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/40));
 			String s = "Game Paused";
 			int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
 			g.setColor(new Color(220, 220, 220));
