@@ -51,52 +51,47 @@ public class Enemy {
 		if(type == 1){
 			color1 = new Color(0,0,255,/*128*/ 128);
 			if(rank == 1){
-				speed = 3;
-				r = 14;
+				speed = GamePanel.WIDTH/533;
+				r = GamePanel.WIDTH/114;
 				health = 1;
 			}
 			if(rank == 2){
-				speed = 3;
-				r = 26;
+				speed = GamePanel.WIDTH/533;
+				r = GamePanel.WIDTH/61;
 				health = 2;
 			}
 			if(rank == 3){
-				speed = 2;
-				r = 50;
+				speed = GamePanel.WIDTH/800;
+				r = GamePanel.WIDTH/32;
 				health = 3;
 			}
 			if(rank == 4){
-				speed = 2;
-				r = 70;
+				speed = GamePanel.WIDTH/800;
+				r = GamePanel.WIDTH/23;
 				health = 4;
-			}
-			if(rank == 7){
-				speed = 3;
-				r = 8;
-				health = 1;
 			}
 		}
 		//stronger, faster deafult --- RED
 		if(type == 2){
 			color1 = new Color(255,0,0,128);
 			if(rank == 1){
-				speed = 4;
-				r = 14;
+				speed = GamePanel.WIDTH/400;
+				r = GamePanel.WIDTH/114;
 				health = 2;
 			}
 			if(rank == 2){
-				speed = 4;
-				r = 26;
+				speed = GamePanel.WIDTH/400;
+				r = GamePanel.WIDTH/63;
 				health = 3;
 			}
 			if(rank == 3){
-				speed = 3;
-				r = 50;
+				speed = GamePanel.WIDTH/533;
+				r = GamePanel.WIDTH/32;
 				health = 3;
 			}
 			if(rank == 4){
-				speed = 3;
-				r = 70;
+				speed = GamePanel.WIDTH/533;
+				r = GamePanel.WIDTH/23;
 				health = 4;
 			}
 		}
@@ -104,23 +99,23 @@ public class Enemy {
 		if(type == 3){
 			color1 = new Color(0,255,0,128);
 			if(rank == 1){
-				speed = 2;
-				r = 14;
+				speed = GamePanel.WIDTH/800;
+				r = GamePanel.WIDTH/114;
 				health = 5;
 			}
 			if(rank == 2){
-				speed = 2;
-				r = 34;
+				speed = GamePanel.WIDTH/800;
+				r = GamePanel.WIDTH/47;
 				health = 6;
 			}
 			if(rank == 3){
-				speed = 2;
-				r = 60;
+				speed = GamePanel.WIDTH/800;
+				r = GamePanel.WIDTH/27;
 				health = 7;
 			}
 			if(rank == 4){
-				speed = 2;
-				r = 100;
+				speed = GamePanel.WIDTH/800;
+				r = GamePanel.WIDTH/16;
 				health = 8;
 			}
 		}

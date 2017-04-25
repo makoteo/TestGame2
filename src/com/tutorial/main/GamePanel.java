@@ -872,9 +872,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			for(int i = 0; i < player.getLives(); i++){
 				g.setColor(Color.WHITE);
 				g.setStroke(new BasicStroke(3));
-				g.fillOval((int) WIDTH/64 + (WIDTH/64 * i), 20, WIDTH/89, WIDTH/89);
+				g.fillOval((int) WIDTH/64 + (WIDTH/64 * i), WIDTH/80, WIDTH/89, WIDTH/89);
 				g.setColor(Color.WHITE.darker());
-				g.drawOval((int) WIDTH/64 + (WIDTH/64 * i), 20, WIDTH/89, WIDTH/89);
+				g.drawOval((int) WIDTH/64 + (WIDTH/64 * i), WIDTH/80, WIDTH/89, WIDTH/89);
 				g.setStroke(new BasicStroke(1));
 			}
 			
@@ -959,7 +959,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.fillRoundRect(287, 180, 500, 500, 100, 100);
 			}*/
 		}else if(gameState == STATE.Dead){
-				g.setColor(new Color(0,100,255));
+				g.setColor(new Color(0,100,50));
 				g.fillRect(0, 0, WIDTH, HEIGHT);
 				g.setColor(Color.WHITE);
 				g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/40));

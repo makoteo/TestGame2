@@ -164,27 +164,27 @@ public class Menu extends MouseAdapter{
 	
 	public void draw(Graphics2D g){
 		if(gamepanel.gameState == STATE.Menu){
-			g.setColor(new Color(0,100,255));
+			g.setColor(new Color(0,100,50));
 			g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
-			g.setFont(new Font("Century Ghotic", Font.PLAIN, 120));
+			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/14));
 			g.setColor(Color.GRAY);
-			g.drawString("M E N U", 24, 104);
+			g.drawString("M E N U", GamePanel.WIDTH/66, GamePanel.WIDTH/15);
 			g.setColor(Color.WHITE);
-			g.drawString("M E N U", 20, 100);
+			g.drawString("M E N U", GamePanel.WIDTH/80, GamePanel.WIDTH/16);
 			g.setStroke(new BasicStroke(5));
-			g.setFont(new Font("Century Ghotic", Font.PLAIN, 60));
+			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/26));
 			g.setColor(color1);
-			g.drawRoundRect(-20, 120, 400, 100, 30, 30);
+			g.drawRoundRect(GamePanel.WIDTH/80, GamePanel.WIDTH/13, GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
 			g.drawString("Play", 100, 190);
 			g.setColor(color2);
-			g.drawRoundRect(-20, 240, 400, 100, 30, 30);
+			g.drawRoundRect(20, 240, 400, 100, 30, 30);
 			g.drawString("Characters", 30, 310);
 			g.setColor(Color.WHITE);
-			g.drawRoundRect(-20, 360, 400, 100, 30, 30);
+			g.drawRoundRect(20, 360, 400, 100, 30, 30);
 			g.drawString("Options", 60, 430);
 			g.setStroke(new BasicStroke(1));
 		}else if(gamepanel.gameState == STATE.CharSelect){
-			g.setColor(new Color(0,100,255));
+			g.setColor(new Color(0,100,50));
 			g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
 			
 		}

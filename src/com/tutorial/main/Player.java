@@ -57,11 +57,11 @@ public class Player {
 		this.gamepanel = gamepanel;
 		x = GamePanel.WIDTH / 2;
 		y = GamePanel.HEIGHT / 2;
-		r = 8;
+		r = GamePanel.WIDTH/200;
 		
 		dx = 0;
 		dy = 0;
-		speed = 8;
+		speed = GamePanel.WIDTH/200;
 		
 		lives = 3;
 		color1 = Color.WHITE;
@@ -263,7 +263,7 @@ public class Player {
 			g.setColor(color1.darker());
 			g.drawOval(x - r, y - r, 2*r, 2*r);
 			g.setStroke(new BasicStroke(1));
-			g.drawImage(GamePanel.Hats_Wizard, this.x-10, this.y-24, null);
+			g.drawImage(GamePanel.Hats_Wizard, this.x-(GamePanel.WIDTH/160), this.y-(GamePanel.WIDTH/67), GamePanel.WIDTH/80, GamePanel.WIDTH/80, null);
 		}
 	
 	}

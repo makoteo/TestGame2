@@ -29,19 +29,19 @@ public class PowerUp {
 		this.FadeTimer = FadeTimer;
 		if(type == 1){
 			color1 = new Color(255, 182, 193, alpha);
-			r = 5;
+			r = GamePanel.WIDTH/320;
 		}
 		if(type == 2){
 			color1 = new Color(255, 255, 0, alpha);
-			r = 5;
+			r = GamePanel.WIDTH/320;
 		}
 		if(type == 3){
 			color1 = new Color(255, 255, 0, alpha);
-			r = 7;
+			r = GamePanel.WIDTH/229;
 		}
 		if(type == 4){
 			color1 = new Color(255, 255, 255, alpha);
-			r = 5;
+			r = GamePanel.WIDTH/320;
 		}
 	}
 	

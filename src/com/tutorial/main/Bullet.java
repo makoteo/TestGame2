@@ -42,15 +42,15 @@ public class Bullet {
 		this.y = y;
 		this.type = type;
 		r = 3;
-		speed = 12;
+		speed = GamePanel.WIDTH/133;
 		if(this.type == 5){
-			this.speed=3;
+			this.speed=GamePanel.WIDTH/533;
 		}
 		if(this.type == 3){
-			this.speed=10;
+			this.speed=GamePanel.WIDTH/160;
 		}
 		if(this.type == 6){
-			this.speed=20;
+			this.speed=GamePanel.WIDTH/80;
 		}
 		rad = Math.toRadians(angle);
 		dx = Math.cos(rad) * speed;
@@ -91,13 +91,13 @@ public class Bullet {
 		}
 		if(type == 1){
 			color1=Color.WHITE;
-			r=3;
+			r=GamePanel.WIDTH/533;
 			GamePanel.setFiringDelay(200);
 		}
 		
 		if(type == 2){
 			color1=Color.RED;
-			r=5;
+			r=GamePanel.WIDTH/320;
 			if(GamePanel.getSlowDown() == false){
 				this.speed=12;
 			}else{
@@ -106,7 +106,7 @@ public class Bullet {
 		}
 		if(type == 3){
 			color1=Color.GREEN;
-			r=5;
+			r=GamePanel.WIDTH/320;
 			GamePanel.setFiringDelay(1500);
 		}
 		if(type == 4){
@@ -115,18 +115,18 @@ public class Bullet {
 		}
 		if(type == 5){
 			color1=Color.BLACK;
-			r=7;
+			r=GamePanel.WIDTH/229;
 			this.speed=1;
 			GamePanel.setFiringDelay(1500);
 		}
 		if(type == 6){
 			color1=Color.YELLOW;
-			r=3;
+			r=GamePanel.WIDTH/533;
 			GamePanel.setFiringDelay(200);
 		}
 		if(type == 7){
 			color1=Color.red;
-			r=3;
+			r=GamePanel.WIDTH/533;
 		}
 		if(this.type == 3){
 			for(int i = 0; i < GamePanel.enemies.size(); i++){
