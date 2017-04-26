@@ -89,6 +89,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static BufferedImage PowerUp2;
 	public static BufferedImage PowerUp3;
 	public static BufferedImage Hats_Wizard;
+	public static BufferedImage Hats_ClassicalHat;
 	public static BufferedImage DetonateButton_Unpressed;
 	public static BufferedImage DetonateButton_Pressed;
 	public static BufferedImage DetonateButton_Cover;
@@ -112,6 +113,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		PowerUp2 = ss.grabImage(500, 0, 500, 500);
 		PowerUp3 = ss.grabImage(1000, 0, 500, 500);
 		Hats_Wizard = ss.grabImage(1500, 0, 20, 20);
+		Hats_ClassicalHat = ss.grabImage(1540, 0, 20, 20);
 		DetonateButton_Unpressed = ss.grabImage(1900, 0, 120, 120);
 		DetonateButton_Pressed = ss.grabImage(2020, 0, 120, 120);
 		DetonateButton_Cover = ss.grabImage(1900, 120, 100, 100);
@@ -442,13 +444,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					double by = b.gety();
 					double br = 48;
 					if(b.gettype() == 1){
-						br = 48;
+						br = GamePanel.WIDTH/33;
 					}else if(b.gettype() == 2){
-						br = 63;
+						br = GamePanel.WIDTH/25;
 					}else if(b.gettype() == 3){
-						br = 148;
+						br =  GamePanel.WIDTH/11;
 					}else if(b.gettype() == 4){
-						br = 498;
+						br =  GamePanel.WIDTH/2;
 					}
 					
 					for(int j = 0; j < enemies.size(); j++){
@@ -1024,22 +1026,22 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private void addBomb(){
 		if(bombType == 1){
 			if(bombAmount > 0){
-				GamePanel.bombs.add(new Bomb(Menu.mxg - 7, Menu.myg + 7, 1, 1));
+				GamePanel.bombs.add(new Bomb(Menu.mxg-(WIDTH/25/9), Menu.myg+(HEIGHT/25/16), 1, 1));
 				bombAmount--;
 			}
 		}else if(bombType == 2){
 			if(bombAmount > 0){
-				GamePanel.bombs.add(new Bomb(Menu.mxg - 7, Menu.myg + 7, 2, 1));
+				GamePanel.bombs.add(new Bomb(Menu.mxg-(WIDTH/25/9), Menu.myg+(HEIGHT/25/16), 2, 1));
 				bombAmount-=1;
 			}
 		}else if(bombType == 3){
 			if(bombAmount > 0){
-				GamePanel.bombs.add(new Bomb(Menu.mxg - 7, Menu.myg + 7, 3, 1));
+				GamePanel.bombs.add(new Bomb(Menu.mxg-(WIDTH/25/9), Menu.myg+(HEIGHT/25/16), 3, 1));
 				bombAmount-=1;
 			}
 		}else if(bombType == 4){
 			if(bombAmount > 0){
-				GamePanel.bombs.add(new Bomb(Menu.mxg - 7, Menu.myg + 7, 4, 1));
+				GamePanel.bombs.add(new Bomb(Menu.mxg-(WIDTH/25/9), Menu.myg+(HEIGHT/25/16), 4, 1));
 				bombAmount-=1;
 			}
 		}

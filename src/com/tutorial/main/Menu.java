@@ -181,7 +181,7 @@ public class Menu extends MouseAdapter{
 			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/26));
 			g.setColor(color1);
 			g.drawRoundRect(GamePanel.WIDTH/80, GamePanel.WIDTH/13, GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
-			g.drawString("Play", 100, 190);
+			g.drawString("Play", GamePanel.WIDTH/13, (int) (GamePanel.WIDTH/8.5));
 			g.setColor(color2);
 			g.drawRoundRect(20, 240, 400, 100, 30, 30);
 			g.drawString("Characters", 30, 310);

@@ -59,13 +59,13 @@ public class Bomb {
 		}else{
 			g.setColor(new Color(red, green, 0, alpha));
 			if(this.type == 1){
-				g.fillOval((int)x - 93, (int)y - 105, 200, 200);
+				g.fillOval((int)x - GamePanel.WIDTH/17, (int)y - GamePanel.WIDTH/15, GamePanel.WIDTH/8, GamePanel.WIDTH/8);
 			}else if(this.type == 2){
-				g.fillOval((int)x - 123, (int)y - 135, 260, 260);
+				g.fillOval((int)x - GamePanel.WIDTH/13, (int)y - GamePanel.WIDTH/12, GamePanel.WIDTH/6, GamePanel.WIDTH/6);
 			}else if(this.type == 3){
-				g.fillOval((int)x - 293, (int)y - 300, 600, 600);
+				g.fillOval((int) ((int)x - GamePanel.WIDTH/5.8), (int) ((int)y - GamePanel.WIDTH/5.2), GamePanel.WIDTH/3, GamePanel.WIDTH/3);
 			}else if(this.type == 4){
-				g.fillOval((int)x - 2493, (int)y - 2505, 5000, 5000);
+				g.fillOval((int) ((int)x - GamePanel.WIDTH*1.56), (int) ((int)y - GamePanel.WIDTH*1.56), GamePanel.WIDTH*3, GamePanel.WIDTH*3);
 			}
 		}
 	}

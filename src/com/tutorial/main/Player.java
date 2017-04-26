@@ -263,7 +263,7 @@ public class Player {
 			g.setColor(color1.darker());
 			g.drawOval(x - r, y - r, 2*r, 2*r);
 			g.setStroke(new BasicStroke(1));
-			g.drawImage(GamePanel.Hats_Wizard, this.x-(GamePanel.WIDTH/160), this.y-(GamePanel.WIDTH/67), GamePanel.WIDTH/80, GamePanel.WIDTH/80, null);
+			g.drawImage(GamePanel.Hats_ClassicalHat, this.x-(GamePanel.WIDTH/160), this.y-(GamePanel.WIDTH/67), GamePanel.WIDTH/80, GamePanel.WIDTH/80, null);
 		}
 	
 	}
