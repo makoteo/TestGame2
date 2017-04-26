@@ -138,6 +138,12 @@ public class Player {
 	public boolean getFiring(){
 		return firing;
 	}
+	public long getFiringTimer(){
+		return firingTimer;
+	}
+	public void setFiringTimer(long l){
+		firingTimer = l;
+	}
 	public void update(){
 		if(left){
 			dx = -speed;
@@ -220,6 +226,7 @@ public class Player {
 						GamePanel.bullets.add(new Bullet(angle, x, y, 4));
 						gamepanel.setLaserAmount(gamepanel.getLaserAmount()-1);
 					}
+					
 				}else if(currentWeapon == 5){
 					if(gamepanel.getCanonAmount() > 0){
 						GamePanel.bullets.add(new Bullet(angle, x, y, 5));

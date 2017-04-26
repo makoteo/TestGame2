@@ -342,7 +342,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					double dy = by - ey;
 					double dist = Math.sqrt(dx * dx + dy*  dy);
 					if(b.getType()==4){
-						if(player.getFiring() == true){
+						if(b.getLaserTimer()>0){
 							if(!getCircleLineIntersectionPoint(new Point(player.getx(), player.gety()),
 							new Point(Menu.mxg, Menu.myg), new Point(e.getx(), e.gety()), e.getr()).isEmpty()){
 								if((e.getx() >= player.getx()) && (player.gety() >=  e.gety())){
@@ -361,7 +361,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 									if((Menu.mxg <= player.getx()) && (Menu.myg <=  e.gety())){
 										enemies.get(j).healthChange("-", 5);//5 is deadly
 									}
-								}
+								}break;
 							}
 						}
 					}else{
