@@ -965,7 +965,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				image2=PowerUp2;
 			}
 			if(powerLevelUpgrade2 != 0){
-				double imageheightwidth = WIDTH/3.2;
 				double space = WIDTH/80;
 				int widthdiv3pt2 = (int) ((int)WIDTH/3.2);
 				g.drawImage(image2, (int) (WIDTH/2 + space), (HEIGHT/2)-(widthdiv3pt2/2), widthdiv3pt2, widthdiv3pt2, null);

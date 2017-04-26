@@ -53,8 +53,9 @@ public class Bomb {
 		if(state == 1){
 			if(Player.currentWeapon == 2){
 				g.setColor(Color.RED);
-				g.setFont(new Font("Century Ghotic", Font.PLAIN, 20));
-				g.drawString("X",(int)x, (int)y);
+				int fontSize = GamePanel.HEIGHT/30;
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, fontSize/*40*/));
+				g.drawString("x",(int)x, (int)y);
 			}
 		}else{
 			g.setColor(new Color(red, green, 0, alpha));

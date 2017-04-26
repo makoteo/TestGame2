@@ -32,16 +32,16 @@ public class Menu extends MouseAdapter{
 		int mx = e.getX();
 		int my = e.getY();
 		if(gamepanel.gameState == STATE.Menu){
-			if(mouseOver(mx, my, -20, 120, 400, 100)){
+			if(mouseOver(mx, my, GamePanel.WIDTH/80, GamePanel.WIDTH/13, GamePanel.WIDTH/4, GamePanel.WIDTH/16)){
 				gamepanel.gameState = STATE.Game;
 			}
 			
-			if(mouseOver(mx, my, -20, 240, 400, 100)){
+			if(mouseOver(mx, my, GamePanel.WIDTH/80, (int) (GamePanel.WIDTH/6.5), GamePanel.WIDTH/4, GamePanel.WIDTH/16)){
 				gamepanel.gameState = STATE.CharSelect;
 			}
 		}else if(gamepanel.gameState == STATE.Game){
 			if(gamepanel.getDetonateButton()){
-				if(mouseOver(mx, my, 1470, 750, 100, 100)){
+				if(mouseOver(mx, my, GamePanel.WIDTH-(GamePanel.WIDTH/13)-(GamePanel.WIDTH/13/6), GamePanel.HEIGHT-(GamePanel.WIDTH/13)-(GamePanel.WIDTH/13/6), GamePanel.WIDTH/13, GamePanel.WIDTH/13)){
 					for(int i = 0; i < GamePanel.bombs.size(); i++){
 						pressingDetonate=true;
 						GamePanel.bombs.get(i).detonate();	
@@ -54,7 +54,11 @@ public class Menu extends MouseAdapter{
 				}
 			}
 			if(gamepanel.powerLevelUpgrade1 != 0 && gamepanel.powerLevelUpgrade2 != 0){
-				if(mouseOver(mx, my, 287, 180, 500, 500)){
+				double imageheightwidth = GamePanel.WIDTH/3.2;
+				double space = GamePanel.WIDTH/80;
+				int widthdiv3pt2 = (int) ((int)GamePanel.WIDTH/3.2);
+				
+				if(mouseOver(mx, my, (int) (GamePanel.WIDTH/2 - imageheightwidth - space) , (GamePanel.HEIGHT/2)-(widthdiv3pt2/2), widthdiv3pt2, widthdiv3pt2)){
 					
 					if(gamepanel.powerLevelUpgrade1 == 1){
 						//Refill Bullets
@@ -85,7 +89,7 @@ public class Menu extends MouseAdapter{
 					GamePanel.alpha = 255;
 					
 				}
-				else if(mouseOver(mx, my, 815, 180, 500, 500)){
+				else if(mouseOver(mx, my, (GamePanel.WIDTH/2 + (GamePanel.WIDTH/80)), (int) ((int) (GamePanel.HEIGHT/2)-((GamePanel.WIDTH/3.2)/2)), (int) (GamePanel.WIDTH/3.2), (int) (GamePanel.WIDTH/3.2))){
 					if(gamepanel.powerLevelUpgrade2 == 1){
 						//Refill Bullets
 						gamepanel.setBombAmount(gamepanel.getBombAmount() + 10);
@@ -129,13 +133,13 @@ public class Menu extends MouseAdapter{
 		mxg = mx;
 		myg = my;
 		
-		if(mouseOver(mx, my, -20, 120, 400, 100)){
+		if(mouseOver(mx, my, GamePanel.WIDTH/80, GamePanel.WIDTH/13, GamePanel.WIDTH/4, GamePanel.WIDTH/16)){
 			color1 = Color.GREEN;
 		}else{
 			color1 = Color.WHITE;
 		}
 		
-		if(mouseOver(mx, my, -20, 240, 400, 100)){
+		if(mouseOver(mx, my, GamePanel.WIDTH/80, (int) (GamePanel.WIDTH/6.5), GamePanel.WIDTH/4, GamePanel.WIDTH/16)){
 			color2 = Color.GREEN;
 		}else{
 			color2 = Color.WHITE;
@@ -181,13 +185,13 @@ public class Menu extends MouseAdapter{
 			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/26));
 			g.setColor(color1);
 			g.drawRoundRect(GamePanel.WIDTH/80, GamePanel.WIDTH/13, GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
-			g.drawString("Play", GamePanel.WIDTH/13, (int) (GamePanel.WIDTH/8.5));
+			g.drawString("Play", GamePanel.WIDTH/12, (int) (GamePanel.WIDTH/8.5));
 			g.setColor(color2);
-			g.drawRoundRect(20, 240, 400, 100, 30, 30);
-			g.drawString("Characters", 30, 310);
+			g.drawRoundRect(GamePanel.WIDTH/80, (int) (GamePanel.WIDTH/6.5), GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
+			g.drawString("Characters", GamePanel.WIDTH/25, (int) (GamePanel.WIDTH/5));
 			g.setColor(Color.WHITE);
-			g.drawRoundRect(20, 360, 400, 100, 30, 30);
-			g.drawString("Options", 60, 430);
+			g.drawRoundRect(GamePanel.WIDTH/80, (int) (GamePanel.WIDTH/4.4), GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
+			g.drawString("Options", GamePanel.WIDTH/18, (int) (GamePanel.WIDTH/3.7));
 			g.setStroke(new BasicStroke(1));
 		}else if(gamepanel.gameState == STATE.CharSelect){
 			g.setColor(new Color(0,100,50));
