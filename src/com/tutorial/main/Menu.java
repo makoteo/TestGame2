@@ -47,6 +47,7 @@ public class Menu extends MouseAdapter{
 						GamePanel.bombs.get(i).detonate();	
 					}
 					Player.currentWeapon = 1;
+					GamePanel.alpha = 255;
 					pressingDetonate=false;
 				}else{
 					pressingDetonate=false;
@@ -80,6 +81,9 @@ public class Menu extends MouseAdapter{
 					
 					gamepanel.powerLevelUpgrade1 = 0;
 					gamepanel.powerLevelUpgrade2 = 0;
+					
+					GamePanel.alpha = 255;
+					
 				}
 				else if(mouseOver(mx, my, 815, 180, 500, 500)){
 					if(gamepanel.powerLevelUpgrade2 == 1){
@@ -107,6 +111,8 @@ public class Menu extends MouseAdapter{
 					
 					gamepanel.powerLevelUpgrade1 = 0;
 					gamepanel.powerLevelUpgrade2 = 0;
+					
+					GamePanel.alpha = 255;
 				}
 			}
 		}

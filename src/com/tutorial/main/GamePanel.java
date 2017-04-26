@@ -54,9 +54,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private long slowDownTimerDiff;
 	private int slowDownLength = 10000;
 	
+	static boolean firePressed = false;
+	
 	private boolean dead;
 	
 	public static boolean bombExplode = false;
+	
+	public static int alpha = 0;
 	
 	private boolean detonateButton = false;
 	
@@ -339,7 +343,23 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 						if(player.getFiring() == true){
 							if(!getCircleLineIntersectionPoint(new Point(player.getx(), player.gety()),
 							new Point(Menu.mxg, Menu.myg), new Point(e.getx(), e.gety()), e.getr()).isEmpty()){
-								enemies.get(j).healthChange("-", 5);//5 is deadly
+								if((e.getx() >= player.getx()) && (player.gety() >=  e.gety())){
+									if((Menu.mxg >= player.getx()) && (Menu.myg <=  e.gety())){
+										enemies.get(j).healthChange("-", 5);//5 is deadly
+									}
+								}else if((e.getx() >= player.getx()) && (player.gety() <=  e.gety())){
+									if((Menu.mxg >= player.getx()) && (Menu.myg >=  e.gety())){
+										enemies.get(j).healthChange("-", 5);//5 is deadly
+									}
+								}else if((e.getx() <= player.getx()) && (player.gety() <=  e.gety())){
+									if((Menu.mxg <= player.getx()) && (Menu.myg >=  e.gety())){
+										enemies.get(j).healthChange("-", 5);//5 is deadly
+									}
+								}else if((e.getx() <= player.getx()) && (player.gety() >=  e.gety())){
+									if((Menu.mxg <= player.getx()) && (Menu.myg <=  e.gety())){
+										enemies.get(j).healthChange("-", 5);//5 is deadly
+									}
+								}
 							}
 						}
 					}else{
@@ -579,6 +599,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					
 					
 				}
+			}
+			if(alpha > 5){
+				alpha-=5;
 			}
 			
 			if(slowDownTimer != 0){
@@ -958,6 +981,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.fillRoundRect(815, 180, 500, 500, 100, 100);
 				g.fillRoundRect(287, 180, 500, 500, 100, 100);
 			}*/
+			g.setColor(new Color(255, 255, 255, alpha));
+			g.fillRect(0, 0, WIDTH, HEIGHT);
 		}else if(gameState == STATE.Dead){
 				g.setColor(new Color(0,100,50));
 				g.fillRect(0, 0, WIDTH, HEIGHT);
@@ -1107,6 +1132,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		}
 		if(keyCode == KeyEvent.VK_SPACE){
 			player.setFiring(true);
+			firePressed = true;
 			if(player.getCurrentWeapon() == 2){	
 				addBomb();
 			}

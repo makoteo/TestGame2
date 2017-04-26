@@ -83,10 +83,12 @@ public class Bullet {
 	public boolean update(){
 		if(this.type == 4){
 			if(this.LaserTimer > 0){
+				if(GamePanel.firePressed){
 					LaserTimer--;
-				
+				}
 			}else{
 				GamePanel.setPlFiring(false);
+				GamePanel.firePressed = false;
 			}
 		}
 		if(type == 1){
