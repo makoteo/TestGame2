@@ -1050,16 +1050,42 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		g2.drawImage(image, 0, 0, null);
 		g2.dispose();
 	}
+	private void createWave(int levelhardness, int enemysize, int sizeamount, int amount){
+		if(levelhardness <= 1){
+			for(int i = 0; i < amount; i++){
+				if(sizeamount > 0){
+					Random r = new Random();
+					enemies.add(new Enemy(1, enemysize));
+					sizeamount--;
+				}else{
+					enemies.add(new Enemy(1, enemysize-1));
+				}
+			}
+		}else if(levelhardness <= 2){
+			for(int i = 0; i < amount; i++){
+				if(sizeamount > 0){
+					Random r = new Random();
+				
+					int x = r.nextInt(2) + 1;
+					enemies.add(new Enemy(x, enemysize));
+					sizeamount--;
+				}else{
+					Random r = new Random();
+				
+					int x = r.nextInt(2) + 1;
+					enemies.add(new Enemy(x, enemysize-1));
+				}
+			}
+		}else if(levelhardness <= 3){
+			
+		}else if(levelhardness <= 4){
+			
+		}
+	}
 	private void createNewEnemies(){
 		enemies.clear();
-		
 		if(waveNumber == 1){
-			for(int i = 0; i < 2; i++){
-				enemies.add(new Enemy(1,1));
-			}
-			for(int i = 0; i < 2; i++){
-				enemies.add(new Enemy(1,2));
-			}
+			createWave(1, 2, 2, 4);
 		}
 		if(waveNumber == 2){
 			for(int i = 0; i < 1; i++){
