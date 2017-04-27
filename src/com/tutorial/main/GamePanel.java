@@ -361,7 +361,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 									if((Menu.mxg <= player.getx()) && (Menu.myg <=  e.gety())){
 										enemies.get(j).healthChange("-", 5);//5 is deadly
 									}
-								}break;
+								}
 							}
 						}
 					}else{
