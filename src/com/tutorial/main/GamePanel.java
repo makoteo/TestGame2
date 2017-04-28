@@ -74,6 +74,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	public int bombType = 1;
 	
+	double hardness;
+	double size;
+	double sizeamount;
+	double totalamount;
+	
 	public enum STATE {
 		Menu,
 		Game,
@@ -1050,15 +1055,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		g2.drawImage(image, 0, 0, null);
 		g2.dispose();
 	}
-	private void createWave(int levelhardness, int enemysize, int sizeamount, int amount){
+	private void createWave(double levelhardness, double enemysize, double sizeamount, double amount){
 		if(levelhardness <= 1){
 			for(int i = 0; i < amount; i++){
 				if(sizeamount > 0){
-					Random r = new Random();
-					enemies.add(new Enemy(1, enemysize));
+					enemies.add(new Enemy(1, (int)enemysize));
 					sizeamount--;
 				}else{
-					enemies.add(new Enemy(1, enemysize-1));
+					enemies.add(new Enemy(1, (int)enemysize-1));
 				}
 			}
 		}else if(levelhardness <= 2){
@@ -1067,78 +1071,57 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					Random r = new Random();
 				
 					int x = r.nextInt(2) + 1;
-					enemies.add(new Enemy(x, enemysize));
+					enemies.add(new Enemy(x, (int)enemysize));
 					sizeamount--;
 				}else{
 					Random r = new Random();
 				
 					int x = r.nextInt(2) + 1;
-					enemies.add(new Enemy(x, enemysize-1));
+					enemies.add(new Enemy(x, (int)enemysize-1));
 				}
 			}
 		}else if(levelhardness <= 3){
-			
+			for(int i = 0; i < amount; i++){
+				if(sizeamount > 0){
+					Random r = new Random();
+				
+					int x = r.nextInt(3) + 1;
+					enemies.add(new Enemy(x, (int)enemysize));
+					sizeamount--;
+				}else{
+					Random r = new Random();
+				
+					int x = r.nextInt(3) + 1;
+					enemies.add(new Enemy(x, (int)enemysize-1));
+				}
+			}
 		}else if(levelhardness <= 4){
-			
+			for(int i = 0; i < amount; i++){
+				if(sizeamount > 0){
+					Random r = new Random();
+				
+					int x = r.nextInt(3) + 2;
+					enemies.add(new Enemy(x, (int)enemysize));
+					sizeamount--;
+				}else{
+					Random r = new Random();
+				
+					int x = r.nextInt(3) + 2;
+					enemies.add(new Enemy(x, (int)enemysize-1));
+				}
+			}
 		}
 	}
 	private void createNewEnemies(){
 		enemies.clear();
-		if(waveNumber == 1){
-			createWave(1, 2, 2, 4);
+		hardness = Math.ceil(((waveNumber*0.1)+0.90));
+		size = Math.ceil((waveNumber*0.1)+1);
+		totalamount = Math.ceil((waveNumber*0.2)+2);
+		sizeamount = Math.ceil(((int) (waveNumber*0.1)+0.5));
+		if((waveNumber % 25) == 0){
+			hardness = 4;
 		}
-		if(waveNumber == 2){
-			for(int i = 0; i < 1; i++){
-				enemies.add(new Enemy(2,1));
-			}
-			for(int i = 0; i < 3; i++){
-				enemies.add(new Enemy(1,1));
-			}
-			for(int i = 0; i < 2; i++){
-				enemies.add(new Enemy(1,2));
-			}
-		}
-		if(waveNumber == 3){
-			enemies.add(new Enemy(1,3));
-			enemies.add(new Enemy(2,3));
-			enemies.add(new Enemy(1,4));
-		}
-		if(waveNumber == 4){
-			enemies.add(new Enemy(2,3));
-			enemies.add(new Enemy(3,2));
-			enemies.add(new Enemy(1,4));
-		}
-		if(waveNumber == 5){
-			enemies.add(new Enemy(2,4));
-			enemies.add(new Enemy(3,3));
-			enemies.add(new Enemy(1,4));
-		}
-		if(waveNumber == 6){
-			enemies.add(new Enemy(3,3));
-			enemies.add(new Enemy(3,3));
-			enemies.add(new Enemy(3,4));
-		}
-		if(waveNumber == 7){
-			enemies.add(new Enemy(2,3));
-			enemies.add(new Enemy(2,3));
-			enemies.add(new Enemy(3,4));
-		}
-		if(waveNumber == 8){
-			enemies.add(new Enemy(3,3));
-			enemies.add(new Enemy(2,3));
-			enemies.add(new Enemy(3,4));
-		}
-		if(waveNumber == 9){
-			enemies.add(new Enemy(2,3));
-			enemies.add(new Enemy(2,3));
-			enemies.add(new Enemy(3,4));
-		}
-		if(waveNumber == 10){
-			enemies.add(new Enemy(3,3));
-			enemies.add(new Enemy(3,3));
-			enemies.add(new Enemy(3,4));
-		}
-		
+		createWave(hardness, size, sizeamount, totalamount);
 	}
 	public void keyTyped(KeyEvent key){
 		
