@@ -39,7 +39,13 @@ public class Enemy {
 	
 	private int id = 0;
 	
-	
+	//TRAITS
+	/*
+	Speed
+	Health
+	HealthRegen
+	Size
+	 */
 	//CONSTRUCTOR
 	
 	public Enemy(int type, int rank){

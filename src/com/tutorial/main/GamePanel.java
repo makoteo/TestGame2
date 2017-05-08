@@ -93,11 +93,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static BufferedImage PowerUp1;
 	public static BufferedImage PowerUp2;
 	public static BufferedImage PowerUp3;
+	public static BufferedImage PowerUpBlackOut;
 	public static BufferedImage Hats_Wizard;
 	public static BufferedImage Hats_ClassicalHat;
 	public static BufferedImage DetonateButton_Unpressed;
 	public static BufferedImage DetonateButton_Pressed;
 	public static BufferedImage DetonateButton_Cover;
+	public static BufferedImage CharSetBox;
 	
 	public static int EnemyId = 1;
 	//CONSTRUCTOR
@@ -117,11 +119,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		PowerUp1 = ss.grabImage(0, 0, 500, 500);
 		PowerUp2 = ss.grabImage(500, 0, 500, 500);
 		PowerUp3 = ss.grabImage(1000, 0, 500, 500);
+		PowerUpBlackOut = ss.grabImage(0, 500, 500, 500);
 		Hats_Wizard = ss.grabImage(1500, 0, 20, 20);
 		Hats_ClassicalHat = ss.grabImage(1540, 0, 20, 20);
 		DetonateButton_Unpressed = ss.grabImage(1900, 0, 120, 120);
 		DetonateButton_Pressed = ss.grabImage(2020, 0, 120, 120);
 		DetonateButton_Cover = ss.grabImage(1900, 120, 100, 100);
+		CharSetBox = ss.grabImage(1500, 20, 400, 300);
+		
 	}
 	
 	
@@ -219,7 +224,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			}
 		}
 		
-		//System.out.println(GamePanel.bullets.size());
 		if(bombs.size() > 0){
 			detonateButton = true;
 		}else{
@@ -974,36 +978,42 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				int widthdiv3pt2 = (int) ((int)WIDTH/3.2);
 				g.drawImage(image2, (int) (WIDTH/2 + space), (HEIGHT/2)-(widthdiv3pt2/2), widthdiv3pt2, widthdiv3pt2, null);
 			}
-			/*
-			TEMPORARILY DISABLED
  			if(Menu.firstwindowselected == true){
-				g.setColor(new Color(50, 50, 50, 200));
-				g.fillRoundRect(815, 180, 500, 500, 100, 100);
+ 				double imageheightwidth = WIDTH/3.2;
+				double space = WIDTH/80;
+				int widthdiv3pt2 = (int) ((int)WIDTH/3.2);
+				g.drawImage(PowerUpBlackOut, (int) (WIDTH/2 + space), (HEIGHT/2)-(widthdiv3pt2/2), widthdiv3pt2, widthdiv3pt2, null);
 			}else if(Menu.secondwindowselected == true){
-				g.setColor(new Color(50, 50, 50, 200));
-				g.fillRoundRect(287, 180, 500, 500, 100, 100);
+				double space = WIDTH/80;
+				double imageheightwidth = WIDTH/3.2;
+				int widthdiv3pt2 = (int) ((int)WIDTH/3.2);
+				g.drawImage(PowerUpBlackOut, (int) (WIDTH/2 - imageheightwidth - space) , (HEIGHT/2)-(widthdiv3pt2/2), widthdiv3pt2, widthdiv3pt2, null);
 			}else if(Menu.secondwindowselected == false && Menu.firstwindowselected == false && powerLevelUpgrade1 != 0 && powerLevelUpgrade2 != 0){
-				g.setColor(new Color(50, 50, 50, 200));
-				g.fillRoundRect(815, 180, 500, 500, 100, 100);
-				g.fillRoundRect(287, 180, 500, 500, 100, 100);
-			}*/
+				double imageheightwidth = WIDTH/3.2;
+				double space = WIDTH/80;
+				int widthdiv3pt2 = (int) ((int)WIDTH/3.2);
+				g.drawImage(PowerUpBlackOut, (int) (WIDTH/2 - imageheightwidth - space) , (HEIGHT/2)-(widthdiv3pt2/2), widthdiv3pt2, widthdiv3pt2, null);
+				space = WIDTH/80;
+				widthdiv3pt2 = (int) ((int)WIDTH/3.2);
+				g.drawImage(PowerUpBlackOut, (int) (WIDTH/2 + space), (HEIGHT/2)-(widthdiv3pt2/2), widthdiv3pt2, widthdiv3pt2, null);
+			}else if(Menu.secondwindowselected == false && Menu.firstwindowselected == false && powerLevelUpgrade1 != 0 && powerLevelUpgrade2 != 0){
 			g.setColor(new Color(255, 255, 255, alpha));
 			g.fillRect(0, 0, WIDTH, HEIGHT);
+			}
 		}else if(gameState == STATE.Dead){
 				g.setColor(new Color(0,100,50));
 				g.fillRect(0, 0, WIDTH, HEIGHT);
 				g.setColor(Color.WHITE);
 				g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/40));
 				String s = "- G A M E  O V E R -";
-				int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				long length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
 				g.drawString(s, WIDTH / 2 - length / 2, HEIGHT / 2 - WIDTH/80);
 				g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/90));
 				s = "F I N A L  S C O R E = " + player.getscore();
 				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
 				g.drawString(s, WIDTH / 2 - length/2, HEIGHT / 2 + WIDTH/80);
-				
 		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect){
-			menu.draw(g);	
+			menu.draw(g);
 		}
 		
 		if(paused == true){
@@ -1011,7 +1021,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			g.fillRect(0, 0, WIDTH, HEIGHT);
 			g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/40));
 			String s = "Game Paused";
-			int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+			long length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
 			g.setColor(new Color(220, 220, 220));
 			g.drawString(s, WIDTH / 2 - length / 2, HEIGHT / 2);
 		}
@@ -1077,7 +1087,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					Random r = new Random();
 				
 					int x = r.nextInt(2) + 1;
-					enemies.add(new Enemy(x, (int)enemysize-1));
+					Random r1 = new Random();
+					
+					int changeinsize = r1.nextInt((int) enemysize-1) + 1;
+					enemies.add(new Enemy(x, (int)enemysize-changeinsize));
 				}
 			}
 		}else if(levelhardness <= 3){
@@ -1092,7 +1105,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					Random r = new Random();
 				
 					int x = r.nextInt(3) + 1;
-					enemies.add(new Enemy(x, (int)enemysize-1));
+					Random r1 = new Random();
+					
+					int changeinsize = r1.nextInt((int) enemysize-1) + 1;
+					enemies.add(new Enemy(x, (int)enemysize-changeinsize));
 				}
 			}
 		}else if(levelhardness <= 4){
@@ -1107,20 +1123,20 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					Random r = new Random();
 				
 					int x = r.nextInt(3) + 2;
-					enemies.add(new Enemy(x, (int)enemysize-1));
+					Random r1 = new Random();
+					
+					int changeinsize = r1.nextInt((int) enemysize-1) + 1;
+					enemies.add(new Enemy(x, (int)enemysize-changeinsize));
 				}
 			}
 		}
 	}
 	private void createNewEnemies(){
 		enemies.clear();
-		hardness = Math.ceil(((waveNumber*0.1)+0.90));
+		hardness = Math.ceil(((waveNumber*0.15)+0.85));
 		size = Math.ceil((waveNumber*0.1)+1);
 		totalamount = Math.ceil((waveNumber*0.2)+2);
-		sizeamount = Math.ceil(((int) (waveNumber*0.1)+0.5));
-		if((waveNumber % 25) == 0){
-			hardness = 4;
-		}
+		sizeamount = Math.ceil(((int) (waveNumber*0.05)+0.8));
 		createWave(hardness, size, sizeamount, totalamount);
 	}
 	public void keyTyped(KeyEvent key){

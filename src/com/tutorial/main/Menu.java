@@ -196,6 +196,8 @@ public class Menu extends MouseAdapter{
 		}else if(gamepanel.gameState == STATE.CharSelect){
 			g.setColor(new Color(0,100,50));
 			g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+			int length = GamePanel.WIDTH/4;
+			g.drawImage(GamePanel.CharSetBox, GamePanel.WIDTH/3-length, 0, 400, 300, null);
 			
 		}
 	
