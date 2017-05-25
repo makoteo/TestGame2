@@ -184,20 +184,20 @@ public class Menu extends MouseAdapter{
 			g.setStroke(new BasicStroke(5));
 			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/26));
 			g.setColor(color1);
-			g.drawRoundRect(GamePanel.WIDTH/80, GamePanel.WIDTH/13, GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
-			g.drawString("Play", GamePanel.WIDTH/12, (int) (GamePanel.WIDTH/8.5));
+			g.drawRoundRect(GamePanel.WIDTH/80, (int) (GamePanel.HEIGHT/7.5), GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
+			g.drawString("Play", GamePanel.WIDTH/12, (int) (GamePanel.HEIGHT/4.7));
 			g.setColor(color2);
-			g.drawRoundRect(GamePanel.WIDTH/80, (int) (GamePanel.WIDTH/6.5), GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
-			g.drawString("Characters", GamePanel.WIDTH/25, (int) (GamePanel.WIDTH/5));
+			g.drawRoundRect(GamePanel.WIDTH/80, (int) (GamePanel.HEIGHT/7.5 + GamePanel.WIDTH/16 + GamePanel.WIDTH/64), GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
+			g.drawString("Characters", GamePanel.WIDTH/25, (int) (GamePanel.HEIGHT/2.8));
 			g.setColor(Color.WHITE);
-			g.drawRoundRect(GamePanel.WIDTH/80, (int) (GamePanel.WIDTH/4.4), GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
-			g.drawString("Options", GamePanel.WIDTH/18, (int) (GamePanel.WIDTH/3.7));
+			g.drawRoundRect(GamePanel.WIDTH/80, (int) (GamePanel.HEIGHT/7.5 + GamePanel.WIDTH/16 + GamePanel.WIDTH/64 + GamePanel.WIDTH/16 + GamePanel.WIDTH/64), GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
+			g.drawString("Options", GamePanel.WIDTH/18, (int) (GamePanel.HEIGHT/2));
 			g.setStroke(new BasicStroke(1));
 		}else if(gamepanel.gameState == STATE.CharSelect){
 			g.setColor(new Color(0,100,50));
 			g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
 			int length = GamePanel.WIDTH/4;
-			g.drawImage(GamePanel.CharSetBox, GamePanel.WIDTH/3-length, 0, 400, 300, null);
+			//g.fillRoundRect(x, y, width, height, arcWidth, arcHeight);
 			
 		}
 	

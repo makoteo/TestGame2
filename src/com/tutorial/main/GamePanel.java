@@ -380,14 +380,36 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 									bx=bullets.get(i).getx();
 									by=bullets.get(i).gety();
 									enemies.get(j).healthChange("-", 5);//5 is deadly
-									GamePanel.bullets.add(new Bullet(0/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by, 7));
-									GamePanel.bullets.add(new Bullet(45/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by + 5, 7));
-									GamePanel.bullets.add(new Bullet(90/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by + 5, 7));
-									GamePanel.bullets.add(new Bullet(135/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by + 5, 7));
-									GamePanel.bullets.add(new Bullet(180/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by, 7));
-									GamePanel.bullets.add(new Bullet(225/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by - 5, 7));
-									GamePanel.bullets.add(new Bullet(270/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by - 5, 7));
-									GamePanel.bullets.add(new Bullet(315/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by + 5, 7));
+									//GamePanel.bullets.add(new Bullet(0/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by, 7));
+									//GamePanel.bullets.add(new Bullet(45/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by + 5, 7));
+									//GamePanel.bullets.add(new Bullet(90/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by + 5, 7));
+									//GamePanel.bullets.add(new Bullet(135/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by + 5, 7));
+									//GamePanel.bullets.add(new Bullet(180/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by, 7));
+									//GamePanel.bullets.add(new Bullet(225/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by - 5, 7));
+									//GamePanel.bullets.add(new Bullet(270/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by - 5, 7));
+									//GamePanel.bullets.add(new Bullet(315/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by + 5, 7));
+									int numOfBullets = 8;
+									for(int a = 0; a < numOfBullets; a++){
+										int angle = (360/numOfBullets) * a;
+										if(angle <= 45){
+											GamePanel.bullets.add(new Bullet(angle, (int)bx + 5, (int)by, 7));
+										}else if(angle <= 90){
+											GamePanel.bullets.add(new Bullet(angle, (int)bx + 5, (int)by + 5, 7));
+										}else if(angle <= 135){
+											GamePanel.bullets.add(new Bullet(angle, (int)bx, (int)by + 5, 7));
+										}else if(angle <= 180){
+											GamePanel.bullets.add(new Bullet(angle, (int)bx - 5, (int)by + 5, 7));
+										}else if(angle <= 225){
+											GamePanel.bullets.add(new Bullet(angle, (int)bx - 5, (int)by, 7));
+										}else if(angle <= 270){
+											GamePanel.bullets.add(new Bullet(angle, (int)bx - 5, (int)by - 5, 7));
+										}else if(angle <= 315){
+											GamePanel.bullets.add(new Bullet(angle, (int)bx, (int)by - 5, 7));
+										}else if(angle <= 360){
+											GamePanel.bullets.add(new Bullet(angle, (int)bx + 5, (int)by + 5, 7));
+										}
+										
+									}
 									bullets.remove(i);
 									i--;
 								}else if(bullets.get(i).getType()==3){
