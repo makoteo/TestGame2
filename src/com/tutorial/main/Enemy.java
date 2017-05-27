@@ -1,6 +1,7 @@
 package com.tutorial.main;
 
 import java.awt.*;
+import java.util.Random;
 
 import com.tutorial.main.Player.SHOOTERTYPE;
 
@@ -39,19 +40,36 @@ public class Enemy {
 	
 	private int id = 0;
 	
+	private int rand;
 	//TRAITS
-	/*
-	Speed
-	Health
-	HealthRegen
-	Size
-	 */
+
+	private int Speedtrait = 1;
+	private int Healthtrait = 1;
+	private int Sizetrait = 1;
 	//CONSTRUCTOR
 	
-	public Enemy(int type, int rank){
+	public Enemy(int type, int rank, int traitchance){
 		
 		this.type = type;//The type variable is equal to the variable the programmer inputs into the constructor
 		this.rank = rank;
+		Random ra = new Random();
+		
+		this.Speedtrait = 1;
+		this.Healthtrait = 1;
+		this.Sizetrait = 1;
+		
+		this.rand = ra.nextInt(100) + 1;
+		if(traitchance>=rand){
+			Random ra1 = new Random();
+			int rand1 = ra1.nextInt(3) + 1;
+			if(rand1==1){
+				this.Speedtrait=2;
+			}else if(rand1==2){
+				this.Healthtrait=2;
+			}else{
+				this.Sizetrait=2;
+			}
+		}
 		
 		//deafult enemy  --- BLUE
 		if(type == 1){
@@ -125,15 +143,16 @@ public class Enemy {
 				health = 8;
 			}
 		}
-		
+		this.r = r*Sizetrait;
+		this.health = health*Healthtrait;
 		x = Math.random() * GamePanel.WIDTH / 2 + GamePanel.WIDTH / 4;
 		y = -r;
 		
 		double angle = Math.random() * 140 + 20;
 		rad = Math.toRadians(angle);
 		if(this.Timer < 1){
-			dx = Math.cos(rad) * speed;
-			dy = Math.sin(rad) * speed;
+			dx = Math.cos(rad) * (speed * this.Speedtrait);
+			dy = Math.sin(rad) * (speed * this.Speedtrait);
 		}
 		ready = false;
 		dead = false;
@@ -209,7 +228,7 @@ public class Enemy {
 			}
 			for(int i = 0; i < amount; i++){
 				
-				Enemy e = new Enemy(getType(), getRank() - 1);
+				Enemy e = new Enemy(getType(), getRank() - 1, getTraitChance()-10);
 				e.x = this.x;
 				e.y = this.y;
 				GamePanel.EnemyId += 1;
@@ -228,6 +247,10 @@ public class Enemy {
 		}
 		
 	}
+	private int getTraitChance() {
+		return this.rand;
+	}
+
 	public void setTimer(int i){
 		this.Timer = i;
 	}

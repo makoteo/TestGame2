@@ -171,75 +171,76 @@ public class Player {
 		//Firing
 		
 		if(firing){
-			long elapsed = (System.nanoTime() - firingTimer) / 1000000;
-			if(elapsed > getFiringDelay()){
-				firingTimer = System.nanoTime();
-				
-				//System.out.println(Menu.mxg);
-				//System.out.println(Menu.myg);
-				int px = getx();
-				int py = gety();
-
-				double angle = (180 - 90 -(Math.toDegrees(Math.atan((double)Math.abs(Menu.mxg - px) / ((double)Math.abs(Menu.myg - py))))));
-				//System.out.println(Math.abs(Menu.mxg - px) + "///" + Math.abs(Menu.myg - py));
-				
-				if((Menu.mxg >= px) && (py >= Menu.myg)){
-					angle = 360 - angle;
-				}else if((Menu.mxg >= px) && (py <= Menu.myg)){
+			if(!recovering){
+				long elapsed = (System.nanoTime() - firingTimer) / 1000000;
+				if(elapsed > getFiringDelay()){
+					firingTimer = System.nanoTime();
 					
-				}else if((Menu.mxg <= px) && (py <= Menu.myg)){
-					angle = 180 - angle;
-				}else if((Menu.mxg <= px) && (py >= Menu.myg)){
-					angle = 180 + angle;
-				}
-				if(currentWeapon == 1){
-					if(shooterType == SHOOTERTYPE.oneGun){
-						GamePanel.bullets.add(new Bullet(angle, x, y,  1));
-					}
-					else if(shooterType == SHOOTERTYPE.twoGun){
-						int bulletGap = 100;
-						int nx1 = (int)(x + ((double)Math.cos(Math.toRadians(angle + bulletGap)) * 5));
-						int ny1 = (int)(y + ((double)Math.sin(Math.toRadians(angle + bulletGap)) * 5));	
-						int nx2 = (int)(x + ((double)Math.cos(Math.toRadians(angle - bulletGap)) * 5));
-						int ny2 = (int)(y + ((double)Math.sin(Math.toRadians(angle - bulletGap)) * 5));	
+					//System.out.println(Menu.mxg);
+					//System.out.println(Menu.myg);
+					int px = getx();
+					int py = gety();
+	
+					double angle = (180 - 90 -(Math.toDegrees(Math.atan((double)Math.abs(Menu.mxg - px) / ((double)Math.abs(Menu.myg - py))))));
+					//System.out.println(Math.abs(Menu.mxg - px) + "///" + Math.abs(Menu.myg - py));
+					
+					if((Menu.mxg >= px) && (py >= Menu.myg)){
+						angle = 360 - angle;
+					}else if((Menu.mxg >= px) && (py <= Menu.myg)){
 						
-						GamePanel.bullets.add(new Bullet(angle/*90 = down || 0 = right || 180 = left*/, nx1, ny1, 1));
-						GamePanel.bullets.add(new Bullet(angle/*90 = down || 0 = right || 180 = left*/, nx2, ny2, 1));
+					}else if((Menu.mxg <= px) && (py <= Menu.myg)){
+						angle = 180 - angle;
+					}else if((Menu.mxg <= px) && (py >= Menu.myg)){
+						angle = 180 + angle;
 					}
-					else if(shooterType == SHOOTERTYPE.threeGun){   
-						int bulletGap = 100;
-						int nx1 = (int)(x + ((double)Math.cos(Math.toRadians(angle + bulletGap)) * 5));
-						int ny1 = (int)(y + ((double)Math.sin(Math.toRadians(angle + bulletGap)) * 5));	
-						int nx2 = (int)(x + ((double)Math.cos(Math.toRadians(angle - bulletGap)) * 5));
-						int ny2 = (int)(y + ((double)Math.sin(Math.toRadians(angle - bulletGap)) * 5));	
-						GamePanel.bullets.add(new Bullet(angle+5/*90 = down || 0 = right || 180 = left*/, nx1, ny1, 1));
-						GamePanel.bullets.add(new Bullet(angle-5/*90 = down || 0 = right || 180 = left*/, nx2, ny2, 1));
-						GamePanel.bullets.add(new Bullet(angle/*90 = down || 0 = right || 180 = left*/, x, y, 1));
+					if(currentWeapon == 1){
+						if(shooterType == SHOOTERTYPE.oneGun){
+							GamePanel.bullets.add(new Bullet(angle, x, y,  1));
+						}
+						else if(shooterType == SHOOTERTYPE.twoGun){
+							int bulletGap = 100;
+							int nx1 = (int)(x + ((double)Math.cos(Math.toRadians(angle + bulletGap)) * 5));
+							int ny1 = (int)(y + ((double)Math.sin(Math.toRadians(angle + bulletGap)) * 5));	
+							int nx2 = (int)(x + ((double)Math.cos(Math.toRadians(angle - bulletGap)) * 5));
+							int ny2 = (int)(y + ((double)Math.sin(Math.toRadians(angle - bulletGap)) * 5));	
+							
+							GamePanel.bullets.add(new Bullet(angle/*90 = down || 0 = right || 180 = left*/, nx1, ny1, 1));
+							GamePanel.bullets.add(new Bullet(angle/*90 = down || 0 = right || 180 = left*/, nx2, ny2, 1));
+						}
+						else if(shooterType == SHOOTERTYPE.threeGun){   
+							int bulletGap = 100;
+							int nx1 = (int)(x + ((double)Math.cos(Math.toRadians(angle + bulletGap)) * 5));
+							int ny1 = (int)(y + ((double)Math.sin(Math.toRadians(angle + bulletGap)) * 5));	
+							int nx2 = (int)(x + ((double)Math.cos(Math.toRadians(angle - bulletGap)) * 5));
+							int ny2 = (int)(y + ((double)Math.sin(Math.toRadians(angle - bulletGap)) * 5));	
+							GamePanel.bullets.add(new Bullet(angle+5/*90 = down || 0 = right || 180 = left*/, nx1, ny1, 1));
+							GamePanel.bullets.add(new Bullet(angle-5/*90 = down || 0 = right || 180 = left*/, nx2, ny2, 1));
+							GamePanel.bullets.add(new Bullet(angle/*90 = down || 0 = right || 180 = left*/, x, y, 1));
+						}
+					}else if(currentWeapon == 3){
+						if(gamepanel.getRocketAmount() > 0){
+							GamePanel.bullets.add(new Bullet(angle, x, y, 3));
+							gamepanel.setRocketAmount(gamepanel.getRocketAmount()-1);
+						}
+					}else if(currentWeapon == 4){
+						if(gamepanel.getLaserAmount() > 0){
+							GamePanel.bullets.add(new Bullet(angle, x, y, 4));
+							gamepanel.setLaserAmount(gamepanel.getLaserAmount()-1);
+						}
+						
+					}else if(currentWeapon == 5){
+						if(gamepanel.getCanonAmount() > 0){
+							GamePanel.bullets.add(new Bullet(angle, x, y, 5));
+							gamepanel.setCanonAmount(gamepanel.getCanonAmount()-1);
+						}
 					}
-				}else if(currentWeapon == 3){
-					if(gamepanel.getRocketAmount() > 0){
-						GamePanel.bullets.add(new Bullet(angle, x, y, 3));
-						gamepanel.setRocketAmount(gamepanel.getRocketAmount()-1);
+					else if(currentWeapon == 6){
+						if(gamepanel.getBouncerAmount() > 0){
+							GamePanel.bullets.add(new Bullet(angle, x, y, 6));
+							gamepanel.setBouncerAmount(gamepanel.getBouncerAmount()-1);
+						}
 					}
-				}else if(currentWeapon == 4){
-					if(gamepanel.getLaserAmount() > 0){
-						GamePanel.bullets.add(new Bullet(angle, x, y, 4));
-						gamepanel.setLaserAmount(gamepanel.getLaserAmount()-1);
-					}
-					
-				}else if(currentWeapon == 5){
-					if(gamepanel.getCanonAmount() > 0){
-						GamePanel.bullets.add(new Bullet(angle, x, y, 5));
-						gamepanel.setCanonAmount(gamepanel.getCanonAmount()-1);
-					}
-				}
-				else if(currentWeapon == 6){
-					if(gamepanel.getBouncerAmount() > 0){
-						GamePanel.bullets.add(new Bullet(angle, x, y, 6));
-						gamepanel.setBouncerAmount(gamepanel.getBouncerAmount()-1);
-					}
-				}
-					
+				}		
 			}
 		}
 		if(recovering){

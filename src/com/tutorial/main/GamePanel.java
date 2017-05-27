@@ -44,11 +44,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private boolean waveStart;
 	private int waveDelay = 2000;
 	
-	private int bombAmount = 10;
-	private int rocketAmount = 20;
-	private int bouncerAmount = 50;
-	private int canonAmount = 10;
-	private int laserAmount = 10;
+	private int bombAmount = 1000; //10
+	private int rocketAmount = 2000; //20
+	private int bouncerAmount = 5000;  //50
+	private int canonAmount = 1000;  //10
+	private int laserAmount = 1000;  //10
 	
 	private long slowDownTimer;
 	private long slowDownTimerDiff;
@@ -379,15 +379,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 								if(bullets.get(i).getType()==5){
 									bx=bullets.get(i).getx();
 									by=bullets.get(i).gety();
+									enemies.get(j).hit();
 									enemies.get(j).healthChange("-", 5);//5 is deadly
-									//GamePanel.bullets.add(new Bullet(0/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by, 7));
-									//GamePanel.bullets.add(new Bullet(45/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by + 5, 7));
-									//GamePanel.bullets.add(new Bullet(90/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by + 5, 7));
-									//GamePanel.bullets.add(new Bullet(135/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by + 5, 7));
-									//GamePanel.bullets.add(new Bullet(180/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by, 7));
-									//GamePanel.bullets.add(new Bullet(225/*90 = down || 0 = right || 180 = left*/, (int)bx - 5, (int)by - 5, 7));
-									//GamePanel.bullets.add(new Bullet(270/*90 = down || 0 = right || 180 = left*/, (int)bx, (int)by - 5, 7));
-									//GamePanel.bullets.add(new Bullet(315/*90 = down || 0 = right || 180 = left*/, (int)bx + 5, (int)by + 5, 7));
 									int numOfBullets = 8;
 									for(int a = 0; a < numOfBullets; a++){
 										int angle = (360/numOfBullets) * a;
@@ -413,14 +406,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 									bullets.remove(i);
 									i--;
 								}else if(bullets.get(i).getType()==3){
+									enemies.get(j).hit();
 									enemies.get(j).healthChange("-", 3);//5 is deadly
 									bullets.remove(i);
 									i--;
 								}else if(bullets.get(i).getType()==6){
+									enemies.get(j).hit();
 									enemies.get(j).healthChange("-", 4);//5 is deadly
 									bullets.remove(i);
 									i--;
 								}else if(bullets.get(i).getType()==7){
+									enemies.get(j).hit();
 									enemies.get(j).healthChange("-", 4);//5 is deadly
 									bullets.remove(i);
 									i--;
@@ -1088,13 +1084,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		g2.dispose();
 	}
 	private void createWave(double levelhardness, double enemysize, double sizeamount, double amount){
+		if(size>4){ size = 4;}
+		
 		if(levelhardness <= 1){
 			for(int i = 0; i < amount; i++){
 				if(sizeamount > 0){
-					enemies.add(new Enemy(1, (int)enemysize));
+					enemies.add(new Enemy(1, (int)enemysize, 100));
 					sizeamount--;
 				}else{
-					enemies.add(new Enemy(1, (int)enemysize-1));
+					enemies.add(new Enemy(1, (int)enemysize-1, 100));
 				}
 			}
 		}else if(levelhardness <= 2){
@@ -1103,7 +1101,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					Random r = new Random();
 				
 					int x = r.nextInt(2) + 1;
-					enemies.add(new Enemy(x, (int)enemysize));
+					enemies.add(new Enemy(x, (int)enemysize, 100));
 					sizeamount--;
 				}else{
 					Random r = new Random();
@@ -1112,7 +1110,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					Random r1 = new Random();
 					
 					int changeinsize = r1.nextInt((int) enemysize-1) + 1;
-					enemies.add(new Enemy(x, (int)enemysize-changeinsize));
+					enemies.add(new Enemy(x, (int)enemysize-changeinsize, 100));
 				}
 			}
 		}else if(levelhardness <= 3){
@@ -1120,35 +1118,35 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				if(sizeamount > 0){
 					Random r = new Random();
 				
-					int x = r.nextInt(3) + 1;
-					enemies.add(new Enemy(x, (int)enemysize));
+					int x = r.nextInt(2) + 1;
+					enemies.add(new Enemy(x, (int)enemysize, 100));
 					sizeamount--;
 				}else{
 					Random r = new Random();
 				
-					int x = r.nextInt(3) + 1;
+					int x = r.nextInt(2) + 1;
 					Random r1 = new Random();
 					
 					int changeinsize = r1.nextInt((int) enemysize-1) + 1;
-					enemies.add(new Enemy(x, (int)enemysize-changeinsize));
+					enemies.add(new Enemy(x, (int)enemysize-changeinsize, 100));
 				}
 			}
-		}else if(levelhardness <= 4){
+		}else{
 			for(int i = 0; i < amount; i++){
 				if(sizeamount > 0){
 					Random r = new Random();
 				
-					int x = r.nextInt(3) + 2;
-					enemies.add(new Enemy(x, (int)enemysize));
+					int x = r.nextInt(3) + 1;
+					enemies.add(new Enemy(x, (int)enemysize, 100));
 					sizeamount--;
 				}else{
 					Random r = new Random();
 				
-					int x = r.nextInt(3) + 2;
+					int x = r.nextInt(3) + 1;
 					Random r1 = new Random();
 					
 					int changeinsize = r1.nextInt((int) enemysize-1) + 1;
-					enemies.add(new Enemy(x, (int)enemysize-changeinsize));
+					enemies.add(new Enemy(x, (int)enemysize-changeinsize, 100));
 				}
 			}
 		}
