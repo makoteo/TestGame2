@@ -67,7 +67,7 @@ public class Enemy {
 			}else if(rand1==2){
 				this.Healthtrait=2;
 			}else{
-				this.Sizetrait=2;
+				this.Sizetrait=(int) 1.5;
 			}
 		}
 		
@@ -143,16 +143,16 @@ public class Enemy {
 				health = 8;
 			}
 		}
-		this.r = r*Sizetrait;
-		this.health = health*Healthtrait;
+		r = r*Sizetrait;
+		health = health*Healthtrait;
 		x = Math.random() * GamePanel.WIDTH / 2 + GamePanel.WIDTH / 4;
 		y = -r;
 		
 		double angle = Math.random() * 140 + 20;
 		rad = Math.toRadians(angle);
 		if(this.Timer < 1){
-			dx = Math.cos(rad) * (speed * this.Speedtrait);
-			dy = Math.sin(rad) * (speed * this.Speedtrait);
+			this.dx = Math.cos(rad) * (speed * this.Speedtrait);
+			this.dy = Math.sin(rad) * (speed * this.Speedtrait);
 		}
 		ready = false;
 		dead = false;
@@ -265,15 +265,18 @@ public class Enemy {
 			this.Timer--;
 		}
 		if(slow){
-			x += dx * 0.3;
-			y += dy *0.3;
-		}else{
-			x += dx;
-			y += dy;
+			this.x += dx * 0.3;
+			this.y += dy *0.3;
+		}else if(ready){
+			this.x += dx;
+			this.y += dy;
+		}else if(!ready){
+			this.x += dx;
+			this.y += speed;
 		}
-		if(!ready){
+		if(!this.ready){
 			if(x > r && x < GamePanel.WIDTH - r && y > r && y < GamePanel.HEIGHT - r){
-				ready = true;
+				this.ready = true;
 			}
 		}
 		if(type==1){
@@ -330,7 +333,6 @@ public class Enemy {
 				GamePanel.bullets.add(new Bullet(angle, (int)this.x, (int)this.y, 2));
 			}
 		}
-		
 		
 		if(hit){
 			long elapsed = (System.nanoTime() - hitTimer) / 1000000;

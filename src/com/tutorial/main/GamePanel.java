@@ -357,18 +357,22 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 								if((e.getx() >= player.getx()) && (player.gety() >=  e.gety())){
 									if((Menu.mxg >= player.getx()) && (Menu.myg <=  e.gety())){
 										enemies.get(j).healthChange("-", 5);//5 is deadly
+										e.hit();
 									}
 								}else if((e.getx() >= player.getx()) && (player.gety() <=  e.gety())){
 									if((Menu.mxg >= player.getx()) && (Menu.myg >=  e.gety())){
 										enemies.get(j).healthChange("-", 5);//5 is deadly
+										e.hit();
 									}
 								}else if((e.getx() <= player.getx()) && (player.gety() <=  e.gety())){
 									if((Menu.mxg <= player.getx()) && (Menu.myg >=  e.gety())){
 										enemies.get(j).healthChange("-", 5);//5 is deadly
+										e.hit();
 									}
 								}else if((e.getx() <= player.getx()) && (player.gety() >=  e.gety())){
 									if((Menu.mxg <= player.getx()) && (Menu.myg <=  e.gety())){
 										enemies.get(j).healthChange("-", 5);//5 is deadly
+										e.hit();
 									}
 								}
 							}
@@ -1014,9 +1018,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				space = WIDTH/80;
 				widthdiv3pt2 = (int) ((int)WIDTH/3.2);
 				g.drawImage(PowerUpBlackOut, (int) (WIDTH/2 + space), (HEIGHT/2)-(widthdiv3pt2/2), widthdiv3pt2, widthdiv3pt2, null);
-			}else if(Menu.secondwindowselected == false && Menu.firstwindowselected == false && powerLevelUpgrade1 != 0 && powerLevelUpgrade2 != 0){
-			g.setColor(new Color(255, 255, 255, alpha));
-			g.fillRect(0, 0, WIDTH, HEIGHT);
+			}else if(Menu.secondwindowselected == false && Menu.firstwindowselected == false && powerLevelUpgrade1 == 0 && powerLevelUpgrade2 == 0){
+				g.setColor(new Color(255, 255, 255, alpha));
+				g.fillRect(0, 0, WIDTH, HEIGHT);
 			}
 		}else if(gameState == STATE.Dead){
 				g.setColor(new Color(0,100,50));
@@ -1084,7 +1088,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		g2.dispose();
 	}
 	private void createWave(double levelhardness, double enemysize, double sizeamount, double amount){
-		if(size>4){ size = 4;}
+		if(enemysize>4){ enemysize = 4;}
 		
 		if(levelhardness <= 1){
 			for(int i = 0; i < amount; i++){
