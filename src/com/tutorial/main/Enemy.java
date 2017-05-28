@@ -3,8 +3,6 @@ package com.tutorial.main;
 import java.awt.*;
 import java.util.Random;
 
-import com.tutorial.main.Player.SHOOTERTYPE;
-
 public class Enemy {
 
 	//FIELDS
@@ -58,7 +56,7 @@ public class Enemy {
 		this.Healthtrait = 1;
 		this.Sizetrait = 1;
 		
-		this.rand = ra.nextInt(100) + 1;
+		rand = ra.nextInt(100) + 1;
 		if(traitchance>=rand){
 			Random ra1 = new Random();
 			int rand1 = ra1.nextInt(3) + 1;
@@ -228,7 +226,7 @@ public class Enemy {
 			}
 			for(int i = 0; i < amount; i++){
 				
-				Enemy e = new Enemy(getType(), getRank() - 1, getTraitChance()-10);
+				Enemy e = new Enemy(getType(), getRank() - 1, getTraitChance()+10);
 				e.x = this.x;
 				e.y = this.y;
 				GamePanel.EnemyId += 1;
@@ -264,15 +262,17 @@ public class Enemy {
 		if(!(this.Timer<=0)){
 			this.Timer--;
 		}
+		if(GamePanel.getSlowDown() == false){
+			firingDelay = 2500;
+		}else{
+			firingDelay = 10000;
+		}
 		if(slow){
 			this.x += dx * 0.3;
 			this.y += dy *0.3;
-		}else if(ready){
+		}else{
 			this.x += dx;
 			this.y += dy;
-		}else if(!ready){
-			this.x += dx;
-			this.y += speed;
 		}
 		if(!this.ready){
 			if(x > r && x < GamePanel.WIDTH - r && y > r && y < GamePanel.HEIGHT - r){

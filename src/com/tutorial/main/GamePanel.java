@@ -64,8 +64,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	private boolean detonateButton = false;
 	
-	public int powerLevelUpgrade1 = 0;
-	public int powerLevelUpgrade2 = 0;
+	public int powerLevelUpgrade1 = 2;
+	public int powerLevelUpgrade2 = 3;
 	PowerUp powerup;
 	
 	private int changeDetonateCover = 0;

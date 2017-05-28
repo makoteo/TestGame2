@@ -99,11 +99,6 @@ public class Bullet {
 		if(type == 2){
 			color1=Color.RED;
 			r=GamePanel.WIDTH/320;
-			if(GamePanel.getSlowDown() == false){
-				this.speed=12;
-			}else{
-				this.speed=4;
-			}
 		}
 		if(type == 3){
 			color1=Color.GREEN;
@@ -176,9 +171,18 @@ public class Bullet {
 			if(x > GamePanel.WIDTH -r && dx > 0){ dx = -dx;}
 			if(y > GamePanel.HEIGHT -r && dy > 0){ dy = -dy;}
 		}
-		x += dx;
-		y += dy;
-		
+		if(type == 2){
+			if(GamePanel.getSlowDown() == false){
+				x += dx;
+				y += dy;
+			}else{
+				x += dx/4;
+				y += dy/4;
+			}
+		}else{
+			x += dx;
+			y += dy;
+		}
 		if(x < -r -20 || x > GamePanel.WIDTH -r +20 || y < -r -20 || y > GamePanel.HEIGHT -r +20){
 			return true;
 		}

@@ -60,6 +60,9 @@ public class PowerUp {
 		if(FadeTimer <= 255){
 			alpha = FadeTimer;
 		}
+		if(alpha<0){
+			alpha=0;
+		}
 		if(type == 1){
 			color1 = new Color(255, 182, 193, alpha);
 		}
