@@ -33,6 +33,28 @@ public class Menu extends MouseAdapter{
 		if(gamepanel.gameState == STATE.Menu){
 			//Play
 			if(mouseOver(mx, my, GamePanel.WIDTH/80, GamePanel.WIDTH/13, GamePanel.WIDTH/4, GamePanel.WIDTH/16)){
+				GamePanel.player.setLives(3); //Because we have to use GamePanels Player(As it has all the data)
+				gamepanel.setWaveNumber(0);
+				gamepanel.enemies.clear();
+				gamepanel.player.setRecovering(false);
+				gamepanel.player.setx(gamepanel.WIDTH/2);
+				gamepanel.player.sety(gamepanel.HEIGHT/2);
+				gamepanel.player.setPower(0);
+				gamepanel.player.setPowerLevel(0);
+				gamepanel.player.setPowerLevelChecker(0);
+				Player.currentWeapon=1;
+				gamepanel.setBombAmount(10); //10
+				gamepanel.setRocketAmount(20); //20
+				gamepanel.setBouncerAmount(50);  //50
+				gamepanel.setCanonAmount(10);  //10
+				gamepanel.setLaserAmount(10);  //10
+				gamepanel.player.setScore(0);
+				gamepanel.bullets.clear();
+				gamepanel.powerups.clear();
+				gamepanel.bombs.clear();
+				gamepanel.explosions.clear();
+				gamepanel.texts.clear();
+				gamepanel.setslowDownTimer(0);
 				gamepanel.gameState = STATE.Game;
 			}
 			//Charcter
@@ -123,29 +145,10 @@ public class Menu extends MouseAdapter{
 		}else if(gamepanel.gameState == STATE.Dead){
 			if(mouseOver(mx, my, GamePanel.WIDTH/2-GamePanel.WIDTH/12, (int) ((GamePanel.HEIGHT/3)*1.45), GamePanel.WIDTH/6, GamePanel.HEIGHT/14)){
 				//Back to Menu
-				gamepanel.gameState=STATE.Menu;
-				GamePanel.player.setLives(3); //Because we have to use GamePanels Player(As it has all the data)
-				gamepanel.setWaveNumber(0);
-				gamepanel.enemies.clear();
-				gamepanel.player.setRecovering(false);
-				gamepanel.player.setx(gamepanel.WIDTH/2);
-				gamepanel.player.sety(gamepanel.HEIGHT/2);
-				gamepanel.player.setPower(0);
-				gamepanel.player.setPowerLevel(0);
-				gamepanel.player.setPowerLevelChecker(0);
-				Player.currentWeapon=1;
-				gamepanel.setBombAmount(10); //10
-				gamepanel.setRocketAmount(20); //20
-				gamepanel.setBouncerAmount(50);  //50
-				gamepanel.setCanonAmount(10);  //10
-				gamepanel.setLaserAmount(10);  //10
-				gamepanel.player.setScore(0);
-				gamepanel.bullets.clear();
-				gamepanel.powerups.clear();
-				gamepanel.bombs.clear();
-				gamepanel.explosions.clear();
-				gamepanel.texts.clear();
-				gamepanel.setslowDownTimer(0);
+				gamepanel.gameState = STATE.Menu;
+			}
+			if(mouseOver(mx, my, GamePanel.WIDTH/2-GamePanel.WIDTH/12, (int) ((GamePanel.HEIGHT/3)*1.5) + GamePanel.HEIGHT/12, GamePanel.WIDTH/6, GamePanel.HEIGHT/14)){
+				gamepanel.gameState = STATE.CharSelect;
 			}
 		}
 	}
