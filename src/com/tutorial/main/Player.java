@@ -128,7 +128,7 @@ public class Player {
 	public int getPower(){return power;}
 	public int getRequiredPower(){return requiredPower[powerLevel];}
 	
-	public void setPowerLevel(int i){powerLevel = i;}//should be 1
+	public void setPowerLevel(int i){powerLevel = i;}//should be 0
 	public void setPower(int i){power = i;}//should be 0
 	public void setPowerLevelChecker(int i){powerLevelChecker = i;}//should be 0
 	

@@ -541,7 +541,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					else if(rand < .110){
 						powerups.add(new PowerUp(4, e.getx(), e.gety(), 500));
 					}else{
-						//powerups.add(new PowerUp(3, e.getx(), e.gety()));
+						//powerups.add(new PowerUp(4, e.getx(), e.gety(), 500));
 					}
 					
 					player.addScore(e.getType() + e.getRank());
@@ -1038,13 +1038,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
 				g.drawString(s, WIDTH / 2 - length/2, HEIGHT / 2 - WIDTH/30);
 				g.setColor(colordead1);
-				g.drawRoundRect(WIDTH/2-WIDTH/12, (int) ((HEIGHT/3)*1.45), WIDTH/6, HEIGHT/14, WIDTH/80, WIDTH/80);
+				g.drawRoundRect(WIDTH/2-WIDTH/12, (int) ((HEIGHT/3)*1.45), WIDTH/6, HEIGHT/14, WIDTH/100, WIDTH/100);
 				g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/40));
 				s = "Back to Menu";
 				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
 				g.drawString(s, WIDTH / 2 - length/2, (int) ((HEIGHT/3)*1.6));
 				g.setColor(colordead2);
-				g.drawRoundRect(WIDTH/2-WIDTH/12, (int) ((HEIGHT/3)*1.5) + HEIGHT/12, WIDTH/6, HEIGHT/14, WIDTH/80, WIDTH/80);
+				g.drawRoundRect(WIDTH/2-WIDTH/12, (int) ((HEIGHT/3)*1.5) + HEIGHT/12, WIDTH/6, HEIGHT/14, WIDTH/100, WIDTH/100);
 				g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/40));
 				s = "Upgrades";
 				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();

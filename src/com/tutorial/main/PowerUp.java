@@ -21,7 +21,7 @@ public class PowerUp {
 	private Color color1;
 	
 	//Constructor
-	public PowerUp(int type,double x, double y, int FadeTimer){
+	public PowerUp(int type, double x, double y, int FadeTimer){
 		
 		this.type = type;
 		this.x = x;

@@ -131,7 +131,7 @@ public class Menu extends MouseAdapter{
 				gamepanel.player.setx(gamepanel.WIDTH/2);
 				gamepanel.player.sety(gamepanel.HEIGHT/2);
 				gamepanel.player.setPower(0);
-				gamepanel.player.setPowerLevel(1);
+				gamepanel.player.setPowerLevel(0);
 				gamepanel.player.setPowerLevelChecker(0);
 				Player.currentWeapon=1;
 				gamepanel.setBombAmount(10); //10
@@ -140,6 +140,12 @@ public class Menu extends MouseAdapter{
 				gamepanel.setCanonAmount(10);  //10
 				gamepanel.setLaserAmount(10);  //10
 				gamepanel.player.setScore(0);
+				gamepanel.bullets.clear();
+				gamepanel.powerups.clear();
+				gamepanel.bombs.clear();
+				gamepanel.explosions.clear();
+				gamepanel.texts.clear();
+				gamepanel.setslowDownTimer(0);
 			}
 		}
 	}
