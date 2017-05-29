@@ -79,6 +79,8 @@ public class Player {
 	
 	public int getx(){ return x;}
 	public int gety(){ return y;}
+	public void setx(int i){x=i;}
+	public void sety(int i){y=i;}
 	public int getr(){ return r;}
 	public int getscore(){return score;}
 	
@@ -106,6 +108,12 @@ public class Player {
 	public void addScore(int i){
 		score += i;
 	}
+	public void setScore(int i){
+		score = i;
+	}
+	public void setRecovering(boolean b){
+		recovering=b;
+	}
 	
 	public void incresePower(int i){
 		power += i;
@@ -119,6 +127,10 @@ public class Player {
 	public int getPowerLevel(){return powerLevel;}
 	public int getPower(){return power;}
 	public int getRequiredPower(){return requiredPower[powerLevel];}
+	
+	public void setPowerLevel(int i){powerLevel = i;}//should be 1
+	public void setPower(int i){power = i;}//should be 0
+	public void setPowerLevelChecker(int i){powerLevelChecker = i;}//should be 0
 	
 	public void setLeft(boolean b){
 		left = b;

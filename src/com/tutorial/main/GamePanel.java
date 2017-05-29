@@ -44,11 +44,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private boolean waveStart;
 	private int waveDelay = 2000;
 	
-	private int bombAmount = 1000; //10
-	private int rocketAmount = 2000; //20
-	private int bouncerAmount = 5000;  //50
-	private int canonAmount = 1000;  //10
-	private int laserAmount = 1000;  //10
+	private int bombAmount = 10; //10
+	private int rocketAmount = 20; //20
+	private int bouncerAmount = 50;  //50
+	private int canonAmount = 10;  //10
+	private int laserAmount = 10;  //10
 	
 	private long slowDownTimer;
 	private long slowDownTimerDiff;
@@ -56,16 +56,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	static boolean firePressed = false;
 	
-	private boolean dead;
-	
 	public static boolean bombExplode = false;
 	
 	public static int alpha = 0;
 	
 	private boolean detonateButton = false;
 	
-	public int powerLevelUpgrade1 = 2;
-	public int powerLevelUpgrade2 = 3;
+	public int powerLevelUpgrade1 = 0;
+	public int powerLevelUpgrade2 = 0;
 	PowerUp powerup;
 	
 	private int changeDetonateCover = 0;
@@ -100,6 +98,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static BufferedImage DetonateButton_Pressed;
 	public static BufferedImage DetonateButton_Cover;
 	public static BufferedImage CharSetBox;
+	
+	public Color colordead1 = Color.WHITE;
+	public Color colordead2 = Color.WHITE;
 	
 	public static int EnemyId = 1;
 	//CONSTRUCTOR
@@ -168,8 +169,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		WaveStartTimerDiff = 0;
 		waveStart = true;
 		waveNumber = 0;
-		
-		dead = false;
 		
 		long startTime;
 		long URDTimeMillis;
@@ -559,11 +558,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				
 				powerLevelUpgrade1 = r.nextInt(3) + 1;
 				powerLevelUpgrade2 = r1.nextInt(3) + 1;
-				if(powerLevelUpgrade1 == powerLevelUpgrade2){
-					powerLevelUpgrade2 ++;
-				}
 				if(powerLevelUpgrade2 > 3){
 					powerLevelUpgrade2 = 1;
+				}
+				if(powerLevelUpgrade1 == powerLevelUpgrade2){
+					powerLevelUpgrade2 ++;
 				}
 				Player.powerLevelChecker = 0;
 			}
@@ -649,6 +648,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			}
 			if(player.getLives() <= 0){
 				gameState = STATE.Dead;
+				
 			}
 			//DetonateButtonHoverUpdate
 		}else if(player.getCurrentWeapon() == 2){
@@ -669,7 +669,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect){
 			menu.update();
 		}else if(gameState == STATE.Dead){
-			
+			menu.update();
 		}
 		
 	}
@@ -739,6 +739,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	}
 	public void setBombAmount(int i){
 		bombAmount = i;
+	}
+	public void setWaveNumber(int i){
+		waveNumber=i;
 	}
 	public int getRocketAmount(){
 		return rocketAmount;
@@ -1001,7 +1004,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.drawImage(image2, (int) (WIDTH/2 + space), (HEIGHT/2)-(widthdiv3pt2/2), widthdiv3pt2, widthdiv3pt2, null);
 			}
  			if(Menu.firstwindowselected == true){
- 				double imageheightwidth = WIDTH/3.2;
 				double space = WIDTH/80;
 				int widthdiv3pt2 = (int) ((int)WIDTH/3.2);
 				g.drawImage(PowerUpBlackOut, (int) (WIDTH/2 + space), (HEIGHT/2)-(widthdiv3pt2/2), widthdiv3pt2, widthdiv3pt2, null);
@@ -1023,17 +1025,31 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.fillRect(0, 0, WIDTH, HEIGHT);
 			}
 		}else if(gameState == STATE.Dead){
+				g.setStroke(new BasicStroke(3));
 				g.setColor(new Color(0,100,50));
 				g.fillRect(0, 0, WIDTH, HEIGHT);
 				g.setColor(Color.WHITE);
-				g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/40));
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/30));
 				String s = "- G A M E  O V E R -";
 				long length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
-				g.drawString(s, WIDTH / 2 - length / 2, HEIGHT / 2 - WIDTH/80);
-				g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/90));
+				g.drawString(s, WIDTH / 2 - length / 2, HEIGHT / 2 - WIDTH/16);
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/70));
 				s = "F I N A L  S C O R E = " + player.getscore();
 				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
-				g.drawString(s, WIDTH / 2 - length/2, HEIGHT / 2 + WIDTH/80);
+				g.drawString(s, WIDTH / 2 - length/2, HEIGHT / 2 - WIDTH/30);
+				g.setColor(colordead1);
+				g.drawRoundRect(WIDTH/2-WIDTH/12, (int) ((HEIGHT/3)*1.45), WIDTH/6, HEIGHT/14, WIDTH/80, WIDTH/80);
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/40));
+				s = "Back to Menu";
+				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				g.drawString(s, WIDTH / 2 - length/2, (int) ((HEIGHT/3)*1.6));
+				g.setColor(colordead2);
+				g.drawRoundRect(WIDTH/2-WIDTH/12, (int) ((HEIGHT/3)*1.5) + HEIGHT/12, WIDTH/6, HEIGHT/14, WIDTH/80, WIDTH/80);
+				g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/40));
+				s = "Upgrades";
+				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+				g.drawString(s, WIDTH / 2 - length/2, (int) ((HEIGHT/3)*1.6) + HEIGHT/10);
+				g.setStroke(new BasicStroke(1));
 		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect){
 			menu.draw(g);
 		}
