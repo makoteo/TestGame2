@@ -43,7 +43,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private int waveNumber;
 	private boolean waveStart;
 	private int waveDelay = 2000;
-	
 	private int bombAmount = 10; //10
 	private int rocketAmount = 20; //20
 	private int bouncerAmount = 50;  //50
@@ -215,8 +214,22 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public void setPlayerWeapon(int i){
 		player.setCurrentWeapon(i);
 	}
-	
 	private void gameUpdate(){
+		if(bombAmount>20){
+			bombAmount=20;
+		}
+		if(laserAmount>20){
+			laserAmount=20;
+		}
+		if(rocketAmount>40){
+			rocketAmount=40;
+		}
+		if(canonAmount>20){
+			canonAmount=20;
+		}
+		if(bouncerAmount>100){
+			bouncerAmount=100;
+		}
 		if(slowDownTimer > 0){
 			for(int j = 0; j < enemies.size(); j++){
 				enemies.get(j).setSlow(true);
