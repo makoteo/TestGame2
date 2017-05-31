@@ -155,7 +155,10 @@ public class Menu extends MouseAdapter{
 			int length = (int) (GamePanel.WIDTH/4);
 			int tallness = (int) (GamePanel.HEIGHT/3.5);
 			if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75+length+(length/5)), GamePanel.HEIGHT/5-(tallness/2)+tallness/10, GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
-				gamepanel.setBombAmount(gamepanel.getBombAmount()+2);
+				if(gamepanel.getMasterScore()>20/*cost per 2 bombs*/){
+					gamepanel.setBombAmount(gamepanel.getBombAmount()+2);
+					gamepanel.setMasterScore(gamepanel.getMasterScore()-20);
+				}
 			}
 
 			//BACK TO MENU
@@ -344,7 +347,10 @@ public class Menu extends MouseAdapter{
 			g.fillRect((int) (GamePanel.WIDTH/5-(length/2)+length*0.75)+length+(length/5)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10+GamePanel.HEIGHT/7-(GamePanel.HEIGHT/7*((double)gamepanel.getBouncerAmount()/100))), GamePanel.WIDTH/28, (int) (GamePanel.HEIGHT/7*((double)gamepanel.getBouncerAmount()/100)));
 			g.setColor(Color.black);
 			g.drawRect((int) (GamePanel.WIDTH/5-(length/2)+length*0.75)+length+(length/5)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10), GamePanel.WIDTH/28, GamePanel.HEIGHT/7);
-			
+			//Score
+			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/40));
+			g.setColor(Color.WHITE);
+			g.drawString("Score: " + gamepanel.getMasterScore(), (int) (gamepanel.WIDTH-gamepanel.WIDTH*0.9), gamepanel.HEIGHT-gamepanel.HEIGHT/6+gamepanel.HEIGHT/18);
 			//backtomenubutton
 			g.setColor(color1CharSelect);
 			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/50));

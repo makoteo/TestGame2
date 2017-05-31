@@ -49,6 +49,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private int canonAmount = 10;  //10
 	private int laserAmount = 10;  //10
 	
+	private int MasterScore = 0;
+	
 	private long slowDownTimer;
 	private long slowDownTimerDiff;
 	private int slowDownLength = 10000;
@@ -661,7 +663,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			}
 			if(player.getLives() <= 0){
 				gameState = STATE.Dead;
-				
+				MasterScore+=player.getscore();
 			}
 			//DetonateButtonHoverUpdate
 		}else if(player.getCurrentWeapon() == 2){
@@ -732,6 +734,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 
 	public void setslowDownTimer(long l){
 		slowDownTimer = l;
+	}
+	public void setMasterScore(int i){
+		MasterScore = i;
+	}
+	public int getMasterScore(){
+		return MasterScore;
 	}
 	public void setslowDownLength(int l){
 		slowDownLength = l;
