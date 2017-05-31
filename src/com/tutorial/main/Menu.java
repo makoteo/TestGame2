@@ -250,31 +250,86 @@ public class Menu extends MouseAdapter{
 			g.fillRoundRect(GamePanel.WIDTH/5-(length/2), GamePanel.HEIGHT/5-(tallness/2), length, tallness, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
 			g.setColor(Color.black);
 			g.drawRoundRect(GamePanel.WIDTH/5-(length/2), GamePanel.HEIGHT/5-(tallness/2), length, tallness, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
+			g.drawRect(GamePanel.WIDTH/5-(length/2)+length/10, GamePanel.HEIGHT/5-(tallness/2)+tallness/10, GamePanel.WIDTH/8, GamePanel.HEIGHT/7);
+			g.setColor(Color.GREEN);
+			g.fillRect(GamePanel.WIDTH/5-(length/2)+length/10, (int) (GamePanel.HEIGHT/5-(tallness/2)+tallness*0.7), (int) (GamePanel.WIDTH/5-(GamePanel.WIDTH/5-(GamePanel.WIDTH/5*0.9))), GamePanel.HEIGHT/20);
+			g.setColor(Color.black);
+			g.drawRect(GamePanel.WIDTH/5-(length/2)+length/10, (int) (GamePanel.HEIGHT/5-(tallness/2)+tallness*0.7), GamePanel.WIDTH/5, GamePanel.HEIGHT/20);
+			g.setColor(Color.GREEN);
+			g.fillRect((int) (GamePanel.WIDTH/5-(length/2)+length*0.75), (int) (GamePanel.HEIGHT/5-(tallness/2)+tallness/10+GamePanel.HEIGHT/7-(GamePanel.HEIGHT/7*0.9)), GamePanel.WIDTH/28, (int) (GamePanel.HEIGHT/7*0.9));
+			g.setColor(Color.black);
+			g.drawRect((int) (GamePanel.WIDTH/5-(length/2)+length*0.75), GamePanel.HEIGHT/5-(tallness/2)+tallness/10, GamePanel.WIDTH/28, GamePanel.HEIGHT/7);
 			//Bombs
 			g.setColor(Color.gray);
 			g.fillRoundRect(GamePanel.WIDTH/5-(length/2)+length+(length/5), GamePanel.HEIGHT/5-(tallness/2), length, tallness, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
 			g.setColor(Color.black);
 			g.drawRoundRect(GamePanel.WIDTH/5-(length/2)+length+(length/5), GamePanel.HEIGHT/5-(tallness/2), length, tallness, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
+			g.drawRect(GamePanel.WIDTH/5-(length/2)+length/10+length+(length/5), GamePanel.HEIGHT/5-(tallness/2)+tallness/10, GamePanel.WIDTH/8, GamePanel.HEIGHT/7);
+			g.setColor(Color.GREEN);
+			g.fillRect(GamePanel.WIDTH/5-(length/2)+length/10+length+(length/5), (int) (GamePanel.HEIGHT/5-(tallness/2)+tallness*0.7), (int) (GamePanel.WIDTH/5-(GamePanel.WIDTH/5-(GamePanel.WIDTH/5*0.9))), GamePanel.HEIGHT/20);
+			g.setColor(Color.black);
+			g.drawRect(GamePanel.WIDTH/5-(length/2)+length/10+length+(length/5), (int) (GamePanel.HEIGHT/5-(tallness/2)+tallness*0.7), GamePanel.WIDTH/5, GamePanel.HEIGHT/20);
+			g.setColor(Color.GREEN);
+			g.fillRect((int) (GamePanel.WIDTH/5-(length/2)+length*0.75+length+(length/5)), (int) (GamePanel.HEIGHT/5-(tallness/2)+tallness/10+GamePanel.HEIGHT/7-(GamePanel.HEIGHT/7*0.9)), GamePanel.WIDTH/28, (int) (GamePanel.HEIGHT/7*0.9));
+			g.setColor(Color.black);
+			g.drawRect((int) (GamePanel.WIDTH/5-(length/2)+length*0.75+length+(length/5)), GamePanel.HEIGHT/5-(tallness/2)+tallness/10, GamePanel.WIDTH/28, GamePanel.HEIGHT/7);
 			//Rockets
 			g.setColor(Color.gray);
 			g.fillRoundRect(GamePanel.WIDTH/5-(length/2)+length+(length/5)+length+(length/5), GamePanel.HEIGHT/5-(tallness/2), length, tallness, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
 			g.setColor(Color.black);
 			g.drawRoundRect(GamePanel.WIDTH/5-(length/2)+length+(length/5)+length+(length/5), GamePanel.HEIGHT/5-(tallness/2), length, tallness, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
+			g.drawRect(GamePanel.WIDTH/5-(length/2)+length/10+length+(length/5)+length+(length/5), GamePanel.HEIGHT/5-(tallness/2)+tallness/10, GamePanel.WIDTH/8, GamePanel.HEIGHT/7);
+			g.setColor(Color.GREEN);
+			g.fillRect(GamePanel.WIDTH/5-(length/2)+length/10+length+(length/5)+length+(length/5), (int) (GamePanel.HEIGHT/5-(tallness/2)+tallness*0.7), (int) (GamePanel.WIDTH/5-(GamePanel.WIDTH/5-(GamePanel.WIDTH/5*0.9))), GamePanel.HEIGHT/20);
+			g.setColor(Color.black);
+			g.drawRect(GamePanel.WIDTH/5-(length/2)+length/10+length+(length/5)+length+(length/5), (int) (GamePanel.HEIGHT/5-(tallness/2)+tallness*0.7), GamePanel.WIDTH/5, GamePanel.HEIGHT/20);
+			g.setColor(Color.GREEN);
+			g.fillRect((int) (GamePanel.WIDTH/5-(length/2)+length*0.75+length+(length/5)+length+(length/5)), (int) (GamePanel.HEIGHT/5-(tallness/2)+tallness/10+GamePanel.HEIGHT/7-(GamePanel.HEIGHT/7*0.9)), GamePanel.WIDTH/28, (int) (GamePanel.HEIGHT/7*0.9));
+			g.setColor(Color.black);
+			g.drawRect((int) (GamePanel.WIDTH/5-(length/2)+length*0.75+length+(length/5)+length+(length/5)), GamePanel.HEIGHT/5-(tallness/2)+tallness/10, GamePanel.WIDTH/28, GamePanel.HEIGHT/7);
 			//Lasers
 			g.setColor(Color.gray);
 			g.fillRoundRect(GamePanel.WIDTH/5-(length/2), (int) (GamePanel.HEIGHT/5+(tallness/1.5)), length, tallness, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
 			g.setColor(Color.black);
 			g.drawRoundRect(GamePanel.WIDTH/5-(length/2), (int) (GamePanel.HEIGHT/5+(tallness/1.5)), length, tallness, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
+			g.drawRect(GamePanel.WIDTH/5-(length/2)+length/10, (int) (GamePanel.HEIGHT/5+(tallness/1.5))+tallness/10, GamePanel.WIDTH/8, GamePanel.HEIGHT/7);
+			g.setColor(Color.GREEN);
+			g.fillRect(GamePanel.WIDTH/5-(length/2)+length/10, (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness*0.7), (int) (GamePanel.WIDTH/5-(GamePanel.WIDTH/5-(GamePanel.WIDTH/5*0.9))), GamePanel.HEIGHT/20);
+			g.setColor(Color.black);
+			g.drawRect(GamePanel.WIDTH/5-(length/2)+length/10, (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness*0.7), GamePanel.WIDTH/5, GamePanel.HEIGHT/20);
+			g.setColor(Color.GREEN);
+			g.fillRect((int) (GamePanel.WIDTH/5-(length/2)+length*0.75), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10+GamePanel.HEIGHT/7-(GamePanel.HEIGHT/7*0.9)), GamePanel.WIDTH/28, (int) (GamePanel.HEIGHT/7*0.9));
+			g.setColor(Color.black);
+			g.drawRect((int) (GamePanel.WIDTH/5-(length/2)+length*0.75), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10), GamePanel.WIDTH/28, GamePanel.HEIGHT/7);
 			//Canons
 			g.setColor(Color.gray);
 			g.fillRoundRect(GamePanel.WIDTH/5-(length/2)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)), length, tallness, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
 			g.setColor(Color.black);
 			g.drawRoundRect(GamePanel.WIDTH/5-(length/2)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)), length, tallness, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
+			g.drawRect(GamePanel.WIDTH/5-(length/2)+length/10+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5))+tallness/10, GamePanel.WIDTH/8, GamePanel.HEIGHT/7);
+			g.setColor(Color.GREEN);
+			g.fillRect(GamePanel.WIDTH/5-(length/2)+length/10+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness*0.7), (int) (GamePanel.WIDTH/5-(GamePanel.WIDTH/5-(GamePanel.WIDTH/5*0.9))), GamePanel.HEIGHT/20);
+			g.setColor(Color.black);
+			g.drawRect(GamePanel.WIDTH/5-(length/2)+length/10+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness*0.7), GamePanel.WIDTH/5, GamePanel.HEIGHT/20);
+			g.setColor(Color.GREEN);
+			g.fillRect((int) (GamePanel.WIDTH/5-(length/2)+length*0.75)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10+GamePanel.HEIGHT/7-(GamePanel.HEIGHT/7*0.9)), GamePanel.WIDTH/28, (int) (GamePanel.HEIGHT/7*0.9));
+			g.setColor(Color.black);
+			g.drawRect((int) (GamePanel.WIDTH/5-(length/2)+length*0.75)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10), GamePanel.WIDTH/28, GamePanel.HEIGHT/7);
 			//Bouncers
 			g.setColor(Color.gray);
 			g.fillRoundRect(GamePanel.WIDTH/5-(length/2)+length+(length/5)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)), length, tallness, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
 			g.setColor(Color.black);
 			g.drawRoundRect(GamePanel.WIDTH/5-(length/2)+length+(length/5)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)), length, tallness, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
+			g.drawRect(GamePanel.WIDTH/5-(length/2)+length/10+length+(length/5)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5))+tallness/10, GamePanel.WIDTH/8, GamePanel.HEIGHT/7);
+			g.setColor(Color.GREEN);
+			g.fillRect(GamePanel.WIDTH/5-(length/2)+length/10+length+(length/5)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness*0.7), (int) (GamePanel.WIDTH/5-(GamePanel.WIDTH/5-(GamePanel.WIDTH/5*0.9))), GamePanel.HEIGHT/20);
+			g.setColor(Color.black);
+			g.drawRect(GamePanel.WIDTH/5-(length/2)+length/10+length+(length/5)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness*0.7), GamePanel.WIDTH/5, GamePanel.HEIGHT/20);
+			g.setColor(Color.GREEN);
+			g.fillRect((int) (GamePanel.WIDTH/5-(length/2)+length*0.75)+length+(length/5)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10+GamePanel.HEIGHT/7-(GamePanel.HEIGHT/7*0.9)), GamePanel.WIDTH/28, (int) (GamePanel.HEIGHT/7*0.9));
+			g.setColor(Color.black);
+			g.drawRect((int) (GamePanel.WIDTH/5-(length/2)+length*0.75)+length+(length/5)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10), GamePanel.WIDTH/28, GamePanel.HEIGHT/7);
+			
 		}
 	
 	}
