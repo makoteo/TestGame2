@@ -44,7 +44,7 @@ public class Menu extends MouseAdapter{
 				gamepanel.player.setPowerLevel(0);
 				gamepanel.player.setPowerLevelChecker(0);
 				Player.currentWeapon=1;
-				gamepanel.setBombAmount(10); //10
+				//gamepanel.setBombAmount(10); //10 no longer needed as you have to buy bombs
 				gamepanel.setRocketAmount(20); //20
 				gamepanel.setBouncerAmount(50);  //50
 				gamepanel.setCanonAmount(10);  //10
