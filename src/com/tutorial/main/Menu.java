@@ -11,6 +11,11 @@ public class Menu extends MouseAdapter{
 	private Color color1;
 	private Color color2;
 	private Color color1CharSelect;
+	private Color colorRed;
+	
+	private int boxx = -1000;
+	private int boxy = -1000;
+	private String boxtext = "Hi, if you see this, you've found a bug";
 	
 	GamePanel gamepanel;
 	
@@ -159,6 +164,8 @@ public class Menu extends MouseAdapter{
 				if(gamepanel.getMasterScore()>20/*cost per 2 bombs*/){
 					gamepanel.setBombAmount(gamepanel.getBombAmount()+2);
 					gamepanel.setMasterScore(gamepanel.getMasterScore()-20);
+				}else{
+					colorRed = Color.red;
 				}
 			}
 			//Rockets
@@ -166,6 +173,8 @@ public class Menu extends MouseAdapter{
 				if(gamepanel.getMasterScore()>30/*cost per 2 rockets*/){
 					gamepanel.setRocketAmount(gamepanel.getRocketAmount()+2);
 					gamepanel.setMasterScore(gamepanel.getMasterScore()-30);
+				}else{
+					colorRed = Color.red;
 				}
 			}
 			//Lasers
@@ -173,6 +182,8 @@ public class Menu extends MouseAdapter{
 				if(gamepanel.getMasterScore()>40/*cost per 2 lasers*/){
 					gamepanel.setLaserAmount(gamepanel.getLaserAmount()+2);
 					gamepanel.setMasterScore(gamepanel.getMasterScore()-40);
+				}else{
+					colorRed = Color.red;
 				}
 			}
 			//Canons
@@ -180,6 +191,8 @@ public class Menu extends MouseAdapter{
 				if(gamepanel.getMasterScore()>50/*cost per 2 canons*/){
 					gamepanel.setCanonAmount(gamepanel.getCanonAmount()+2);
 					gamepanel.setMasterScore(gamepanel.getMasterScore()-50);
+				}else{
+					colorRed = Color.red;
 				}
 			}
 			//Bouncers
@@ -187,6 +200,8 @@ public class Menu extends MouseAdapter{
 				if(gamepanel.getMasterScore()>45/*cost per 5 bouncers*/){
 					gamepanel.setBouncerAmount(gamepanel.getBouncerAmount()+5);
 					gamepanel.setMasterScore(gamepanel.getMasterScore()-45);
+				}else{
+					colorRed = Color.red;
 				}
 			}
 			//BACK TO MENU
@@ -238,6 +253,69 @@ public class Menu extends MouseAdapter{
 			color1CharSelect = Color.WHITE;
 		}
 		
+		int length = (int) (GamePanel.WIDTH/4);
+		int tallness = (int) (GamePanel.HEIGHT/3.5);
+		//Bombs
+		if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75+length+(length/5)), GamePanel.HEIGHT/5-(tallness/2)+tallness/10, GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
+			boxx = e.getX();
+			boxy = e.getY();
+			boxtext = "Cost: 20";
+			if(gamepanel.getMasterScore()>20/*cost per 2 bombs*/){
+				colorRed = Color.WHITE;
+			}else{
+				colorRed = Color.red;
+			}
+		}
+		//Rockets
+		else if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75+length+(length/5)+length+(length/5)), GamePanel.HEIGHT/5-(tallness/2)+tallness/10, GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
+			boxx = e.getX();
+			boxy = e.getY();
+			boxtext = "Cost: 30";
+			if(gamepanel.getMasterScore()>30/*cost per 2 bombs*/){
+				colorRed = Color.WHITE;
+			}else{
+				colorRed = Color.red;
+			}
+		}
+		//Lasers
+		else if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10), GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
+			boxx = e.getX();
+			boxy = e.getY();
+			boxtext = "Cost: 40";
+			if(gamepanel.getMasterScore()>40/*cost per 2 bombs*/){
+				colorRed = Color.WHITE;
+			}else{
+				colorRed = Color.red;
+			}
+		}
+		//Canons
+		else if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10), GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
+			boxx = e.getX();
+			boxy = e.getY();
+			boxtext = "Cost: 50";
+			if(gamepanel.getMasterScore()>50/*cost per 2 bombs*/){
+				colorRed = Color.WHITE;
+			}else{
+				colorRed = Color.red;
+			}
+		}
+		//Bouncers
+		else if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75)+length+(length/5)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10), GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
+			boxx = e.getX();
+			boxy = e.getY();
+			boxtext = "Cost: 45";
+			if(gamepanel.getMasterScore()>45/*cost per 2 bombs*/){
+				colorRed = Color.WHITE;
+			}else{
+				colorRed = Color.red;
+			}
+		}
+		else{
+			boxx = -1000;
+			boxy = -1000;
+			boxtext = "Hi, if you see this, you've found a bug";
+			colorRed = Color.WHITE;
+		}
 		if(gamepanel.powerLevelUpgrade1 != 0){
 			if(mouseOver(mx, my, 287, 180, 500, 500)){
 				firstwindowselected=true;
@@ -380,6 +458,18 @@ public class Menu extends MouseAdapter{
 			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/40));
 			g.setColor(Color.WHITE);
 			g.drawString("Score: " + gamepanel.getMasterScore(), (int) (GamePanel.WIDTH-GamePanel.WIDTH*0.9), GamePanel.HEIGHT-GamePanel.HEIGHT/6+GamePanel.HEIGHT/18);
+			
+			//Info Box
+			String s = boxtext;
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/80));
+			long length1 = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+			g.drawRect(boxx + GamePanel.WIDTH/120, boxy - GamePanel.HEIGHT/40, (int) (length1+GamePanel.WIDTH/80), GamePanel.HEIGHT/40);
+			g.setColor(Color.gray);
+			g.fillRect(boxx + GamePanel.WIDTH/120, boxy - GamePanel.HEIGHT/40, (int) (length1+GamePanel.WIDTH/80), GamePanel.HEIGHT/40);
+			g.setColor(Color.WHITE);
+			g.drawString(s, boxx + GamePanel.WIDTH/140 + GamePanel.WIDTH/120, boxy + GamePanel.WIDTH/80 - GamePanel.HEIGHT/40);
+			
 			//backtomenubutton
 			g.setColor(color1CharSelect);
 			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/50));
