@@ -36,25 +36,25 @@ public class Menu extends MouseAdapter{
 			if(mouseOver(mx, my, GamePanel.WIDTH/80, GamePanel.WIDTH/13, GamePanel.WIDTH/4, GamePanel.WIDTH/16)){
 				GamePanel.player.setLives(3); //Because we have to use GamePanels Player(As it has all the data)
 				gamepanel.setWaveNumber(0);
-				gamepanel.enemies.clear();
-				gamepanel.player.setRecovering(false);
-				gamepanel.player.setx(gamepanel.WIDTH/2);
-				gamepanel.player.sety(gamepanel.HEIGHT/2);
-				gamepanel.player.setPower(0);
-				gamepanel.player.setPowerLevel(0);
-				gamepanel.player.setPowerLevelChecker(0);
+				GamePanel.enemies.clear();
+				GamePanel.player.setRecovering(false);
+				GamePanel.player.setx(GamePanel.WIDTH/2);
+				GamePanel.player.sety(GamePanel.HEIGHT/2);
+				GamePanel.player.setPower(0);
+				GamePanel.player.setPowerLevel(0);
+				GamePanel.player.setPowerLevelChecker(0);
 				Player.currentWeapon=1;
 				//gamepanel.setBombAmount(10); //10 no longer needed as you have to buy bombs
-				gamepanel.setRocketAmount(20); //20
-				gamepanel.setBouncerAmount(50);  //50
-				gamepanel.setCanonAmount(10);  //10
-				gamepanel.setLaserAmount(10);  //10
-				gamepanel.player.setScore(0);
-				gamepanel.bullets.clear();
-				gamepanel.powerups.clear();
-				gamepanel.bombs.clear();
-				gamepanel.explosions.clear();
-				gamepanel.texts.clear();
+				//gamepanel.setRocketAmount(20); //20
+				//gamepanel.setBouncerAmount(50);  //50
+				//gamepanel.setCanonAmount(10);  //10
+				//gamepanel.setLaserAmount(10);  //10
+				GamePanel.player.setScore(0);
+				GamePanel.bullets.clear();
+				GamePanel.powerups.clear();
+				GamePanel.bombs.clear();
+				GamePanel.explosions.clear();
+				GamePanel.texts.clear();
 				gamepanel.setslowDownTimer(0);
 				gamepanel.gameState = STATE.Game;
 			}
@@ -130,8 +130,8 @@ public class Menu extends MouseAdapter{
 						//Slowdown
 						gamepanel.setslowDownLength(25000);
 						gamepanel.setslowDownTimer(System.nanoTime());
-						for(int j = 0; j < gamepanel.enemies.size(); j++){
-							gamepanel.enemies.get(j).setSlow(true);
+						for(int j = 0; j < GamePanel.enemies.size(); j++){
+							GamePanel.enemies.get(j).setSlow(true);
 						}
 					}
 					Menu.firstwindowselected=false;
@@ -154,15 +154,43 @@ public class Menu extends MouseAdapter{
 		}else if(gamepanel.gameState == STATE.CharSelect){
 			int length = (int) (GamePanel.WIDTH/4);
 			int tallness = (int) (GamePanel.HEIGHT/3.5);
+			//Bombs
 			if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75+length+(length/5)), GamePanel.HEIGHT/5-(tallness/2)+tallness/10, GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
 				if(gamepanel.getMasterScore()>20/*cost per 2 bombs*/){
 					gamepanel.setBombAmount(gamepanel.getBombAmount()+2);
 					gamepanel.setMasterScore(gamepanel.getMasterScore()-20);
 				}
 			}
-
+			//Rockets
+			if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75+length+(length/5)+length+(length/5)), GamePanel.HEIGHT/5-(tallness/2)+tallness/10, GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
+				if(gamepanel.getMasterScore()>30/*cost per 2 rockets*/){
+					gamepanel.setRocketAmount(gamepanel.getRocketAmount()+2);
+					gamepanel.setMasterScore(gamepanel.getMasterScore()-30);
+				}
+			}
+			//Lasers
+			if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10), GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
+				if(gamepanel.getMasterScore()>40/*cost per 2 lasers*/){
+					gamepanel.setLaserAmount(gamepanel.getLaserAmount()+2);
+					gamepanel.setMasterScore(gamepanel.getMasterScore()-40);
+				}
+			}
+			//Canons
+			if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10), GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
+				if(gamepanel.getMasterScore()>50/*cost per 2 canons*/){
+					gamepanel.setCanonAmount(gamepanel.getCanonAmount()+2);
+					gamepanel.setMasterScore(gamepanel.getMasterScore()-50);
+				}
+			}
+			//Bouncers
+			if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75)+length+(length/5)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10), GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
+				if(gamepanel.getMasterScore()>45/*cost per 5 bouncers*/){
+					gamepanel.setBouncerAmount(gamepanel.getBouncerAmount()+5);
+					gamepanel.setMasterScore(gamepanel.getMasterScore()-45);
+				}
+			}
 			//BACK TO MENU
-			if(mouseOver(mx, my, gamepanel.WIDTH-gamepanel.WIDTH/6, gamepanel.HEIGHT-gamepanel.HEIGHT/6, gamepanel.WIDTH/8, gamepanel.HEIGHT/12)){
+			if(mouseOver(mx, my, GamePanel.WIDTH-GamePanel.WIDTH/6, GamePanel.HEIGHT-GamePanel.HEIGHT/6, GamePanel.WIDTH/8, GamePanel.HEIGHT/12)){
 				gamepanel.gameState=STATE.Menu;
 			}
 		}
@@ -204,11 +232,12 @@ public class Menu extends MouseAdapter{
 			gamepanel.colordead2 = Color.WHITE;
 		}
 		
-		if(mouseOver(mx, my, gamepanel.WIDTH-gamepanel.WIDTH/6, gamepanel.HEIGHT-gamepanel.HEIGHT/6, gamepanel.WIDTH/8, gamepanel.HEIGHT/12)){
+		if(mouseOver(mx, my, GamePanel.WIDTH-GamePanel.WIDTH/6, GamePanel.HEIGHT-GamePanel.HEIGHT/6, GamePanel.WIDTH/8, GamePanel.HEIGHT/12)){
 			color1CharSelect = Color.GREEN;
 		}else{
 			color1CharSelect = Color.WHITE;
 		}
+		
 		if(gamepanel.powerLevelUpgrade1 != 0){
 			if(mouseOver(mx, my, 287, 180, 500, 500)){
 				firstwindowselected=true;
@@ -350,12 +379,12 @@ public class Menu extends MouseAdapter{
 			//Score
 			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/40));
 			g.setColor(Color.WHITE);
-			g.drawString("Score: " + gamepanel.getMasterScore(), (int) (gamepanel.WIDTH-gamepanel.WIDTH*0.9), gamepanel.HEIGHT-gamepanel.HEIGHT/6+gamepanel.HEIGHT/18);
+			g.drawString("Score: " + gamepanel.getMasterScore(), (int) (GamePanel.WIDTH-GamePanel.WIDTH*0.9), GamePanel.HEIGHT-GamePanel.HEIGHT/6+GamePanel.HEIGHT/18);
 			//backtomenubutton
 			g.setColor(color1CharSelect);
 			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/50));
-			g.drawRoundRect(gamepanel.WIDTH-gamepanel.WIDTH/6, gamepanel.HEIGHT-gamepanel.HEIGHT/6, gamepanel.WIDTH/8, gamepanel.HEIGHT/12, GamePanel.WIDTH/100, GamePanel.HEIGHT/100);
-			g.drawString("Back to Menu", gamepanel.WIDTH-gamepanel.WIDTH/6+gamepanel.WIDTH/170, gamepanel.HEIGHT-gamepanel.HEIGHT/6+gamepanel.HEIGHT/18);
+			g.drawRoundRect(GamePanel.WIDTH-GamePanel.WIDTH/6, GamePanel.HEIGHT-GamePanel.HEIGHT/6, GamePanel.WIDTH/8, GamePanel.HEIGHT/12, GamePanel.WIDTH/100, GamePanel.HEIGHT/100);
+			g.drawString("Back to Menu", GamePanel.WIDTH-GamePanel.WIDTH/6+GamePanel.WIDTH/170, GamePanel.HEIGHT-GamePanel.HEIGHT/6+GamePanel.HEIGHT/18);
 			g.setStroke(new BasicStroke(1));
 		}
 	

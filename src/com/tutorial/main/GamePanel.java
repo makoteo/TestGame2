@@ -49,7 +49,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private int canonAmount = 10;  //10
 	private int laserAmount = 10;  //10
 	
-	private int MasterScore = 0;
+	private int MasterScore = 1000;
 	
 	private long slowDownTimer;
 	private long slowDownTimerDiff;
