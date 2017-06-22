@@ -161,7 +161,7 @@ public class Menu extends MouseAdapter{
 			int tallness = (int) (GamePanel.HEIGHT/3.5);
 			//Bombs
 			if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75+length+(length/5)), GamePanel.HEIGHT/5-(tallness/2)+tallness/10, GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
-				if(gamepanel.getMasterScore()>20/*cost per 2 bombs*/){
+				if(gamepanel.getMasterScore()>20 /*cost per 2 bombs*/&& gamepanel.getBombAmount()<20){
 					gamepanel.setBombAmount(gamepanel.getBombAmount()+2);
 					gamepanel.setMasterScore(gamepanel.getMasterScore()-20);
 				}else{
@@ -170,7 +170,7 @@ public class Menu extends MouseAdapter{
 			}
 			//Rockets
 			if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75+length+(length/5)+length+(length/5)), GamePanel.HEIGHT/5-(tallness/2)+tallness/10, GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
-				if(gamepanel.getMasterScore()>30/*cost per 2 rockets*/){
+				if(gamepanel.getMasterScore()>30/*cost per 2 rockets*/ && gamepanel.getRocketAmount()<40){
 					gamepanel.setRocketAmount(gamepanel.getRocketAmount()+2);
 					gamepanel.setMasterScore(gamepanel.getMasterScore()-30);
 				}else{
@@ -179,7 +179,7 @@ public class Menu extends MouseAdapter{
 			}
 			//Lasers
 			if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10), GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
-				if(gamepanel.getMasterScore()>40/*cost per 2 lasers*/){
+				if(gamepanel.getMasterScore()>40/*cost per 2 lasers*/ && gamepanel.getLaserAmount()<20){
 					gamepanel.setLaserAmount(gamepanel.getLaserAmount()+2);
 					gamepanel.setMasterScore(gamepanel.getMasterScore()-40);
 				}else{
@@ -188,7 +188,7 @@ public class Menu extends MouseAdapter{
 			}
 			//Canons
 			if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10), GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
-				if(gamepanel.getMasterScore()>50/*cost per 2 canons*/){
+				if(gamepanel.getMasterScore()>50/*cost per 2 canons*/ && gamepanel.getCanonAmount()<20){
 					gamepanel.setCanonAmount(gamepanel.getCanonAmount()+2);
 					gamepanel.setMasterScore(gamepanel.getMasterScore()-50);
 				}else{
@@ -197,7 +197,7 @@ public class Menu extends MouseAdapter{
 			}
 			//Bouncers
 			if(mouseOver(mx, my, (int) (GamePanel.WIDTH/5-(length/2)+length*0.75)+length+(length/5)+length+(length/5), (int) (GamePanel.HEIGHT/5+(tallness/1.5)+tallness/10), GamePanel.WIDTH/28, GamePanel.HEIGHT/7)){
-				if(gamepanel.getMasterScore()>45/*cost per 5 bouncers*/){
+				if(gamepanel.getMasterScore()>45/*cost per 5 bouncers*/ && gamepanel.getBouncerAmount()<100){
 					gamepanel.setBouncerAmount(gamepanel.getBouncerAmount()+5);
 					gamepanel.setMasterScore(gamepanel.getMasterScore()-45);
 				}else{
@@ -461,13 +461,13 @@ public class Menu extends MouseAdapter{
 			
 			//Info Box
 			String s = boxtext;
-			g.setColor(Color.WHITE);
+			g.setColor(colorRed);
 			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/80));
 			long length1 = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
 			g.drawRect(boxx + GamePanel.WIDTH/120, boxy - GamePanel.HEIGHT/40, (int) (length1+GamePanel.WIDTH/80), GamePanel.HEIGHT/40);
 			g.setColor(Color.gray);
 			g.fillRect(boxx + GamePanel.WIDTH/120, boxy - GamePanel.HEIGHT/40, (int) (length1+GamePanel.WIDTH/80), GamePanel.HEIGHT/40);
-			g.setColor(Color.WHITE);
+			g.setColor(colorRed);
 			g.drawString(s, boxx + GamePanel.WIDTH/140 + GamePanel.WIDTH/120, boxy + GamePanel.WIDTH/80 - GamePanel.HEIGHT/40);
 			
 			//backtomenubutton

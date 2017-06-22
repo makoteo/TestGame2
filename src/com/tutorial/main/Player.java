@@ -40,7 +40,7 @@ public class Player {
 		threeGun
 	};
 	
-	public SHOOTERTYPE shooterType = SHOOTERTYPE.oneGun;
+	public SHOOTERTYPE shooterType = SHOOTERTYPE.twoGun;
 	
 	private int score = 0;
 	
