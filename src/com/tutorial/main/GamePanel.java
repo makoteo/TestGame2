@@ -277,12 +277,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			for(int e = 0; e < particles.size(); e++){
 				particles.get(e).update();
 			}
-			GamePanel.particles.add(new Particles(player.getx(), player.gety(), 1, 1, (int) (player.getr()*1.5)));
+			GamePanel.particles.add(new Particles(player.getx(), player.gety(), 1, 3, (int) (player.getr()*1.5)));
 			
 			//BULLET
 			for(int i = 0; i < bullets.size(); i++){
 				boolean remove = bullets.get(i).update();
-				GamePanel.particles.add(new Particles((int) bullets.get(i).getx(), (int) bullets.get(i).gety(), 1, 2, (int) (bullets.get(i).getr()*1.5)));
+				GamePanel.particles.add(new Particles((int) bullets.get(i).getx(), (int) bullets.get(i).gety(), 1, 4, (int) (bullets.get(i).getr()*1.5)));
 				if(remove){
 					bullets.remove(i);
 					i--;
