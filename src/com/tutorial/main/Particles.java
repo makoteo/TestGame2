@@ -35,9 +35,11 @@ public class Particles {
 	
 	public void update(){
 		timer--;
+		this.y--;
 		lifeTimer--;
-		alphaColor-=5;
-		if(alphaColor < 0){
+		alphaColor-=37;
+		if(alphaColor < 1){
+			alphaColor = 0;
 			GamePanel.particles.remove(this);
 		}
 		if(GamePanel.particles.size() < 20){
@@ -45,9 +47,7 @@ public class Particles {
 				GamePanel.particles.add(new Particles(x, y, 1, 1, range));
 			}
 		}
-		if(lifeTimer == 0){
-			GamePanel.particles.remove(this);
-		}
+
 	}
 	public int getx(){
 		return this.x;
@@ -59,7 +59,7 @@ public class Particles {
 		return this.range;
 	}
 	public void draw(Graphics g){
-		g.setColor(new Color(255, 255, 0, this.alphaColor));
+		g.setColor(new Color(255, 255, 0, alphaColor));
 		g.fillRect(x + random1, y + random2, GamePanel.WIDTH/350, GamePanel.WIDTH/350);
 	}
 

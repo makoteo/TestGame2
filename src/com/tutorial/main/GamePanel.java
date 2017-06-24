@@ -277,7 +277,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			for(int e = 0; e < particles.size(); e++){
 				particles.get(e).update();
 			}
-			GamePanel.particles.add(new Particles(player.getx(), player.gety(), 1, 1, 10));
+			GamePanel.particles.add(new Particles(player.getx(), player.gety(), 1, 1, (int) (player.getr()*1.5)));
 			
 			//BULLET
 			for(int i = 0; i < bullets.size(); i++){
@@ -293,10 +293,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				if(enemies.get(i).getTimer() == -1){
 					enemies.get(i).setTimer(50);
 				}
-			}
-			
-			for(int i = 0; i < enemies.size(); i++){
-				particles.get(i).update();
 			}
 			
 			for(int i = 0; i < bombs.size(); i++){
