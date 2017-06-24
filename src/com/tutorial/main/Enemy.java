@@ -37,6 +37,7 @@ public class Enemy {
 	private boolean selected = false;
 	
 	private int id = 0;
+	private boolean ai = false;
 	
 	private int rand;
 	//TRAITS
@@ -46,8 +47,8 @@ public class Enemy {
 	private int Sizetrait = 1;
 	//CONSTRUCTOR
 	
-	public Enemy(int type, int rank, int traitchance){
-		
+	public Enemy(int type, int rank, int traitchance, boolean ai){
+		this.ai = ai;
 		this.type = type;//The type variable is equal to the variable the programmer inputs into the constructor
 		this.rank = rank;
 		Random ra = new Random();
@@ -226,7 +227,7 @@ public class Enemy {
 			}
 			for(int i = 0; i < amount; i++){
 				
-				Enemy e = new Enemy(getType(), getRank() - 1, getTraitChance()+10);
+				Enemy e = new Enemy(getType(), getRank() - 1, getTraitChance()+10, false);
 				e.x = this.x;
 				e.y = this.y;
 				GamePanel.EnemyId += 1;
@@ -279,61 +280,67 @@ public class Enemy {
 				this.ready = true;
 			}
 		}
-		if(type==1){
-			if(x < r && dx < 0){dx = -dx;}
-			if(y < r && dy < 0){dy = -dy;}
-			if(x > GamePanel.WIDTH -r && dx > 0){ dx = -dx;}
-			if(y > GamePanel.HEIGHT -r && dy > 0){ dy = -dy;}
-		}else if(type==2){
-			if(this.Timer >= 1){
-				if(this.Timer == 50){	
-					double angle = 0;
-					angle = Math.random() * 360;
-					this.rad = Math.toRadians(angle);
-				}
-				dx = Math.cos(rad) * 2;
-				dy = Math.sin(rad) * 2;
+		if(ai == false){
+			if(type==1){
 				if(x < r && dx < 0){dx = -dx;}
 				if(y < r && dy < 0){dy = -dy;}
 				if(x > GamePanel.WIDTH -r && dx > 0){ dx = -dx;}
 				if(y > GamePanel.HEIGHT -r && dy > 0){ dy = -dy;}
+			}else if(type==2){
+				if(this.Timer >= 1){
+					if(this.Timer == 50){	
+						double angle = 0;
+						angle = Math.random() * 360;
+						this.rad = Math.toRadians(angle);
+					}
+					dx = Math.cos(rad) * 2;
+					dy = Math.sin(rad) * 2;
+					if(x < r && dx < 0){dx = -dx;}
+					if(y < r && dy < 0){dy = -dy;}
+					if(x > GamePanel.WIDTH -r && dx > 0){ dx = -dx;}
+					if(y > GamePanel.HEIGHT -r && dy > 0){ dy = -dy;}
+				}else{
+					dx = GamePanel.getPlayerX() - this.x;
+					dy = GamePanel.getPlayerY() - this.y;
+					float norm = (float) Math.sqrt(dx * dx + dy * dy);
+					dx *= (this.speed / norm);
+					dy *= (this.speed / norm);
+				}
 			}else{
-				dx = GamePanel.getPlayerX() - this.x;
-				dy = GamePanel.getPlayerY() - this.y;
-				float norm = (float) Math.sqrt(dx * dx + dy * dy);
-				dx *= (this.speed / norm);
-				dy *= (this.speed / norm);
+				if(x < r && dx < 0){dx = -dx;}
+				if(y < r && dy < 0){dy = -dy;}
+				if(x > GamePanel.WIDTH -r && dx > 0){ dx = -dx;}
+				if(y > GamePanel.HEIGHT -r && dy > 0){ dy = -dy;}
+				long elapsed = (System.nanoTime() - firingTimer) / 1000000;
+				if(elapsed > firingDelay){
+					firingTimer = System.nanoTime();
+					
+					//System.out.println(Menu.mxg);
+					//System.out.println(Menu.myg);
+					int px = GamePanel.getPlayerX();
+					int py = GamePanel.getPlayerY();
+	
+					double angle = (180 - 90 -(Math.toDegrees(Math.atan((double)Math.abs(px - this.x) / ((double)Math.abs(py - this.y))))));
+					//System.out.println(Math.abs(Menu.mxg - px) + "///" + Math.abs(Menu.myg - py));
+					
+					if((px >= this.x) && (this.y >= py)){
+						angle = 360 - angle;
+					}else if((px >= this.x) && (this.y <= py)){
+						
+					}else if((px <= this.x) && (this.y <= py)){
+						angle = 180 - angle;
+					}else if((px <= this.x) && (this.y >= py)){
+						angle = 180 + angle;
+					}
+					GamePanel.bullets.add(new Bullet(angle, (int)this.x, (int)this.y, 2));
+				}
 			}
-		}else{
+		}else if(ai == true){
 			if(x < r && dx < 0){dx = -dx;}
 			if(y < r && dy < 0){dy = -dy;}
 			if(x > GamePanel.WIDTH -r && dx > 0){ dx = -dx;}
 			if(y > GamePanel.HEIGHT -r && dy > 0){ dy = -dy;}
-			long elapsed = (System.nanoTime() - firingTimer) / 1000000;
-			if(elapsed > firingDelay){
-				firingTimer = System.nanoTime();
-				
-				//System.out.println(Menu.mxg);
-				//System.out.println(Menu.myg);
-				int px = GamePanel.getPlayerX();
-				int py = GamePanel.getPlayerY();
-
-				double angle = (180 - 90 -(Math.toDegrees(Math.atan((double)Math.abs(px - this.x) / ((double)Math.abs(py - this.y))))));
-				//System.out.println(Math.abs(Menu.mxg - px) + "///" + Math.abs(Menu.myg - py));
-				
-				if((px >= this.x) && (this.y >= py)){
-					angle = 360 - angle;
-				}else if((px >= this.x) && (this.y <= py)){
-					
-				}else if((px <= this.x) && (this.y <= py)){
-					angle = 180 - angle;
-				}else if((px <= this.x) && (this.y >= py)){
-					angle = 180 + angle;
-				}
-				GamePanel.bullets.add(new Bullet(angle, (int)this.x, (int)this.y, 2));
-			}
 		}
-		
 		if(hit){
 			long elapsed = (System.nanoTime() - hitTimer) / 1000000;
 			if(elapsed > 50){

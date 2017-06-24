@@ -37,6 +37,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static ArrayList<PowerUp> powerups;
 	public static ArrayList<Explosion> explosions;
 	public static ArrayList<Text> texts;
+	public static ArrayList<Particles> particles;
 	
 	private long waveStartTimer;
 	private long WaveStartTimerDiff;
@@ -49,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private int canonAmount = 10;  //10
 	private int laserAmount = 10;  //10
 	
-	private int MasterScore = 1000;
+	private int MasterScore = 0;
 	
 	private long slowDownTimer;
 	private long slowDownTimerDiff;
@@ -165,6 +166,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		powerups = new ArrayList<PowerUp>();
 		explosions = new ArrayList<Explosion>();
 		texts = new ArrayList<Text>();
+		particles = new ArrayList<Particles>();
 		
 		waveStartTimer = 0;
 		WaveStartTimerDiff = 0;
@@ -271,6 +273,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			//PLAYER
 			player.update();
 			
+			//PARTICLES
+			for(int e = 0; e < particles.size(); e++){
+				particles.get(e).update();
+			}
+			GamePanel.particles.add(new Particles(player.getx(), player.gety(), 1, 1, 10));
+			
 			//BULLET
 			for(int i = 0; i < bullets.size(); i++){
 				boolean remove = bullets.get(i).update();
@@ -285,6 +293,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				if(enemies.get(i).getTimer() == -1){
 					enemies.get(i).setTimer(50);
 				}
+			}
+			
+			for(int i = 0; i < enemies.size(); i++){
+				particles.get(i).update();
 			}
 			
 			for(int i = 0; i < bombs.size(); i++){
@@ -683,6 +695,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			}
 		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect){
 			menu.update();
+			for(int i = 0; i < enemies.size(); i++){
+				enemies.get(i).update();
+				if(enemies.get(i).getTimer() == -1){
+					enemies.get(i).setTimer(50);
+				}
+			}
+			if(enemies.size() == 0){
+				addMenuWave();
+			}
 		}else if(gameState == STATE.Dead){
 			menu.update();
 		}
@@ -809,6 +830,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			for(int i = 0; i < bullets.size(); i++){
 				bullets.get(i).draw(g);
 			}
+			
+			//Particles
+			for(int i = 0; i < particles.size(); i++){
+				particles.get(i).draw(g);
+			}
+			
 			//PowerUps
 			for(int i = 0; i < powerups.size(); i++){
 				powerups.get(i).draw(g);
@@ -1072,6 +1099,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.drawString(s, WIDTH / 2 - length/2, (int) ((HEIGHT/3)*1.6) + HEIGHT/10);
 				g.setStroke(new BasicStroke(1));
 		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect){
+			g.setColor(new Color(0,100,50));
+			g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+			for(int i = 0; i < enemies.size(); i++){
+				enemies.get(i).draw(g);
+			}
 			menu.draw(g);
 		}
 		
@@ -1124,16 +1156,31 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		g2.drawImage(image, 0, 0, null);
 		g2.dispose();
 	}
+	private void addMenuWave(){
+		enemies.add(new Enemy(1, 1, 100, true));
+		enemies.add(new Enemy(1, 2, 100, true));
+		enemies.add(new Enemy(1, 2, 100, true));
+		enemies.add(new Enemy(2, 1, 100, true));
+		enemies.add(new Enemy(1, 3, 100, true));
+		enemies.add(new Enemy(1, 1, 100, true));
+		enemies.add(new Enemy(2, 2, 100, true));
+		enemies.add(new Enemy(2, 2, 100, true));
+		enemies.add(new Enemy(2, 1, 100, true));
+		enemies.add(new Enemy(2, 1, 100, true));
+		enemies.add(new Enemy(3, 2, 100, true));
+		enemies.add(new Enemy(3, 1, 100, true));
+		enemies.add(new Enemy(3, 3, 100, true));
+	}
 	private void createWave(double levelhardness, double enemysize, double sizeamount, double amount){
 		if(enemysize>4){ enemysize = 4;}
 		
 		if(levelhardness <= 1){
 			for(int i = 0; i < amount; i++){
 				if(sizeamount > 0){
-					enemies.add(new Enemy(1, (int)enemysize, 100));
+					enemies.add(new Enemy(1, (int)enemysize, 100, false));
 					sizeamount--;
 				}else{
-					enemies.add(new Enemy(1, (int)enemysize-1, 100));
+					enemies.add(new Enemy(1, (int)enemysize-1, 100, false));
 				}
 			}
 		}else if(levelhardness <= 2){
@@ -1142,7 +1189,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					Random r = new Random();
 				
 					int x = r.nextInt(2) + 1;
-					enemies.add(new Enemy(x, (int)enemysize, 100));
+					enemies.add(new Enemy(x, (int)enemysize, 100, false));
 					sizeamount--;
 				}else{
 					Random r = new Random();
@@ -1151,7 +1198,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					Random r1 = new Random();
 					
 					int changeinsize = r1.nextInt((int) enemysize-1) + 1;
-					enemies.add(new Enemy(x, (int)enemysize-changeinsize, 100));
+					enemies.add(new Enemy(x, (int)enemysize-changeinsize, 100, false));
 				}
 			}
 		}else if(levelhardness <= 3){
@@ -1160,7 +1207,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					Random r = new Random();
 				
 					int x = r.nextInt(2) + 1;
-					enemies.add(new Enemy(x, (int)enemysize, 100));
+					enemies.add(new Enemy(x, (int)enemysize, 100, false));
 					sizeamount--;
 				}else{
 					Random r = new Random();
@@ -1169,7 +1216,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					Random r1 = new Random();
 					
 					int changeinsize = r1.nextInt((int) enemysize-1) + 1;
-					enemies.add(new Enemy(x, (int)enemysize-changeinsize, 100));
+					enemies.add(new Enemy(x, (int)enemysize-changeinsize, 100, false));
 				}
 			}
 		}else{
@@ -1178,7 +1225,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					Random r = new Random();
 				
 					int x = r.nextInt(3) + 1;
-					enemies.add(new Enemy(x, (int)enemysize, 100));
+					enemies.add(new Enemy(x, (int)enemysize, 100, false));
 					sizeamount--;
 				}else{
 					Random r = new Random();
@@ -1187,7 +1234,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					Random r1 = new Random();
 					
 					int changeinsize = r1.nextInt((int) enemysize-1) + 1;
-					enemies.add(new Enemy(x, (int)enemysize-changeinsize, 100));
+					enemies.add(new Enemy(x, (int)enemysize-changeinsize, 100, false));
 				}
 			}
 		}

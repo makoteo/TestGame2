@@ -345,8 +345,6 @@ public class Menu extends MouseAdapter{
 	
 	public void draw(Graphics2D g){
 		if(gamepanel.gameState == STATE.Menu){
-			g.setColor(new Color(0,100,50));
-			g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
 			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/14));
 			g.setColor(Color.GRAY);
 			g.drawString("M E N U", GamePanel.WIDTH/66, GamePanel.WIDTH/15);
@@ -365,8 +363,6 @@ public class Menu extends MouseAdapter{
 			g.drawString("Options", GamePanel.WIDTH/18, (int) (GamePanel.HEIGHT/2));
 			g.setStroke(new BasicStroke(1));
 		}else if(gamepanel.gameState == STATE.CharSelect){
-			g.setColor(new Color(0,100,50));
-			g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
 			g.setStroke(new BasicStroke(4));
 			int length = (int) (GamePanel.WIDTH/4);
 			int tallness = (int) (GamePanel.HEIGHT/3.5);
