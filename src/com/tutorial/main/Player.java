@@ -64,8 +64,21 @@ public class Player {
 		speed = GamePanel.WIDTH/200;
 		
 		lives = 3;
-		color1 = Color.WHITE;
-		color2 = Color.RED;
+		if(GamePanel.CharColorSelected == 0){
+			color1 = Color.WHITE;
+			color2 = Color.RED.darker();
+		}
+		if(GamePanel.CharColorSelected == 1){
+			color1 = Color.BLUE;
+			color2 = Color.RED.darker();
+		}
+		if(GamePanel.CharColorSelected == 5){
+			color1 = Color.RED;
+			color2 = Color.RED.darker();
+		}else{
+			color1 = Color.BLACK;
+			color2 = Color.BLACK;
+		}
 		
 		firing = false;
 		firingTimer = System.nanoTime();

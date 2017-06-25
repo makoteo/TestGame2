@@ -79,6 +79,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	double sizeamount;
 	double totalamount;
 	
+	public static int CharColorPage = 1;
+	public static int CharColorSelected = 0;
+	
+	public static String CharColors1[] = {"white", "blue", "orange", "aqua", "brown", "red"};
+	public static String CharColors2[] = {"yellow", "green", "black", "pink", "purple", "weird"};
+	
 	public enum STATE {
 		Menu,
 		Game,
@@ -673,6 +679,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			}
 			if(player.getLives() <= 0){
 				gameState = STATE.Dead;
+				enemies.clear();
+				addMenuWave();
 				MasterScore+=player.getscore();
 			}
 			//DetonateButtonHoverUpdate
@@ -691,7 +699,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					}
 				}
 			}
-		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect || gameState == STATE.Upgrade){
+		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect || gameState == STATE.Upgrade || gameState == STATE.Dead){
 			menu.update();
 			for(int i = 0; i < enemies.size(); i++){
 				enemies.get(i).update();
@@ -702,8 +710,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			if(enemies.size() == 0){
 				addMenuWave();
 			}
-		}else if(gameState == STATE.Dead){
-			menu.update();
 		}
 		
 	}
@@ -1070,10 +1076,22 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				g.setColor(new Color(255, 255, 255, alpha));
 				g.fillRect(0, 0, WIDTH, HEIGHT);
 			}
+		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect || gameState == STATE.Upgrade){
+			g.setColor(new Color(0,100,50));
+			g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+			for(int i = 0; i < enemies.size(); i++){
+				enemies.get(i).draw(g);
+			}
+			menu.draw(g);
 		}else if(gameState == STATE.Dead){
 				g.setStroke(new BasicStroke(3));
 				g.setColor(new Color(0,100,50));
 				g.fillRect(0, 0, WIDTH, HEIGHT);
+				for(int i = 0; i < enemies.size(); i++){
+					enemies.get(i).draw(g);
+				}
+				
+				g.setStroke(new BasicStroke(3));
 				g.setColor(Color.WHITE);
 				g.setFont(new Font("Century Ghotic", Font.PLAIN, WIDTH/30));
 				String s = "- G A M E  O V E R -";
@@ -1096,13 +1114,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
 				g.drawString(s, WIDTH / 2 - length/2, (int) ((HEIGHT/3)*1.6) + HEIGHT/10);
 				g.setStroke(new BasicStroke(1));
-		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect || gameState == STATE.Upgrade){
-			g.setColor(new Color(0,100,50));
-			g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
-			for(int i = 0; i < enemies.size(); i++){
-				enemies.get(i).draw(g);
-			}
-			menu.draw(g);
 		}
 		
 		if(paused == true){

@@ -11,6 +11,7 @@ public class Menu extends MouseAdapter{
 	private Color color1;
 	private Color color2;
 	private Color color3;
+	private Color color1Upgrades;
 	private Color color1CharSelect;
 	private Color colorRed;
 	
@@ -63,9 +64,13 @@ public class Menu extends MouseAdapter{
 				gamepanel.setslowDownTimer(0);
 				gamepanel.gameState = STATE.Game;
 			}
-			//Charcter
+			//Upgrades
 			if(mouseOver(mx, my, GamePanel.WIDTH/80, (int) (GamePanel.WIDTH/6.5), GamePanel.WIDTH/4, GamePanel.WIDTH/16)){
 				gamepanel.gameState = STATE.Upgrade;
+			}
+			//Character
+			if(mouseOver(mx, my, GamePanel.WIDTH/80, (int) (GamePanel.HEIGHT/7.5 + GamePanel.WIDTH/16 + GamePanel.WIDTH/64 + GamePanel.WIDTH/16 + GamePanel.WIDTH/64), GamePanel.WIDTH/4, GamePanel.WIDTH/16)){
+				gamepanel.gameState = STATE.CharSelect;
 			}
 		}else if(gamepanel.gameState == STATE.Game){
 			//Bomb
@@ -152,8 +157,6 @@ public class Menu extends MouseAdapter{
 			if(mouseOver(mx, my, GamePanel.WIDTH/2-GamePanel.WIDTH/12, (int) ((GamePanel.HEIGHT/3)*1.45), GamePanel.WIDTH/6, GamePanel.HEIGHT/14)){
 				//Back to Menu
 				gamepanel.gameState = STATE.Menu;
-				GamePanel.enemies.clear();
-				gamepanel.addMenuWave();
 			}
 			if(mouseOver(mx, my, GamePanel.WIDTH/2-GamePanel.WIDTH/12, (int) ((GamePanel.HEIGHT/3)*1.5) + GamePanel.HEIGHT/12, GamePanel.WIDTH/6, GamePanel.HEIGHT/14)){
 				gamepanel.gameState = STATE.Upgrade;
@@ -210,6 +213,17 @@ public class Menu extends MouseAdapter{
 			if(mouseOver(mx, my, GamePanel.WIDTH-GamePanel.WIDTH/6, GamePanel.HEIGHT-GamePanel.HEIGHT/6, GamePanel.WIDTH/8, GamePanel.HEIGHT/12)){
 				gamepanel.gameState=STATE.Menu;
 			}
+		}else if(gamepanel.gameState == STATE.CharSelect){
+			for(int i = 0; i < 6; i++){
+				//Buttons
+				if(mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
+					GamePanel.CharColorSelected = i;
+				}
+			}	
+			//BACK TO MENU
+			if(mouseOver(mx, my, GamePanel.WIDTH-GamePanel.WIDTH/6, GamePanel.HEIGHT-GamePanel.HEIGHT/6, GamePanel.WIDTH/8, GamePanel.HEIGHT/12)){
+				gamepanel.gameState=STATE.Menu;
+			}
 		}
 	}
 	
@@ -253,6 +267,12 @@ public class Menu extends MouseAdapter{
 			gamepanel.colordead2 = Color.GREEN;
 		}else{
 			gamepanel.colordead2 = Color.WHITE;
+		}
+		
+		if(mouseOver(mx, my, GamePanel.WIDTH-GamePanel.WIDTH/6, GamePanel.HEIGHT-GamePanel.HEIGHT/6, GamePanel.WIDTH/8, GamePanel.HEIGHT/12)){
+			color1Upgrades = Color.GREEN;
+		}else{
+			color1Upgrades = Color.WHITE;
 		}
 		
 		if(mouseOver(mx, my, GamePanel.WIDTH-GamePanel.WIDTH/6, GamePanel.HEIGHT-GamePanel.HEIGHT/6, GamePanel.WIDTH/8, GamePanel.HEIGHT/12)){
@@ -475,8 +495,56 @@ public class Menu extends MouseAdapter{
 			g.drawString(s, boxx + GamePanel.WIDTH/140 + GamePanel.WIDTH/120, boxy + GamePanel.WIDTH/80 - GamePanel.HEIGHT/40);
 			
 			//backtomenubutton
+			g.setColor(color1Upgrades);
+			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/50));
+			g.drawRoundRect(GamePanel.WIDTH-GamePanel.WIDTH/6, GamePanel.HEIGHT-GamePanel.HEIGHT/6, GamePanel.WIDTH/8, GamePanel.HEIGHT/12, GamePanel.WIDTH/100, GamePanel.HEIGHT/100);
+			g.drawString("Back to Menu", GamePanel.WIDTH-GamePanel.WIDTH/6+GamePanel.WIDTH/170, GamePanel.HEIGHT-GamePanel.HEIGHT/6+GamePanel.HEIGHT/18);
+			g.setStroke(new BasicStroke(1));
+		}else if(gamepanel.gameState == STATE.CharSelect){
+			for(int i = 0; i < 6; i++){
+				//Buttons
+				g.setColor(Color.GRAY);
+				g.setStroke(new BasicStroke(3));
+				g.fillRoundRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5), GamePanel.WIDTH/80, GamePanel.HEIGHT/80);
+				g.setColor(Color.BLACK);
+				g.drawRoundRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5), GamePanel.WIDTH/80, GamePanel.HEIGHT/80);
+				if(GamePanel.CharColorSelected == i){
+					g.setColor(Color.YELLOW);
+					g.drawRoundRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5), GamePanel.WIDTH/80, GamePanel.HEIGHT/80);
+				}
+				if(GamePanel.CharColorPage == 1){
+					Color tmpColor = Color.BLACK;
+					if(GamePanel.CharColors1[i] == "white"){
+						tmpColor = Color.WHITE;
+					}else if(GamePanel.CharColors1[i] == "blue"){
+						tmpColor = Color.BLUE;
+					}
+					else if(GamePanel.CharColors1[i] == "red"){
+						tmpColor = Color.RED;
+					}
+					g.setColor(tmpColor);
+					g.fillOval(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i + (GamePanel.WIDTH/9/2) - GamePanel.WIDTH/80, GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5/2) - GamePanel.WIDTH/80, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
+					g.setColor(tmpColor.darker());
+					g.setStroke(new BasicStroke(5));
+					g.drawOval(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i + (GamePanel.WIDTH/9/2) - GamePanel.WIDTH/80, GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5/2) - GamePanel.WIDTH/80, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
+					g.setStroke(new BasicStroke(1));
+				}
+			}
+			g.setColor(Color.DARK_GRAY);
+			g.fillRoundRect(GamePanel.WIDTH/50, GamePanel.HEIGHT/15, (int) (GamePanel.WIDTH/26.7), (int) (GamePanel.HEIGHT/6.9), (GamePanel.WIDTH/80), (GamePanel.WIDTH/80));
+			g.fillPolygon(new int[] {GamePanel.WIDTH/40, GamePanel.WIDTH/20, GamePanel.WIDTH/20}, new int[] {(int) (GamePanel.HEIGHT/6.9), (int) (GamePanel.HEIGHT/11.25), GamePanel.HEIGHT/5}, 3);
+			g.setColor(Color.BLACK);
+			g.drawRoundRect(GamePanel.WIDTH/50, GamePanel.HEIGHT/15, (int) (GamePanel.WIDTH/26.7), (int) (GamePanel.HEIGHT/6.9), (GamePanel.WIDTH/80), (GamePanel.WIDTH/80));
+			g.drawPolygon(new int[] {GamePanel.WIDTH/40, GamePanel.WIDTH/20, GamePanel.WIDTH/20}, new int[] {(int) (GamePanel.HEIGHT/6.9), (int) (GamePanel.HEIGHT/11.25), GamePanel.HEIGHT/5}, 3);
+			g.setColor(Color.DARK_GRAY);
+			g.fillRoundRect(GamePanel.WIDTH - GamePanel.WIDTH/50 - (int) (GamePanel.WIDTH/26.7), GamePanel.HEIGHT/15, (int) (GamePanel.WIDTH/26.7), (int) (GamePanel.HEIGHT/6.9), (GamePanel.WIDTH/80), (GamePanel.WIDTH/80));
+			g.fillPolygon(new int[] {GamePanel.WIDTH - GamePanel.WIDTH/40, GamePanel.WIDTH - GamePanel.WIDTH/20, GamePanel.WIDTH - GamePanel.WIDTH/20}, new int[] {(int) (GamePanel.HEIGHT/6.9), (int) (GamePanel.HEIGHT/11.25), GamePanel.HEIGHT/5}, 3);
+			g.setColor(Color.BLACK);
+			g.drawRoundRect(GamePanel.WIDTH - GamePanel.WIDTH/50 - (int) (GamePanel.WIDTH/26.7), GamePanel.HEIGHT/15, (int) (GamePanel.WIDTH/26.7), (int) (GamePanel.HEIGHT/6.9), (GamePanel.WIDTH/80), (GamePanel.WIDTH/80));
+			g.drawPolygon(new int[] {GamePanel.WIDTH - GamePanel.WIDTH/40, GamePanel.WIDTH - GamePanel.WIDTH/20, GamePanel.WIDTH - GamePanel.WIDTH/20}, new int[] {(int) (GamePanel.HEIGHT/6.9), (int) (GamePanel.HEIGHT/11.25), GamePanel.HEIGHT/5}, 3);
 			g.setColor(color1CharSelect);
 			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/50));
+			g.setStroke(new BasicStroke(3));
 			g.drawRoundRect(GamePanel.WIDTH-GamePanel.WIDTH/6, GamePanel.HEIGHT-GamePanel.HEIGHT/6, GamePanel.WIDTH/8, GamePanel.HEIGHT/12, GamePanel.WIDTH/100, GamePanel.HEIGHT/100);
 			g.drawString("Back to Menu", GamePanel.WIDTH-GamePanel.WIDTH/6+GamePanel.WIDTH/170, GamePanel.HEIGHT-GamePanel.HEIGHT/6+GamePanel.HEIGHT/18);
 			g.setStroke(new BasicStroke(1));
