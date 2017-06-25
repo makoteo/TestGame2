@@ -85,6 +85,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static String CharColors1[] = {"white", "blue", "orange", "aqua", "brown", "red"};
 	public static String CharColors2[] = {"yellow", "green", "black", "pink", "purple", "weird"};
 	
+	public static String CharHats1[] = {"classical", "wizard", "null", "null", "null", "null"};
+	public static String CharHats2[] = {"null", "null", "null", "null", "null", "null"};
+	
 	public enum STATE {
 		Menu,
 		Game,

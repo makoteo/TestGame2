@@ -64,21 +64,6 @@ public class Player {
 		speed = GamePanel.WIDTH/200;
 		
 		lives = 3;
-		if(GamePanel.CharColorSelected == 0){
-			color1 = Color.WHITE;
-			color2 = Color.RED.darker();
-		}
-		if(GamePanel.CharColorSelected == 1){
-			color1 = Color.BLUE;
-			color2 = Color.RED.darker();
-		}
-		if(GamePanel.CharColorSelected == 5){
-			color1 = Color.RED;
-			color2 = Color.RED.darker();
-		}else{
-			color1 = Color.BLACK;
-			color2 = Color.BLACK;
-		}
 		
 		firing = false;
 		firingTimer = System.nanoTime();
@@ -170,6 +155,35 @@ public class Player {
 		firingTimer = l;
 	}
 	public void update(){
+		if(GamePanel.CharColorPage == 1){//If on first page
+			if(GamePanel.CharColorSelected == 0){
+				color1 = Color.WHITE;
+				color2 = Color.RED.darker();
+			}else if(GamePanel.CharColorSelected == 1){
+				color1 = Color.BLUE;
+				color2 = Color.RED.darker();
+			}else if(GamePanel.CharColorSelected == 4){
+				color1 = Color.RED;
+				color2 = Color.RED.darker();
+			}else{
+				color1 = Color.DARK_GRAY;
+				color2 = Color.DARK_GRAY;
+			}
+		}else if(GamePanel.CharColorPage == 2){
+			if(GamePanel.CharColorSelected == 6){
+				color1 = Color.YELLOW;
+				color2 = Color.RED.darker();
+			}else if(GamePanel.CharColorSelected == 7){
+				color1 = Color.GREEN;
+				color2 = Color.RED.darker();
+			}else if(GamePanel.CharColorSelected == 8){
+				color1 = Color.BLACK;
+				color2 = Color.RED.darker();
+			}else{
+				color1 = Color.DARK_GRAY;
+				color2 = Color.DARK_GRAY;
+			}
+		}
 		if(left){
 			dx = -speed;
 		}
