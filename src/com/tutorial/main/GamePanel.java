@@ -80,7 +80,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	double totalamount;
 	
 	public static int CharColorPage = 1;
+	public static int CharHatPage = 1;
 	public static int CharColorSelected = 0;
+	public static int CharHatSelected = 0;
 	
 	public static String CharColors1[] = {"white", "blue", "orange", "aqua", "brown", "red"};
 	public static String CharColors2[] = {"yellow", "green", "black", "pink", "purple", "weird"};

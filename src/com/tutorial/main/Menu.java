@@ -3,6 +3,7 @@ package com.tutorial.main;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 import com.tutorial.main.GamePanel.STATE;
 
@@ -587,32 +588,31 @@ public class Menu extends MouseAdapter{
 				g.fillRoundRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5), GamePanel.WIDTH/80, GamePanel.HEIGHT/80);
 				g.setColor(Color.BLACK);
 				g.drawRoundRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5), GamePanel.WIDTH/80, GamePanel.HEIGHT/80);
-				if(GamePanel.CharColorPage == 1){
-					if(GamePanel.CharColorSelected == i){
+				if(GamePanel.CharHatPage == 1){
+					if(GamePanel.CharHatSelected == i){
 						g.setColor(Color.YELLOW);
-						g.drawRoundRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5), GamePanel.WIDTH/80, GamePanel.HEIGHT/80);
+						g.drawRoundRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5), GamePanel.WIDTH/80, GamePanel.HEIGHT/80);
 					}
-				}else if(GamePanel.CharColorPage == 2){
-					if(GamePanel.CharColorSelected == i+6){
+				}else if(GamePanel.CharHatPage == 2){
+					if(GamePanel.CharHatSelected == i+6){
 						g.setColor(Color.YELLOW);
-						g.drawRoundRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5), GamePanel.WIDTH/80, GamePanel.HEIGHT/80);
+						g.drawRoundRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5), GamePanel.WIDTH/80, GamePanel.HEIGHT/80);
 					}
 				}
 				if(GamePanel.CharColorPage == 1){
-					Color tmpColor = Color.BLACK;
-					if(GamePanel.CharColors1[i] == "white"){
-						tmpColor = Color.WHITE;
-					}else if(GamePanel.CharColors1[i] == "blue"){
-						tmpColor = Color.BLUE;
-					}else if(GamePanel.CharColors1[i] == "red"){
-						tmpColor = Color.RED;
+					BufferedImage tmpBufferedImage = null;
+					if(GamePanel.CharHats1[i] == "classical"){
+						tmpBufferedImage = GamePanel.Hats_ClassicalHat;
+					}else if(GamePanel.CharHats1[i] == "wizard"){
+						tmpBufferedImage = GamePanel.Hats_Wizard;
+					}else if(GamePanel.CharHats1[i] == "null"){
+						g.setColor(Color.PINK.darker());
+						g.fillRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i + (GamePanel.WIDTH/9/2) - GamePanel.WIDTH/80, GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5/2) - GamePanel.WIDTH/80 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
+						g.setColor(Color.BLACK);
+						g.fillRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i + (GamePanel.WIDTH/9/2) - GamePanel.WIDTH/80, GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5/2) - GamePanel.WIDTH/80 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/80, GamePanel.WIDTH/80);
+						g.fillRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i + (GamePanel.WIDTH/9/2) - GamePanel.WIDTH/80 + GamePanel.WIDTH/80, GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5/2) - GamePanel.WIDTH/80 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16 + GamePanel.WIDTH/78, GamePanel.WIDTH/79, GamePanel.WIDTH/80);
 					}
-					g.setColor(tmpColor);
-					g.fillOval(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i + (GamePanel.WIDTH/9/2) - GamePanel.WIDTH/80, GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5/2) - GamePanel.WIDTH/80, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
-					g.setColor(tmpColor.darker());
-					g.setStroke(new BasicStroke(5));
-					g.drawOval(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i + (GamePanel.WIDTH/9/2) - GamePanel.WIDTH/80, GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5/2) - GamePanel.WIDTH/80, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
-					g.setStroke(new BasicStroke(1));
+					g.drawImage(tmpBufferedImage, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i + (GamePanel.WIDTH/9/2) - GamePanel.WIDTH/80, GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5/2) - GamePanel.WIDTH/80 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/40, GamePanel.WIDTH/40, null);
 				}
 				if(GamePanel.CharColorPage == 2){
 					Color tmpColor = Color.BLACK;
