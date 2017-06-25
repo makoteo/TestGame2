@@ -10,6 +10,7 @@ public class Menu extends MouseAdapter{
 	
 	private Color color1;
 	private Color color2;
+	private Color color3;
 	private Color color1CharSelect;
 	private Color colorRed;
 	
@@ -21,8 +22,6 @@ public class Menu extends MouseAdapter{
 	
 	public static int mxg;
 	public static int myg;
-	
-	private int Timer = 2;
 	
 	public static boolean firstwindowselected = false;
 	public static boolean secondwindowselected = false;
@@ -59,13 +58,14 @@ public class Menu extends MouseAdapter{
 				GamePanel.powerups.clear();
 				GamePanel.bombs.clear();
 				GamePanel.explosions.clear();
+				GamePanel.particles.clear();
 				GamePanel.texts.clear();
 				gamepanel.setslowDownTimer(0);
 				gamepanel.gameState = STATE.Game;
 			}
 			//Charcter
 			if(mouseOver(mx, my, GamePanel.WIDTH/80, (int) (GamePanel.WIDTH/6.5), GamePanel.WIDTH/4, GamePanel.WIDTH/16)){
-				gamepanel.gameState = STATE.CharSelect;
+				gamepanel.gameState = STATE.Upgrade;
 			}
 		}else if(gamepanel.gameState == STATE.Game){
 			//Bomb
@@ -152,11 +152,13 @@ public class Menu extends MouseAdapter{
 			if(mouseOver(mx, my, GamePanel.WIDTH/2-GamePanel.WIDTH/12, (int) ((GamePanel.HEIGHT/3)*1.45), GamePanel.WIDTH/6, GamePanel.HEIGHT/14)){
 				//Back to Menu
 				gamepanel.gameState = STATE.Menu;
+				GamePanel.enemies.clear();
+				gamepanel.addMenuWave();
 			}
 			if(mouseOver(mx, my, GamePanel.WIDTH/2-GamePanel.WIDTH/12, (int) ((GamePanel.HEIGHT/3)*1.5) + GamePanel.HEIGHT/12, GamePanel.WIDTH/6, GamePanel.HEIGHT/14)){
-				gamepanel.gameState = STATE.CharSelect;
+				gamepanel.gameState = STATE.Upgrade;
 			}
-		}else if(gamepanel.gameState == STATE.CharSelect){
+		}else if(gamepanel.gameState == STATE.Upgrade){
 			int length = (int) (GamePanel.WIDTH/4);
 			int tallness = (int) (GamePanel.HEIGHT/3.5);
 			//Bombs
@@ -228,11 +230,17 @@ public class Menu extends MouseAdapter{
 		}else{
 			color1 = Color.WHITE;
 		}
-		//Character/upgrades
+		//Upgrades
 		if(mouseOver(mx, my, GamePanel.WIDTH/80, (int) (GamePanel.WIDTH/6.5), GamePanel.WIDTH/4, GamePanel.WIDTH/16)){
 			color2 = Color.GREEN;
 		}else{
 			color2 = Color.WHITE;
+		}
+		//Characters
+		if(mouseOver(mx, my, GamePanel.WIDTH/80, (int) (GamePanel.HEIGHT/7.5 + GamePanel.WIDTH/16 + GamePanel.WIDTH/64 + GamePanel.WIDTH/16 + GamePanel.WIDTH/64), GamePanel.WIDTH/4, GamePanel.WIDTH/16)){
+			color3 = Color.GREEN;
+		}else{
+			color3 = Color.WHITE;
 		}
 		//Back To Menu
 		if(mouseOver(mx, my, GamePanel.WIDTH/2-GamePanel.WIDTH/12, (int) ((GamePanel.HEIGHT/3)*1.45), GamePanel.WIDTH/6, GamePanel.HEIGHT/14)){
@@ -357,12 +365,12 @@ public class Menu extends MouseAdapter{
 			g.drawString("Play", GamePanel.WIDTH/12, (int) (GamePanel.HEIGHT/4.7));
 			g.setColor(color2);
 			g.drawRoundRect(GamePanel.WIDTH/80, (int) (GamePanel.HEIGHT/7.5 + GamePanel.WIDTH/16 + GamePanel.WIDTH/64), GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
-			g.drawString("Characters", GamePanel.WIDTH/25, (int) (GamePanel.HEIGHT/2.8));
-			g.setColor(Color.WHITE);
+			g.drawString("Upgrades", GamePanel.WIDTH/20, (int) (GamePanel.HEIGHT/2.8));
+			g.setColor(color3);
 			g.drawRoundRect(GamePanel.WIDTH/80, (int) (GamePanel.HEIGHT/7.5 + GamePanel.WIDTH/16 + GamePanel.WIDTH/64 + GamePanel.WIDTH/16 + GamePanel.WIDTH/64), GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
-			g.drawString("Options", GamePanel.WIDTH/18, (int) (GamePanel.HEIGHT/2));
+			g.drawString("Characters", GamePanel.WIDTH/25, (int) (GamePanel.HEIGHT/2));
 			g.setStroke(new BasicStroke(1));
-		}else if(gamepanel.gameState == STATE.CharSelect){
+		}else if(gamepanel.gameState == STATE.Upgrade){
 			g.setStroke(new BasicStroke(4));
 			int length = (int) (GamePanel.WIDTH/4);
 			int tallness = (int) (GamePanel.HEIGHT/3.5);

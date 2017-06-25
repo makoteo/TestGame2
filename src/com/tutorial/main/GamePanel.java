@@ -83,6 +83,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		Menu,
 		Game,
 		Dead,
+		Upgrade,
 		CharSelect
 	};
 	
@@ -690,7 +691,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					}
 				}
 			}
-		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect){
+		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect || gameState == STATE.Upgrade){
 			menu.update();
 			for(int i = 0; i < enemies.size(); i++){
 				enemies.get(i).update();
@@ -1095,7 +1096,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 				length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
 				g.drawString(s, WIDTH / 2 - length/2, (int) ((HEIGHT/3)*1.6) + HEIGHT/10);
 				g.setStroke(new BasicStroke(1));
-		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect){
+		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect || gameState == STATE.Upgrade){
 			g.setColor(new Color(0,100,50));
 			g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
 			for(int i = 0; i < enemies.size(); i++){
@@ -1153,7 +1154,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		g2.drawImage(image, 0, 0, null);
 		g2.dispose();
 	}
-	private void addMenuWave(){
+	public void addMenuWave(){
 		enemies.add(new Enemy(1, 1, 100, true));
 		enemies.add(new Enemy(1, 2, 100, true));
 		enemies.add(new Enemy(1, 2, 100, true));
