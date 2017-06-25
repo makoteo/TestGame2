@@ -1,6 +1,7 @@
 package com.tutorial.main;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Player {
 
@@ -29,6 +30,8 @@ public class Player {
 	private int lives;
 	private Color color1;
 	private Color color2;
+	
+	private BufferedImage HatImg = null;
 	
 	GamePanel gamepanel;
 	
@@ -162,7 +165,7 @@ public class Player {
 			}else if(GamePanel.CharColorSelected == 1){
 				color1 = Color.BLUE;
 				color2 = Color.RED.darker();
-			}else if(GamePanel.CharColorSelected == 4){
+			}else if(GamePanel.CharColorSelected == 5){
 				color1 = Color.RED;
 				color2 = Color.RED.darker();
 			}else{
@@ -182,6 +185,15 @@ public class Player {
 			}else{
 				color1 = Color.DARK_GRAY;
 				color2 = Color.DARK_GRAY;
+			}
+		}
+		if(GamePanel.CharHatPage == 1){
+			if(GamePanel.CharHatSelected == 0){
+				HatImg = null;
+			}else if(GamePanel.CharHatSelected == 1){
+				HatImg = GamePanel.Hats_ClassicalHat;
+			}else{
+				HatImg = GamePanel.Hats_Wizard;
 			}
 		}
 		if(left){
@@ -310,7 +322,9 @@ public class Player {
 			g.setColor(color1.darker());
 			g.drawOval(x - r, y - r, 2*r, 2*r);
 			g.setStroke(new BasicStroke(1));
-			g.drawImage(GamePanel.Hats_Wizard, this.x-(GamePanel.WIDTH/160), this.y-(GamePanel.WIDTH/67), GamePanel.WIDTH/80, GamePanel.WIDTH/80, null);
+			if(HatImg != null){
+				g.drawImage(HatImg, this.x-(GamePanel.WIDTH/160), this.y-(GamePanel.WIDTH/67), GamePanel.WIDTH/80, GamePanel.WIDTH/80, null);
+			}
 		}
 	
 	}

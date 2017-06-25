@@ -16,8 +16,9 @@ import java.util.List;
 public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	//FEILDS
-	public static int WIDTH = (int)Game.width-5;
-	public static int HEIGHT = (int)Game.height-30;
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public static int WIDTH = (int)Game.width - 5;
+	public static int HEIGHT = (int)Game.height - 25;
 	
 	private Thread thread;
 	
@@ -87,7 +88,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static String CharColors1[] = {"white", "blue", "orange", "aqua", "brown", "red"};
 	public static String CharColors2[] = {"yellow", "green", "black", "pink", "purple", "weird"};
 	
-	public static String CharHats1[] = {"classical", "wizard", "null", "null", "null", "null"};
+	public static String CharHats1[] = {"nohat", "classical", "wizard", "null", "null", "null"};
 	public static String CharHats2[] = {"null", "null", "null", "null", "null", "null"};
 	
 	public enum STATE {
@@ -231,6 +232,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		player.setCurrentWeapon(i);
 	}
 	private void gameUpdate(){
+		//Update screen size
 		if(bombAmount>20){
 			bombAmount=20;
 		}
