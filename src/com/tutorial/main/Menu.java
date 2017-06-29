@@ -286,6 +286,7 @@ public class Menu extends MouseAdapter{
 					if(GamePanel.CharColorPage == 1){
 						if(gamepanel.getCharColorCosts(j) != 0){ 
 							if(gamepanel.getMasterScore() >= gamepanel.getCharColorCosts(j)){
+								gamepanel.setMasterScore(gamepanel.getMasterScore() - gamepanel.getCharColorCosts(j)); 
 								gamepanel.setCharColorCosts(j, 0);
 							}else{
 								
@@ -294,6 +295,7 @@ public class Menu extends MouseAdapter{
 					}else if(GamePanel.CharColorPage == 2){
 						if(gamepanel.getCharColorCosts(j+6) != 0){ 
 							if(gamepanel.getMasterScore() >= gamepanel.getCharColorCosts(j)){
+								gamepanel.setMasterScore(gamepanel.getMasterScore() - gamepanel.getCharColorCosts(j+6)); 
 								gamepanel.setCharColorCosts(j+6, 0);
 							}else{
 									
@@ -308,6 +310,7 @@ public class Menu extends MouseAdapter{
 					if(GamePanel.CharHatPage == 1){
 						if(gamepanel.getCharHatCosts(j) != 0){ 
 							if(gamepanel.getMasterScore() >= gamepanel.getCharHatCosts(j)){
+								gamepanel.setMasterScore(gamepanel.getMasterScore() - gamepanel.getCharHatCosts(j)); 
 								gamepanel.setCharHatCosts(j, 0);
 							}else{
 								
@@ -316,6 +319,7 @@ public class Menu extends MouseAdapter{
 					}else if(GamePanel.CharHatPage == 2){
 						if(gamepanel.getCharHatCosts(j+6) != 0){ 
 							if(gamepanel.getMasterScore() >= gamepanel.getCharHatCosts(j)){
+								gamepanel.setMasterScore(gamepanel.getMasterScore() - gamepanel.getCharHatCosts(j+6)); 
 								gamepanel.setCharHatCosts(j+6, 0);
 							}else{
 									
@@ -469,6 +473,10 @@ public class Menu extends MouseAdapter{
 		
 		if(gamepanel.gameState == STATE.CharSelect){
 			//COLORS
+			boxx = -1000;
+			boxy = -1000;
+			boxtext = "Hi, if you see this, you've found a bug";
+			colorRed = Color.WHITE;
 			for(int j = 0; j < 6; j++){
 				if(mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*j + GamePanel.WIDTH/32*j, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
 					if(GamePanel.CharColorPage == 1){
@@ -494,18 +502,8 @@ public class Menu extends MouseAdapter{
 							}
 						}
 					}
+					break;
 				}
-			}
-			if(!mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*0 + GamePanel.WIDTH/32*0, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
-			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*1 + GamePanel.WIDTH/32*1, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
-			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*2 + GamePanel.WIDTH/32*2, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
-			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*3 + GamePanel.WIDTH/32*3, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
-			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*4 + GamePanel.WIDTH/32*4, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
-			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*5 + GamePanel.WIDTH/32*5, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
-				boxx = -1000;
-				boxy = -1000;
-				boxtext = "Hi, if you see this, you've found a bug";
-				colorRed = Color.WHITE;
 			}
 			//HATS
 			for(int j = 0; j < 6; j++){
@@ -533,18 +531,8 @@ public class Menu extends MouseAdapter{
 							}
 						}
 					}
+					break;
 				}
-			}
-			if(!mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*0 + GamePanel.WIDTH/32*0, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
-			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*1 + GamePanel.WIDTH/32*1, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
-			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*2 + GamePanel.WIDTH/32*2, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
-			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*3 + GamePanel.WIDTH/32*3, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
-			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*4 + GamePanel.WIDTH/32*4, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
-			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*5 + GamePanel.WIDTH/32*5, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
-				boxx = -1000;
-				boxy = -1000;
-				boxtext = "Hi, if you see this, you've found a bug";
-				colorRed = Color.WHITE;
 			}
 		}
 
