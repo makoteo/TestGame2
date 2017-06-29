@@ -91,6 +91,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	public static String CharHats1[] = {"nohat", "classical", "wizard", "null", "null", "null"};
 	public static String CharHats2[] = {"null", "null", "null", "null", "null", "null"};
 	
+	private int CharColorCosts[] = {0, 1000, 1000, 1000, 1000, 1000, 1000, 900, 1000, 1000, 1000, 1000};
+	
 	public enum STATE {
 		Menu,
 		Game,
@@ -764,6 +766,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
         }
     }
 
+    public int getCharColorCosts(int i){
+    	return CharColorCosts[i];
+    }
 	public void setslowDownTimer(long l){
 		slowDownTimer = l;
 	}

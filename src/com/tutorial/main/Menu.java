@@ -223,11 +223,15 @@ public class Menu extends MouseAdapter{
 				//Buttons
 				if(GamePanel.CharColorPage == 1){
 					if(mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
-						GamePanel.CharColorSelected = i;
+						if(gamepanel.getCharColorCosts(i) == 0){ 
+							GamePanel.CharColorSelected = i;
+						}
 					}
 				}else{
 					if(mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
-						GamePanel.CharColorSelected = i+6;
+						if(gamepanel.getCharColorCosts(i+6) == 0){ 
+							GamePanel.CharColorSelected = i+6;
+						}
 					}
 				}
 				if(GamePanel.CharHatPage == 1){
@@ -582,6 +586,7 @@ public class Menu extends MouseAdapter{
 						tmpColor = Color.RED;
 					}else{
 						g.setColor(Color.WHITE);
+						tmpColor = new Color(0, 0, 0, 0);
 						g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/200));
 						g.drawString("40 pixels", GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i + (GamePanel.WIDTH/9/2) - GamePanel.WIDTH/80, GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5/2) - GamePanel.WIDTH/80);
 						g.setColor(new Color(255, 0, 255));
@@ -607,6 +612,7 @@ public class Menu extends MouseAdapter{
 						tmpColor = Color.BLACK;
 					}else{
 						g.setColor(Color.WHITE);
+						tmpColor = new Color(0, 0, 0, 0);
 						g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/200));
 						g.drawString("40 pixels", GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i + (GamePanel.WIDTH/9/2) - GamePanel.WIDTH/80, GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5/2) - GamePanel.WIDTH/80);
 						g.setColor(new Color(255, 0, 255));
@@ -622,6 +628,33 @@ public class Menu extends MouseAdapter{
 					g.setStroke(new BasicStroke(5));
 					g.drawOval(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i + (GamePanel.WIDTH/9/2) - GamePanel.WIDTH/80, GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5/2) - GamePanel.WIDTH/80, GamePanel.WIDTH/40, GamePanel.WIDTH/40);
 					g.setStroke(new BasicStroke(1));
+				}
+			}
+			for(int j = 0; j < 6; j++){
+				if(GamePanel.CharColorPage == 1){
+					if(gamepanel.getCharColorCosts(j) != 0){ 
+						g.setColor(new Color(0, 0, 0, 100));
+						g.setStroke(new BasicStroke(3));
+						g.fillRoundRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*j + GamePanel.WIDTH/32*j, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5), GamePanel.WIDTH/80, GamePanel.HEIGHT/80);
+						String s = "Cost: " + gamepanel.getCharColorCosts(j);
+						g.setColor(Color.WHITE);
+						g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/120));
+						long length1 = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+						g.drawString(s, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*j + GamePanel.WIDTH/32*j + GamePanel.WIDTH/9/2 - length1/2, GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5)/2 + (int) (GamePanel.HEIGHT/6.5)/3);
+					}
+				}
+				else if(GamePanel.CharColorPage == 2){
+					if(gamepanel.getCharColorCosts(j+6) != 0){ 
+						g.setColor(new Color(0, 0, 0, 100));
+						g.setStroke(new BasicStroke(3));
+						g.fillRoundRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*j + GamePanel.WIDTH/32*j, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5), GamePanel.WIDTH/80, GamePanel.HEIGHT/80);
+						String s = "Cost: " + gamepanel.getCharColorCosts(j + 6);
+						g.setColor(Color.WHITE);
+						g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/120));
+						long length1 = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+						g.drawString(s, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*j + GamePanel.WIDTH/32*j + GamePanel.WIDTH/9/2 - length1/2, GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5)/2 + (int) (GamePanel.HEIGHT/6.5)/3);
+					
+					}
 				}
 			}
 			//HATS

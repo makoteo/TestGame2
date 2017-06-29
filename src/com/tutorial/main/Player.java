@@ -192,8 +192,10 @@ public class Player {
 				HatImg = null;
 			}else if(GamePanel.CharHatSelected == 1){
 				HatImg = GamePanel.Hats_ClassicalHat;
-			}else{
+			}else if(GamePanel.CharHatSelected == 2){
 				HatImg = GamePanel.Hats_Wizard;
+			}else{
+				
 			}
 		}
 		if(left){
@@ -318,7 +320,7 @@ public class Player {
 			g.setColor(color1);
 			g.fillOval(x - r, y - r, 2*r, 2*r);
 			
-			g.setStroke(new BasicStroke(4));
+			g.setStroke(new BasicStroke(4)); 
 			g.setColor(color1.darker());
 			g.drawOval(x - r, y - r, 2*r, 2*r);
 			g.setStroke(new BasicStroke(1));
