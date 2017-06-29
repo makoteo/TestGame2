@@ -236,11 +236,15 @@ public class Menu extends MouseAdapter{
 				}
 				if(GamePanel.CharHatPage == 1){
 					if(mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
-						GamePanel.CharHatSelected = i;
+						if(gamepanel.getCharHatCosts(i) == 0){ 
+							GamePanel.CharHatSelected = i;
+						}
 					}
 				}else{
 					if(mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
-						GamePanel.CharHatSelected = i+6;
+						if(gamepanel.getCharHatCosts(i+6) == 0){ 
+							GamePanel.CharHatSelected = i+6;
+						}
 					}
 				}
 			}
@@ -289,12 +293,32 @@ public class Menu extends MouseAdapter{
 						}
 					}else if(GamePanel.CharColorPage == 2){
 						if(gamepanel.getCharColorCosts(j+6) != 0){ 
-							if(gamepanel.getCharColorCosts(j+6) != 0){ 
-								if(gamepanel.getMasterScore() >= gamepanel.getCharColorCosts(j)){
-									gamepanel.setCharColorCosts(j+6, 0);
-								}else{
+							if(gamepanel.getMasterScore() >= gamepanel.getCharColorCosts(j)){
+								gamepanel.setCharColorCosts(j+6, 0);
+							}else{
 									
-								}
+							}
+						}
+					}
+				}
+			}
+			//BUY HAT
+			for(int j = 0; j < 6; j++){
+				if(mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*j + GamePanel.WIDTH/32*j, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
+					if(GamePanel.CharHatPage == 1){
+						if(gamepanel.getCharHatCosts(j) != 0){ 
+							if(gamepanel.getMasterScore() >= gamepanel.getCharHatCosts(j)){
+								gamepanel.setCharHatCosts(j, 0);
+							}else{
+								
+							}
+						}
+					}else if(GamePanel.CharHatPage == 2){
+						if(gamepanel.getCharHatCosts(j+6) != 0){ 
+							if(gamepanel.getMasterScore() >= gamepanel.getCharHatCosts(j)){
+								gamepanel.setCharHatCosts(j+6, 0);
+							}else{
+									
 							}
 						}
 					}
@@ -444,6 +468,7 @@ public class Menu extends MouseAdapter{
 		}
 		
 		if(gamepanel.gameState == STATE.CharSelect){
+			//COLORS
 			for(int j = 0; j < 6; j++){
 				if(mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*j + GamePanel.WIDTH/32*j, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
 					if(GamePanel.CharColorPage == 1){
@@ -477,6 +502,45 @@ public class Menu extends MouseAdapter{
 			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*3 + GamePanel.WIDTH/32*3, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
 			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*4 + GamePanel.WIDTH/32*4, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
 			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*5 + GamePanel.WIDTH/32*5, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
+				boxx = -1000;
+				boxy = -1000;
+				boxtext = "Hi, if you see this, you've found a bug";
+				colorRed = Color.WHITE;
+			}
+			//HATS
+			for(int j = 0; j < 6; j++){
+				if(mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*j + GamePanel.WIDTH/32*j, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
+					if(GamePanel.CharHatPage == 1){
+						if(gamepanel.getCharHatCosts(j) != 0){ 
+							boxx = e.getX();
+							boxy = e.getY();
+							boxtext = "Buy";
+							if(gamepanel.getMasterScore() >= gamepanel.getCharHatCosts(j)){
+								colorRed = Color.WHITE;
+							}else{
+								colorRed = Color.red;
+							}
+						}
+					}else if(GamePanel.CharHatPage == 2){
+						if(gamepanel.getCharHatCosts(j+6) != 0){ 
+							boxx = e.getX();
+							boxy = e.getY();
+							boxtext = "Buy";
+							if(gamepanel.getMasterScore() >= gamepanel.getCharHatCosts(j+6)){
+								colorRed = Color.WHITE;
+							}else{
+								colorRed = Color.red;
+							}
+						}
+					}
+				}
+			}
+			if(!mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*0 + GamePanel.WIDTH/32*0, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
+			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*1 + GamePanel.WIDTH/32*1, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
+			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*2 + GamePanel.WIDTH/32*2, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
+			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*3 + GamePanel.WIDTH/32*3, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
+			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*4 + GamePanel.WIDTH/32*4, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5)) &&
+			   !mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*5 + GamePanel.WIDTH/32*5, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
 				boxx = -1000;
 				boxy = -1000;
 				boxtext = "Hi, if you see this, you've found a bug";
@@ -795,6 +859,33 @@ public class Menu extends MouseAdapter{
 					}
 					g.drawImage(tmpBufferedImage, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*i + GamePanel.WIDTH/32*i + (GamePanel.WIDTH/9/2) - GamePanel.WIDTH/80, GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5/2) - GamePanel.WIDTH/80 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/40, GamePanel.WIDTH/40, null);
 				
+				}
+			}
+			for(int j = 0; j < 6; j++){
+				if(GamePanel.CharHatPage == 1){
+					if(gamepanel.getCharHatCosts(j) != 0){ 
+						g.setColor(new Color(0, 0, 0, 100));
+						g.setStroke(new BasicStroke(3));
+						g.fillRoundRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*j + GamePanel.WIDTH/32*j, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5), GamePanel.WIDTH/80, GamePanel.HEIGHT/80);
+						String s = "Cost: " + gamepanel.getCharHatCosts(j);
+						g.setColor(Color.WHITE);
+						g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/120));
+						long length1 = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+						g.drawString(s, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*j + GamePanel.WIDTH/32*j + GamePanel.WIDTH/9/2 - length1/2, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5)/2 + (int) (GamePanel.HEIGHT/6.5)/3);
+					}
+				}
+				else if(GamePanel.CharHatPage == 2){
+					if(gamepanel.getCharHatCosts(j+6) != 0){ 
+						g.setColor(new Color(0, 0, 0, 100));
+						g.setStroke(new BasicStroke(3));
+						g.fillRoundRect(GamePanel.WIDTH/12 + GamePanel.WIDTH/9*j + GamePanel.WIDTH/32*j, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5), GamePanel.WIDTH/80, GamePanel.HEIGHT/80);
+						String s = "Cost: " + gamepanel.getCharHatCosts(j + 6);
+						g.setColor(Color.WHITE);
+						g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/120));
+						long length1 = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+						g.drawString(s, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*j + GamePanel.WIDTH/32*j + GamePanel.WIDTH/9/2 - length1/2, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16 + (int) (GamePanel.HEIGHT/6.5)/2 + (int) (GamePanel.HEIGHT/6.5)/3);
+					
+					}
 				}
 			}
 			g.setStroke(new BasicStroke(3));
