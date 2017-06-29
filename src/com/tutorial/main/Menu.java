@@ -276,6 +276,30 @@ public class Menu extends MouseAdapter{
 					colorButton2Right = Color.DARK_GRAY;
 				}
 			}
+			//Buy Color
+			for(int j = 0; j < 6; j++){
+				if(mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*j + GamePanel.WIDTH/32*j, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
+					if(GamePanel.CharColorPage == 1){
+						if(gamepanel.getCharColorCosts(j) != 0){ 
+							if(gamepanel.getMasterScore() >= gamepanel.getCharColorCosts(j)){
+								gamepanel.setCharColorCosts(j, 0);
+							}else{
+								
+							}
+						}
+					}else if(GamePanel.CharColorPage == 2){
+						if(gamepanel.getCharColorCosts(j+6) != 0){ 
+							if(gamepanel.getCharColorCosts(j+6) != 0){ 
+								if(gamepanel.getMasterScore() >= gamepanel.getCharColorCosts(j)){
+									gamepanel.setCharColorCosts(j+6, 0);
+								}else{
+									
+								}
+							}
+						}
+					}
+				}
+			}
 			//BACK TO MENU
 			if(mouseOver(mx, my, GamePanel.WIDTH-GamePanel.WIDTH/6, GamePanel.HEIGHT-GamePanel.HEIGHT/6, GamePanel.WIDTH/8, GamePanel.HEIGHT/12)){
 				gamepanel.gameState=STATE.Menu;
@@ -817,6 +841,10 @@ public class Menu extends MouseAdapter{
 			g.fillRect(boxx + GamePanel.WIDTH/120, boxy - GamePanel.HEIGHT/40, (int) (length1+GamePanel.WIDTH/80), GamePanel.HEIGHT/40);
 			g.setColor(colorRed);
 			g.drawString(s, boxx + GamePanel.WIDTH/140 + GamePanel.WIDTH/120, boxy + GamePanel.WIDTH/80 - GamePanel.HEIGHT/40);
+			//Score
+			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/40));
+			g.setColor(Color.WHITE);
+			g.drawString("Score: " + gamepanel.getMasterScore(), (int) (GamePanel.WIDTH-GamePanel.WIDTH*0.9), GamePanel.HEIGHT-GamePanel.HEIGHT/6+GamePanel.HEIGHT/18);
 			
 		}
 	

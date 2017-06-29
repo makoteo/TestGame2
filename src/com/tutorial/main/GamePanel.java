@@ -769,6 +769,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     public int getCharColorCosts(int i){
     	return CharColorCosts[i];
     }
+    public void setCharColorCosts(int i, int j){
+		CharColorCosts[i] = j;
+	}
 	public void setslowDownTimer(long l){
 		slowDownTimer = l;
 	}
