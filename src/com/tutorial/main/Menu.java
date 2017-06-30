@@ -473,17 +473,11 @@ public class Menu extends MouseAdapter{
 		
 		if(gamepanel.gameState == STATE.CharSelect){
 			//COLORS
-			boxx = -1000;
-			boxy = -1000;
-			boxtext = "Hi, if you see this, you've found a bug";
-			colorRed = Color.WHITE;
+			boolean showBox = false;
 			for(int j = 0; j < 6; j++){
 				if(mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*j + GamePanel.WIDTH/32*j, GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
 					if(GamePanel.CharColorPage == 1){
 						if(gamepanel.getCharColorCosts(j) != 0){ 
-							boxx = e.getX();
-							boxy = e.getY();
-							boxtext = "Buy";
 							if(gamepanel.getMasterScore() >= gamepanel.getCharColorCosts(j)){
 								colorRed = Color.WHITE;
 							}else{
@@ -492,9 +486,6 @@ public class Menu extends MouseAdapter{
 						}
 					}else if(GamePanel.CharColorPage == 2){
 						if(gamepanel.getCharColorCosts(j+6) != 0){ 
-							boxx = e.getX();
-							boxy = e.getY();
-							boxtext = "Buy";
 							if(gamepanel.getMasterScore() >= gamepanel.getCharColorCosts(j+6)){
 								colorRed = Color.WHITE;
 							}else{
@@ -502,6 +493,7 @@ public class Menu extends MouseAdapter{
 							}
 						}
 					}
+					showBox = true;
 					break;
 				}
 			}
@@ -510,9 +502,6 @@ public class Menu extends MouseAdapter{
 				if(mouseOver(mx, my, GamePanel.WIDTH/12 + GamePanel.WIDTH/9*j + GamePanel.WIDTH/32*j, GamePanel.HEIGHT/16 + GamePanel.WIDTH/9 + GamePanel.HEIGHT/16, GamePanel.WIDTH/9, (int) (GamePanel.HEIGHT/6.5))){
 					if(GamePanel.CharHatPage == 1){
 						if(gamepanel.getCharHatCosts(j) != 0){ 
-							boxx = e.getX();
-							boxy = e.getY();
-							boxtext = "Buy";
 							if(gamepanel.getMasterScore() >= gamepanel.getCharHatCosts(j)){
 								colorRed = Color.WHITE;
 							}else{
@@ -521,9 +510,6 @@ public class Menu extends MouseAdapter{
 						}
 					}else if(GamePanel.CharHatPage == 2){
 						if(gamepanel.getCharHatCosts(j+6) != 0){ 
-							boxx = e.getX();
-							boxy = e.getY();
-							boxtext = "Buy";
 							if(gamepanel.getMasterScore() >= gamepanel.getCharHatCosts(j+6)){
 								colorRed = Color.WHITE;
 							}else{
@@ -531,8 +517,19 @@ public class Menu extends MouseAdapter{
 							}
 						}
 					}
+					showBox = true;
 					break;
 				}
+			}
+			if(showBox == true){
+				boxx = e.getX();
+				boxy = e.getY();
+				boxtext = "Buy";
+			}else{
+				boxx = -1000;
+				boxy = -1000;
+				boxtext = "Hi, if you see this, you've found a bug";
+				colorRed = Color.WHITE;
 			}
 		}
 
