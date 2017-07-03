@@ -13,14 +13,16 @@ public class Game {
 	static int h;
 	static int w;
 	//public static double width = 1200;
-	//public static double height = 675;
+	//public static double height = 200;
+	public static JFrame window = new JFrame("Blobs");
 	public static void main(String [] args){
-		JFrame window = new JFrame("Blobs");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setContentPane(new GamePanel());
-		window.pack();
+		window.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		window.setUndecorated(true);
 		window.setVisible(true);
 		window.setResizable(false);
+		window.pack();
 		window.setSize(new Dimension((int)width, (int)height));
 		window.setLocationRelativeTo(null);
 	}

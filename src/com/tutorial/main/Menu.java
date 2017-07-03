@@ -549,22 +549,22 @@ public class Menu extends MouseAdapter{
 	
 	public void draw(Graphics2D g){
 		if(gamepanel.gameState == STATE.Menu){
-			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/14));
+			g.setFont(new Font("Century Ghotic", Font.PLAIN, (int) (GamePanel.HEIGHT/7.8)));
 			g.setColor(Color.GRAY);
-			g.drawString("M E N U", GamePanel.WIDTH/66, GamePanel.WIDTH/15);
+			g.drawString("M E N U", GamePanel.WIDTH/66, (int) (GamePanel.HEIGHT/8.44));
 			g.setColor(Color.WHITE);
-			g.drawString("M E N U", GamePanel.WIDTH/80, GamePanel.WIDTH/16);
+			g.drawString("M E N U", GamePanel.WIDTH/80, (int) (GamePanel.HEIGHT/9));
 			g.setStroke(new BasicStroke(5));
-			g.setFont(new Font("Century Ghotic", Font.PLAIN, GamePanel.WIDTH/26));
+			g.setFont(new Font("Century Ghotic", Font.PLAIN, (int) (GamePanel.HEIGHT/14.6)));
 			g.setColor(color1);
-			g.drawRoundRect(GamePanel.WIDTH/80, (int) (GamePanel.HEIGHT/7.5), GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
+			g.drawRoundRect(GamePanel.WIDTH/80, (int) (GamePanel.HEIGHT/7.5), GamePanel.WIDTH/4, GamePanel.HEIGHT/9, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
 			g.drawString("Play", GamePanel.WIDTH/12, (int) (GamePanel.HEIGHT/4.7));
 			g.setColor(color2);
-			g.drawRoundRect(GamePanel.WIDTH/80, (int) (GamePanel.HEIGHT/7.5 + GamePanel.WIDTH/16 + GamePanel.WIDTH/64), GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
-			g.drawString("Upgrades", GamePanel.WIDTH/20, (int) (GamePanel.HEIGHT/2.8));
+			g.drawRoundRect(GamePanel.WIDTH/80, (int) (GamePanel.HEIGHT/7.5 + GamePanel.HEIGHT/9 + GamePanel.WIDTH/64), GamePanel.WIDTH/4, GamePanel.HEIGHT/9, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
+			g.drawString("Upgrades", GamePanel.WIDTH/20, (int) (GamePanel.HEIGHT/4.7) + (int) (GamePanel.HEIGHT/35) + GamePanel.HEIGHT/9);
 			g.setColor(color3);
-			g.drawRoundRect(GamePanel.WIDTH/80, (int) (GamePanel.HEIGHT/7.5 + GamePanel.WIDTH/16 + GamePanel.WIDTH/64 + GamePanel.WIDTH/16 + GamePanel.WIDTH/64), GamePanel.WIDTH/4, GamePanel.WIDTH/16, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
-			g.drawString("Characters", GamePanel.WIDTH/25, (int) (GamePanel.HEIGHT/2));
+			g.drawRoundRect(GamePanel.WIDTH/80, (int) (GamePanel.HEIGHT/7.5 + GamePanel.HEIGHT/9 + GamePanel.WIDTH/64 + GamePanel.HEIGHT/9 + GamePanel.WIDTH/64), GamePanel.WIDTH/4, GamePanel.HEIGHT/9, GamePanel.WIDTH/53, GamePanel.WIDTH/53);
+			g.drawString("Characters", GamePanel.WIDTH/25, (int) (GamePanel.HEIGHT/4.7) + (int) (GamePanel.HEIGHT/35) + GamePanel.HEIGHT/9 + (int) (GamePanel.HEIGHT/35) + GamePanel.HEIGHT/9);
 			g.setStroke(new BasicStroke(1));
 		}else if(gamepanel.gameState == STATE.Upgrade){
 			g.setStroke(new BasicStroke(4));

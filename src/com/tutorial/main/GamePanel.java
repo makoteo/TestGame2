@@ -17,8 +17,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	
 	//FEILDS
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	public static int WIDTH = (int)Game.width - 5;
-	public static int HEIGHT = (int)Game.height - 25;
+	public static int WIDTH = (int)Game.width;
+	public static int HEIGHT = (int)Game.height;
 	
 	private Thread thread;
 	
@@ -1100,7 +1100,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			}
 		}else if(gameState == STATE.Menu || gameState == STATE.CharSelect || gameState == STATE.Upgrade){
 			g.setColor(new Color(0,100,50));
-			g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+			g.fillRect(0, 0, WIDTH, HEIGHT);
 			for(int i = 0; i < enemies.size(); i++){
 				enemies.get(i).draw(g);
 			}
