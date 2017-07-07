@@ -1303,10 +1303,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			}
 		}
 		if(keyCode == KeyEvent.VK_P){
-			if(paused == false){
-				paused = true;
-			}else{
-				paused = false;
+			if(gameState == STATE.Game){
+				if(paused == false){
+					paused = true;
+				}else{
+					paused = false;
+				}
 			}
 		}
 		if(keyCode == KeyEvent.VK_1){
