@@ -393,7 +393,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					if(b.getType()==4){
 						if(!getCircleLineIntersectionPoint(new Point(player.getx(), player.gety()),
 						new Point(Menu.mxg, Menu.myg), new Point(e.getx(), e.gety()), e.getr()).isEmpty()){
-							if(dist < br + er + 15){
+							if(dist < br + er + WIDTH/15){
 								if((e.getx() >= player.getx()) && (player.gety() >=  e.gety())){//Enemy is right and up
 									if((Menu.mxg >= player.getx()) && (Menu.myg <=  player.gety())){
 										enemies.get(j).healthChange("-", 5);//5 is deadly
