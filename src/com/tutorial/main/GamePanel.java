@@ -393,25 +393,27 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 					if(b.getType()==4){
 						if(!getCircleLineIntersectionPoint(new Point(player.getx(), player.gety()),
 						new Point(Menu.mxg, Menu.myg), new Point(e.getx(), e.gety()), e.getr()).isEmpty()){
-							if((e.getx() >= player.getx()) && (player.gety() >=  e.gety())){//Enemy is right and up
-								if((Menu.mxg >= player.getx()) && (Menu.myg <=  player.gety())){
-									enemies.get(j).healthChange("-", 5);//5 is deadly
-									e.hit();
-								}
-							}else if((e.getx() >= player.getx()) && (player.gety() <=  e.gety())){
-								if((Menu.mxg >= player.getx()) && (Menu.myg >=  player.gety())){
-									enemies.get(j).healthChange("-", 5);//5 is deadly
-									e.hit();
-								}
-							}else if((e.getx() <= player.getx()) && (player.gety() <=  e.gety())){
-								if((Menu.mxg <= player.getx()) && (Menu.myg >=  player.gety())){
-									enemies.get(j).healthChange("-", 5);//5 is deadly
-									e.hit();
-								}
-							}else if((e.getx() <= player.getx()) && (player.gety() >=  e.gety())){
-								if((Menu.mxg <= player.getx()) && (Menu.myg <=  player.gety())){
-									enemies.get(j).healthChange("-", 5);//5 is deadly
-									e.hit();
+							if(dist < br + er + 15){
+								if((e.getx() >= player.getx()) && (player.gety() >=  e.gety())){//Enemy is right and up
+									if((Menu.mxg >= player.getx()) && (Menu.myg <=  player.gety())){
+										enemies.get(j).healthChange("-", 5);//5 is deadly
+										e.hit();
+									}
+								}else if((e.getx() >= player.getx()) && (player.gety() <=  e.gety())){
+									if((Menu.mxg >= player.getx()) && (Menu.myg >=  player.gety())){
+										enemies.get(j).healthChange("-", 5);//5 is deadly
+										e.hit();
+									}
+								}else if((e.getx() <= player.getx()) && (player.gety() <=  e.gety())){
+									if((Menu.mxg <= player.getx()) && (Menu.myg >=  player.gety())){
+										enemies.get(j).healthChange("-", 5);//5 is deadly
+										e.hit();
+									}
+								}else if((e.getx() <= player.getx()) && (player.gety() >=  e.gety())){
+									if((Menu.mxg <= player.getx()) && (Menu.myg <=  player.gety())){
+										enemies.get(j).healthChange("-", 5);//5 is deadly
+										e.hit();
+									}
 								}
 							}
 						}

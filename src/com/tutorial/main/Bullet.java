@@ -1,9 +1,6 @@
 package com.tutorial.main;
 
 import java.awt.*;
-import java.util.Collections;
-
-import com.tutorial.main.GamePanel.Point;
 
 public class Bullet {
 	
@@ -51,7 +48,7 @@ public class Bullet {
 			this.speed=GamePanel.WIDTH/80;
 		}
 		if(this.type == 4){
-			this.speed=GamePanel.WIDTH/10;
+			this.speed=GamePanel.WIDTH/15;
 		}
 		rad = Math.toRadians(angle);
 		dx = Math.cos(rad) * speed;
@@ -198,7 +195,9 @@ public class Bullet {
 				g.setColor(color1);
 				
 				g.setStroke(new BasicStroke(3));
-				g.drawLine(GamePanel.getPlayerX(), GamePanel.getPlayerY(), (int)endX, (int)endY);
+				//g.drawLine(GamePanel.getPlayerX(), GamePanel.getPlayerY(), (int)endX, (int)endY);
+				g.drawLine(GamePanel.getPlayerX(), GamePanel.getPlayerY(), (int) this.x, (int) this.y);
+				
 				g.setStroke(new BasicStroke(1));
 			//}
 
