@@ -17,8 +17,6 @@ public class Bullet {
 	private double rad;
 	private double speed;
 	
-	private double LaserTimer = 2;
-	
 	private int following = 0;
 	
 	private Color color1;
@@ -52,6 +50,9 @@ public class Bullet {
 		if(this.type == 6){
 			this.speed=GamePanel.WIDTH/80;
 		}
+		if(this.type == 4){
+			this.speed=GamePanel.WIDTH/10;
+		}
 		rad = Math.toRadians(angle);
 		dx = Math.cos(rad) * speed;
 		dy = Math.sin(rad) * speed;
@@ -81,15 +82,6 @@ public class Bullet {
 	public double getDy(){ return dy; }
 	
 	public boolean update(){
-		if(this.type == 4){
-			if(this.LaserTimer >= 0){
-				if(GamePanel.firePressed){
-					LaserTimer--;
-				}
-			}else{
-				GamePanel.firePressed = false;
-			}
-		}
 		if(type == 1){
 			color1=Color.WHITE;
 			r=GamePanel.WIDTH/533;
@@ -188,18 +180,12 @@ public class Bullet {
 		}
 		return false;
 	}
-	public void setLaserTimer(int i){
-		this.LaserTimer = i;
-	}
-	public double getLaserTimer(){
-		return this.LaserTimer;
-	}
 	public void draw(Graphics2D g){
 		if(this.type!=4){
 			g.setColor(color1);
 			g.fillOval((int)(x-r), (int) (y-r), 2*r, 2*r);
 		}else{
-			if(this.LaserTimer > 0){
+			//if(this.LaserTimer > 0){
 				float opposite = Menu.myg - GamePanel.getPlayerY();
 				float adjacent = Menu.mxg - GamePanel.getPlayerX();
 				float hypotenuse = (float) Math.sqrt(opposite*opposite + adjacent*adjacent);
@@ -214,7 +200,7 @@ public class Bullet {
 				g.setStroke(new BasicStroke(3));
 				g.drawLine(GamePanel.getPlayerX(), GamePanel.getPlayerY(), (int)endX, (int)endY);
 				g.setStroke(new BasicStroke(1));
-			}
+			//}
 
 		}
 		
